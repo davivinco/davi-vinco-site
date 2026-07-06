@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Davi Vinco — Solutions Architect</title>
+  <meta name="description" content="Davi Vinco — Solutions Architect II na Azion. Edge Computing, Cloud e Segurança da Informação." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="preloader" id="preloader"><span>Davi Vinco</span></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <canvas id="edgeCanvas" aria-hidden="true"></canvas>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <nav class="nav" id="nav">
+    <a href="#top" class="nav-name">Davi Vinco<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="#stack">Stack</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#formacao">Formação</a>
+      <a href="#contato" class="nav-cta">Contato</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="hero-meta reveal"><span class="pulse-dot"></span>Solutions Architect II · Azion — São Paulo, Brasil</p>
+        <h1 class="hero-title">
+          <span class="reveal d1">Davi</span>
+          <span class="reveal d2 hero-title-alt">Vinco</span>
+        </h1>
+        <p class="hero-sub reveal d3">
+          Arquiteto de soluções para clientes <strong>enterprise</strong> — da mesa de decisão
+          à arquitetura de <strong>edge</strong>, <strong>cloud</strong> e <strong>segurança</strong>
+          que sustenta aplicações críticas em escala global.
+        </p>
+        <div class="hero-foot reveal d4">
+          <div class="hero-actions">
+            <a href="#contato" class="btn btn-solid">Entrar em contato</a>
+            <a href="#projetos" class="btn btn-ghost">Ver projetos</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-photo reveal d3">
+        <img src="images/davi.png" alt="Foto de Davi Vinco" width="400" height="400" />
+        <div class="hero-photo-badge">
+          <span class="pulse-dot"></span> Azion · Enterprise
+        </div>
+      </div>
+    </div>
+    <span class="hero-scroll">scroll ↓</span>
+  </header>
+
+  <main>
+
+    <!-- 01 · SOBRE -->
+    <section class="section" id="sobre">
+      <div class="container section-grid">
+        <div class="section-label reveal"><span>01</span> Sobre</div>
+        <div class="section-body">
+          <p class="lead reveal">
+            Eu opero onde <em>arquitetura</em> encontra <em>negócio</em>: traduzo requisitos de
+            stakeholders em plataformas distribuídas que entregam segurança, performance e escala —
+            e defendo cada decisão técnica na frente de quem assina o contrato.
+          </p>
+          <p class="body-text reveal">
+            Na Azion, sou technical advisor de contas enterprise em ciclos de pré-venda e evolução de
+            soluções: desenho arquiteturas com aplicações distribuídas, integração de origem, controle
+            de tráfego, DNS, estratégias de cache e segurança de borda — incluindo ambientes híbridos
+            conectados à AWS. Antes, na SaveinCloud, fui do suporte à liderança técnica em menos de
+            dois anos, comandando arquitetura de cloud sobre Linux, Kubernetes e stacks open-source
+            de alta disponibilidade. Liderança, pra mim, é escuta, troca e crescimento em equipe.
+          </p>
+          <div class="stats reveal">
+            <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-suffix">+</span><span class="stat-label">anos em cloud &amp; edge</span></div>
+            <div class="stat"><span class="stat-num" data-count="25">0</span><span class="stat-suffix">+</span><span class="stat-label">certificações</span></div>
+            <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-suffix"></span><span class="stat-label">promoções em 2 anos</span></div>
+            <div class="stat"><span class="stat-num" data-count="2">0</span><span class="stat-suffix"></span><span class="stat-label">idiomas (PT · EN B2)</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · STACK -->
+    <section class="section" id="stack">
+      <div class="container section-grid">
+        <div class="section-label reveal"><span>02</span> Stack</div>
+        <div class="section-body">
+          <p class="section-note reveal">Competências organizadas por domínio — do protocolo ao boardroom.</p>
+          <div class="skills-grid">
+
+            <div class="skill-card reveal">
+              <h4>Edge &amp; Performance</h4>
+              <ul>
+                <li>WAF &amp; regras de borda</li>
+                <li>Edge Functions</li>
+                <li>Edge DNS &amp; migração de zonas</li>
+                <li>CDN, cache strategy &amp; tiered cache</li>
+                <li>Controle e roteamento de tráfego</li>
+                <li>TLS &amp; automação Let's Encrypt</li>
+              </ul>
+            </div>
+
+            <div class="skill-card reveal">
+              <h4>Cloud &amp; Infraestrutura</h4>
+              <ul>
+                <li>AWS &amp; arquiteturas híbridas</li>
+                <li>Kubernetes &amp; microsserviços</li>
+                <li>Docker &amp; containers</li>
+                <li>Linux — tuning &amp; administração</li>
+                <li>Load balancing &amp; alta disponibilidade</li>
+                <li>Nginx · Apache · IaC (YAML/JPS)</li>
+              </ul>
+            </div>
+
+            <div class="skill-card reveal">
+              <h4>Segurança</h4>
+              <ul>
+                <li>Segurança de borda &amp; mitigação</li>
+                <li>Gestão de ameaças (Cisco CyberOps)</li>
+                <li>Endpoint &amp; network security</li>
+                <li>Identidade &amp; compliance (Microsoft SCI)</li>
+                <li>LGPD &amp; proteção de dados</li>
+                <li>Formação superior em SegInfo</li>
+              </ul>
+            </div>
+
+            <div class="skill-card reveal">
+              <h4>Dados &amp; Observabilidade</h4>
+              <ul>
+                <li>MySQL · PostgreSQL · Redis</li>
+                <li>RabbitMQ &amp; mensageria</li>
+                <li>Monitoramento (OpMon · Linux)</li>
+                <li>Power BI &amp; analytics</li>
+                <li>Azure Data Fundamentals</li>
+              </ul>
+            </div>
+
+            <div class="skill-card reveal">
+              <h4>Engenharia &amp; IA</h4>
+              <ul>
+                <li>TypeScript &amp; Node.js</li>
+                <li>Python</li>
+                <li>AI Agents, MCP &amp; ChatOps</li>
+                <li>RAG &amp; aplicações com LLM</li>
+                <li>PHP · Bash · React · Spring Boot</li>
+              </ul>
+            </div>
+
+            <div class="skill-card reveal">
+              <h4>Liderança &amp; Negócio</h4>
+              <ul>
+                <li>Pré-venda técnica &amp; advisory</li>
+                <li>Liderança de time (Tech Lead)</li>
+                <li>Arquitetura orientada a valor</li>
+                <li>Comunicação com stakeholders</li>
+                <li>Inglês profissional (B2 TOEIC)</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · EXPERIÊNCIA -->
+    <section class="section" id="experiencia">
+      <div class="container section-grid">
+        <div class="section-label reveal"><span>03</span> Experiência</div>
+        <div class="section-body">
+
+          <article class="xp reveal current">
+            <div class="xp-head">
+              <h3>Solutions Architect II <span class="xp-co">Azion</span></h3>
+              <span class="xp-period">ago 2025 — presente</span>
+            </div>
+            <p>Solution design para clientes enterprise combinando cloud, edge, networking e segurança.
+            Technical advisor em pré-vendas; arquiteturas com aplicações distribuídas, integração de origem,
+            controle de tráfego, DNS, cache, segurança de borda e otimização de performance — incluindo
+            ambientes híbridos conectados à AWS.</p>
+          </article>
+
+          <article class="xp reveal">
+            <div class="xp-head">
+              <h3>SaveinCloud <span class="xp-co">out 2023 — ago 2025</span></h3>
+              <span class="xp-period">1 ano 11 meses</span>
+            </div>
+            <p>Da linha de frente do suporte à liderança técnica: soluções com servidores Linux, aplicações web,
+            bancos de dados, load balancing, monitoramento e alta disponibilidade. Ambientes open-source
+            (Apache, Nginx, MySQL, PostgreSQL, Redis), microsserviços e plataformas Kubernetes.</p>
+            <ul class="xp-roles">
+              <li><span>Tech Lead — Cloud Architect</span><span>abr 2025 — ago 2025</span></li>
+              <li><span>Cloud Architect</span><span>fev 2025 — ago 2025</span></li>
+              <li><span>Cloud Analyst</span><span>fev 2024 — fev 2025</span></li>
+              <li><span>Cloud Assistant</span><span>out 2023 — fev 2024</span></li>
+            </ul>
+          </article>
+
+          <article class="xp reveal">
+            <div class="xp-head">
+              <h3>Technical Sales Representative <span class="xp-co">It4us Cyber Security</span></h3>
+              <span class="xp-period">ago 2023 — out 2023</span>
+            </div>
+            <p>Atividades técnico-comerciais com soluções de cibersegurança junto a parceiros, distribuidores
+            e vendors — propostas alinhadas a requisitos técnicos e necessidades de negócio.</p>
+          </article>
+
+          <article class="xp reveal">
+            <div class="xp-head">
+              <h3>IT Analyst <span class="xp-co">Administradora Triângulo</span></h3>
+              <span class="xp-period">jan 2023 — jul 2023</span>
+            </div>
+            <p>Infraestrutura, redes e suporte — o início da jornada em tecnologia.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · PROJETOS -->
+    <section class="section" id="projetos">
+      <div class="container section-grid">
+        <div class="section-label reveal"><span>04</span> Projetos</div>
+        <div class="section-body">
+          <p class="section-note reveal">Uma seleção do que construo quando ninguém pediu — direto do <a href="https://github.com/davivinco" target="_blank" rel="noopener">GitHub</a>, com dados ao vivo.</p>
+          <div class="projects" id="projectsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · FORMAÇÃO -->
+    <section class="section" id="formacao">
+      <div class="container section-grid">
+        <div class="section-label reveal"><span>05</span> Formação</div>
+        <div class="section-body">
+
+          <ul class="edu reveal">
+            <li>
+              <div><strong>MBA em Gestão Estratégica e Inovação</strong><span>Faculdade Focus</span></div>
+              <span class="edu-period">2026 · em andamento</span>
+            </li>
+            <li>
+              <div><strong>CST em Segurança da Informação</strong><span>Fatec Americana "Ministro Ralph Biasi"</span></div>
+              <span class="edu-period">2023 — 2026</span>
+            </li>
+            <li>
+              <div><strong>Técnico em Desenvolvimento de Sistemas</strong><span>ETEC — São Paulo</span></div>
+              <span class="edu-period">2020 — 2022</span>
+            </li>
+          </ul>
+
+          <h4 class="sub-head reveal">Certificações</h4>
+          <ul class="certs reveal">
+            <li>
+              <div><strong>Harvard University</strong><span>CC50 — Introdução à Ciência da Computação</span></div>
+            </li>
+            <li>
+              <div><strong>Cisco</strong><span>Cybersecurity Essentials · Cyber Threat Management · Endpoint Security · Python Essentials 1 &amp; 2 · Computer Hardware Basics</span></div>
+            </li>
+            <li>
+              <div><strong>Microsoft</strong><span>Security, Compliance &amp; Identity Fundamentals · Azure Data Fundamentals · Azure AI Fundamentals</span></div>
+            </li>
+            <li>
+              <div><strong>Ada · Santander Tech+</strong><span>Back-End (Node.js) · Fundamentos Tech · Fundamentos Matemáticos</span></div>
+            </li>
+            <li>
+              <div><strong>Udemy</strong><span>Docker para Devs · Monitoramento de Servidores Linux · Web Server Load Balance · MySQL · Full-stack (Node, React, Spring Boot) · Liderança com Inteligência Emocional</span></div>
+            </li>
+            <li>
+              <div><strong>Fundação Bradesco</strong><span>LGPD · Segurança em TI · Ética no Desenvolvimento · IA e Cultura Digital</span></div>
+            </li>
+            <li>
+              <div><strong>Outros</strong><span>Power BI Series (Xperiun) · OpMon Monitoramento Avançado (OpServices) · Redes de Computadores (Curso em Vídeo) · Inglês B2 (TOEIC)</span></div>
+            </li>
+          </ul>
+
+          <h4 class="sub-head reveal">Voluntariado</h4>
+          <p class="body-text reveal">
+            <strong>Professor Instrutor</strong> — Fatec Americana · 2024. Ministrei aulas de informática
+            para jovens e adultos em situação de vulnerabilidade, junto a colegas de faculdade.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · CONTATO -->
+    <section class="section contact" id="contato">
+      <div class="container section-grid">
+        <div class="section-label reveal"><span>06</span> Contato</div>
+        <div class="section-body">
+          <h2 class="contact-title reveal">Vamos <span class="accent">construir?</span></h2>
+          <p class="section-note reveal">Aberto a conversas sobre edge, cloud e segurança.</p>
+          <ul class="contact-list reveal">
+            <li><a href="mailto:davi.vinco.contato@gmail.com">davi.vinco.contato@gmail.com <span>↗</span></a></li>
+            <li><a href="https://www.linkedin.com/in/davi-vinco/" target="_blank" rel="noopener">linkedin.com/in/davi-vinco <span>↗</span></a></li>
+            <li><a href="https://github.com/davivinco" target="_blank" rel="noopener">github.com/davivinco <span>↗</span></a></li>
+            <li><a href="tel:+5519989203078">(19) 98920-3078 <span>↗</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© 2026 Davi Vinco</span>
+      <span>Americana · São Paulo · Brasil</span>
+      <a href="#top">Voltar ao topo ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
