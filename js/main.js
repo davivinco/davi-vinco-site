@@ -71,7 +71,7 @@
       }
     }
     for (const n of nodes) {
-      ctx.fillStyle = "rgba(255, 90, 31, 0.4)";
+      ctx.fillStyle = "rgba(59, 130, 246, 0.4)";
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
       ctx.fill();
@@ -150,16 +150,21 @@
       desc: "Chat com RAG (Retrieval-Augmented Generation) construído em TypeScript: pipeline de embeddings e recuperação de contexto para respostas precisas sobre a plataforma Azion, com fundamentação em documentação real.",
       chips: ["TypeScript", "RAG", "Embeddings", "LLM"],
     },
-    "Rabbbitmq-jps-install": {
-      desc: "Infraestrutura como código: manifesto YAML JPS que provisiona um cluster RabbitMQ completo em plataformas PaaS com um clique — sem passos manuais, reproduzível e versionado.",
-      chips: ["IaC", "YAML/JPS", "RabbitMQ", "PaaS"],
+    "davi-vinco-site": {
+      desc: "Este portfólio: single-page em HTML/CSS/JS puro, sem framework ou build step. Publicado em produção sobre um Ubuntu 22.04 com Nginx, TLS terminado na borda pela Azion.",
+      highlights: [
+        "Zero dependências de build — três arquivos estáticos, deploy por rsync",
+        "Seção de projetos consome a API do GitHub em tempo real, com fallback estático",
+        "Arquitetura de entrega: cliente → HTTPS na borda (Azion) → HTTP simples até a origem",
+      ],
+      chips: ["HTML/CSS/JS", "Nginx", "Ubuntu 22.04", "Azion Edge"],
     },
   };
 
   const FALLBACK = Object.entries(CURATED).map(([name, meta]) => ({
     name,
     html_url: `https://github.com/davivinco/${name}`,
-    language: name.startsWith("azion") ? "TypeScript" : "YAML",
+    language: name.startsWith("azion") ? "TypeScript" : name === "davi-vinco-site" ? "HTML" : "YAML",
     pushed_at: null,
     ...meta,
   }));
