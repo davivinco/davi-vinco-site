@@ -215,6 +215,8 @@
     "proj.note": "A selection of what I build when no one asked — straight from <a href=\"https://github.com/davivinco\" target=\"_blank\" rel=\"noopener\">GitHub</a>, with live data.",
 
     "label.edu": "Education",
+    "edu0.title": "MBA in Software Engineering for Applied AI",
+    "edu0.period": "2026 — 2027 · in progress",
     "edu1.title": "MBA in Strategic Management &amp; Innovation",
     "edu1.period": "2026 · in progress",
     "edu2.title": "Associate Degree in Information Security",
