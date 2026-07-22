@@ -46,7 +46,7 @@
     canvas.style.height = H + "px";
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     CX = W / 2; CY = H / 2;
-    const count = Math.min(180, Math.floor((W * H) / 12000));
+    const count = Math.min(300, Math.floor((W * H) / 7000));
     particles = Array.from({ length: count }, () => seed({}));
   }
   resize();
@@ -62,10 +62,12 @@
   function drawField() {
     pointer.x += (pointer.tx - pointer.x) * 0.05;
     pointer.y += (pointer.ty - pointer.y) * 0.05;
-    scrollVel *= 0.9;
-    // idle drift + acceleration proportional to scroll speed ("flying" feel)
-    const speed = 0.6 + Math.min(Math.abs(scrollVel) * 0.14, 16);
-    const px = pointer.x * 90, py = pointer.y * 90;
+    scrollVel *= 0.88;
+    // steady idle drift + strong acceleration proportional to scroll speed
+    const boost = Math.min(Math.abs(scrollVel) * 0.28, 60);
+    const speed = 1.8 + boost;
+    const warp = Math.min(boost / 8, 6); // streak length when flying fast
+    const px = pointer.x * 110, py = pointer.y * 110;
 
     ctx.clearRect(0, 0, W, H);
     const pts = [];
@@ -75,12 +77,16 @@
       const k = FOV / p.z;
       const sx = CX + (p.x + px) * k;
       const sy = CY + (p.y + py) * k;
-      if (sx < -60 || sx > W + 60 || sy < -60 || sy > H + 60) continue;
+      if (sx < -80 || sx > W + 80 || sy < -80 || sy > H + 80) continue;
       const depth = 1 - (p.z - NEAR) / (FAR - NEAR); // 0 far .. 1 near
-      pts.push({ sx, sy, depth, b: p.b });
+      // streak: where this particle was a few frames "behind" (further away)
+      const k2 = FOV / (p.z + speed * (2 + warp));
+      const sx2 = CX + (p.x + px) * k2;
+      const sy2 = CY + (p.y + py) * k2;
+      pts.push({ sx, sy, sx2, sy2, depth, b: p.b });
     }
 
-    const LINK = 130;
+    const LINK = 140;
     for (let i = 0; i < pts.length; i++) {
       const a = pts[i];
       if (a.depth < 0.4) continue;
@@ -89,8 +95,8 @@
         const dx = a.sx - b.sx, dy = a.sy - b.sy;
         const d2 = dx * dx + dy * dy;
         if (d2 < LINK * LINK) {
-          const al = (1 - Math.sqrt(d2) / LINK) * 0.11 * a.depth;
-          ctx.strokeStyle = "rgba(130,160,255," + al + ")";
+          const al = (1 - Math.sqrt(d2) / LINK) * 0.16 * a.depth;
+          ctx.strokeStyle = "rgba(140,170,255," + al + ")";
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(a.sx, a.sy);
@@ -100,8 +106,18 @@
       }
     }
     for (const q of pts) {
-      const r = 0.4 + q.depth * 2.2;
-      const al = (0.14 + q.depth * 0.7) * q.b;
+      const r = 0.5 + q.depth * 2.8;
+      const al = (0.22 + q.depth * 0.78) * q.b;
+      // warp streaks while flying
+      if (warp > 0.4 && q.depth > 0.2) {
+        ctx.strokeStyle = "rgba(96,150,255," + (al * 0.8) + ")";
+        ctx.lineWidth = Math.max(0.6, r * 0.9);
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(q.sx2, q.sy2);
+        ctx.lineTo(q.sx, q.sy);
+        ctx.stroke();
+      }
       ctx.fillStyle = "rgba(59,130,246," + al + ")";
       ctx.beginPath();
       ctx.arc(q.sx, q.sy, r, 0, TAU);
@@ -152,8 +168,8 @@
       lastScroll = y;
       // parallax: photo and text drift at different rates
       if (!prefersReducedMotion) {
-        if (heroPhoto) heroPhoto.style.transform = "translateY(" + (y * 0.08) + "px)";
-        if (heroText) heroText.style.transform = "translateY(" + (y * -0.045) + "px)";
+        if (heroPhoto) heroPhoto.style.transform = "translateY(" + (y * 0.12) + "px)";
+        if (heroText) heroText.style.transform = "translateY(" + (y * -0.07) + "px)";
       }
     },
     { passive: true }
