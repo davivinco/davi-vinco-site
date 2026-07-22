@@ -14,73 +14,130 @@
   });
   setTimeout(() => preloader.classList.add("done"), 3000);
 
-  /* ---------- canvas: subtle node network ---------- */
+  /* ---------- background: scroll-reactive 3D particle field ---------- */
   const canvas = document.getElementById("edgeCanvas");
   const ctx = canvas.getContext("2d");
-  let W, H, nodes = [];
-  const mouse = { x: -9999, y: -9999 };
+  const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
+  let W, H, CX, CY, DPR;
+  const FAR = 1100, NEAR = 60, FOV = 620, TAU = Math.PI * 2;
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  let particles = [];
+  let lastScroll = window.scrollY, scrollVel = 0;
+
+  const heroPhoto = document.querySelector(".hero-photo");
+  const heroText = document.querySelector(".hero-text");
+  const heroImg = document.querySelector(".hero-photo img");
+
+  function seed(p) {
+    p.x = (Math.random() - 0.5) * 2200;
+    p.y = (Math.random() - 0.5) * 2200;
+    p.z = NEAR + Math.random() * (FAR - NEAR);
+    p.b = 0.35 + Math.random() * 0.65;
+    return p;
+  }
 
   function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-    const count = Math.min(70, Math.floor((W * H) / 26000));
-    nodes = Array.from({ length: count }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      r: Math.random() * 1.3 + 0.5,
-    }));
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = W / 2; CY = H / 2;
+    const count = Math.min(180, Math.floor((W * H) / 12000));
+    particles = Array.from({ length: count }, () => seed({}));
   }
   resize();
   window.addEventListener("resize", resize);
-  window.addEventListener("pointermove", (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
 
-  const LINK_DIST = 120;
-  function drawNetwork() {
+  if (!isTouch) {
+    window.addEventListener("pointermove", (e) => {
+      pointer.tx = e.clientX / W - 0.5;
+      pointer.ty = e.clientY / H - 0.5;
+    });
+  }
+
+  function drawField() {
+    pointer.x += (pointer.tx - pointer.x) * 0.05;
+    pointer.y += (pointer.ty - pointer.y) * 0.05;
+    scrollVel *= 0.9;
+    // idle drift + acceleration proportional to scroll speed ("flying" feel)
+    const speed = 0.6 + Math.min(Math.abs(scrollVel) * 0.14, 16);
+    const px = pointer.x * 90, py = pointer.y * 90;
+
     ctx.clearRect(0, 0, W, H);
-    for (const n of nodes) {
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
-
-      const dx = mouse.x - n.x, dy = mouse.y - n.y;
-      const d = Math.hypot(dx, dy);
-      if (d < 200 && d > 0.001) {
-        n.x += (dx / d) * 0.18;
-        n.y += (dy / d) * 0.18;
-      }
+    const pts = [];
+    for (const p of particles) {
+      p.z -= speed;
+      if (p.z < NEAR) { seed(p); p.z = FAR; }
+      const k = FOV / p.z;
+      const sx = CX + (p.x + px) * k;
+      const sy = CY + (p.y + py) * k;
+      if (sx < -60 || sx > W + 60 || sy < -60 || sy > H + 60) continue;
+      const depth = 1 - (p.z - NEAR) / (FAR - NEAR); // 0 far .. 1 near
+      pts.push({ sx, sy, depth, b: p.b });
     }
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const a = nodes[i], b = nodes[j];
-        const d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < LINK_DIST) {
-          const alpha = (1 - d / LINK_DIST) * 0.1;
-          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+
+    const LINK = 130;
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      if (a.depth < 0.4) continue;
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j];
+        const dx = a.sx - b.sx, dy = a.sy - b.sy;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < LINK * LINK) {
+          const al = (1 - Math.sqrt(d2) / LINK) * 0.11 * a.depth;
+          ctx.strokeStyle = "rgba(130,160,255," + al + ")";
           ctx.lineWidth = 1;
           ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
+          ctx.moveTo(a.sx, a.sy);
+          ctx.lineTo(b.sx, b.sy);
           ctx.stroke();
         }
       }
     }
-    for (const n of nodes) {
-      ctx.fillStyle = "rgba(59, 130, 246, 0.4)";
+    for (const q of pts) {
+      const r = 0.4 + q.depth * 2.2;
+      const al = (0.14 + q.depth * 0.7) * q.b;
+      ctx.fillStyle = "rgba(59,130,246," + al + ")";
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.arc(q.sx, q.sy, r, 0, TAU);
       ctx.fill();
     }
-    requestAnimationFrame(drawNetwork);
+    requestAnimationFrame(drawField);
   }
-  if (!prefersReducedMotion) drawNetwork();
 
-  /* ---------- nav + scroll progress ---------- */
+  if (prefersReducedMotion) {
+    // static, sparse frame — no motion
+    ctx.clearRect(0, 0, W, H);
+    for (const p of particles) {
+      const k = FOV / p.z;
+      const sx = CX + p.x * k, sy = CY + p.y * k;
+      if (sx < 0 || sx > W || sy < 0 || sy > H) continue;
+      const depth = 1 - (p.z - NEAR) / (FAR - NEAR);
+      ctx.fillStyle = "rgba(59,130,246," + (0.1 + depth * 0.4) + ")";
+      ctx.beginPath();
+      ctx.arc(sx, sy, 0.5 + depth * 1.6, 0, TAU);
+      ctx.fill();
+    }
+  } else {
+    drawField();
+    // hero photo: 3D tilt following the cursor
+    if (heroImg && heroPhoto && !isTouch) {
+      heroPhoto.addEventListener("pointermove", (e) => {
+        const r = heroPhoto.getBoundingClientRect();
+        const rx = (((e.clientY - r.top) / r.height) - 0.5) * -9;
+        const ry = (((e.clientX - r.left) / r.width) - 0.5) * 11;
+        heroImg.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+      });
+      heroPhoto.addEventListener("pointerleave", () => { heroImg.style.transform = ""; });
+    }
+  }
+
+  /* ---------- nav + scroll progress + hero parallax ---------- */
   const nav = document.getElementById("nav");
   const progress = document.getElementById("scrollProgress");
   window.addEventListener(
@@ -90,6 +147,14 @@
       nav.classList.toggle("scrolled", y > 40);
       const max = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
+      // feed the particle field so scrolling accelerates the fly-through
+      scrollVel += y - lastScroll;
+      lastScroll = y;
+      // parallax: photo and text drift at different rates
+      if (!prefersReducedMotion) {
+        if (heroPhoto) heroPhoto.style.transform = "translateY(" + (y * 0.08) + "px)";
+        if (heroText) heroText.style.transform = "translateY(" + (y * -0.045) + "px)";
+      }
     },
     { passive: true }
   );

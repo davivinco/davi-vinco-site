@@ -163,6 +163,7 @@ a { color: var(--ink); }
 .hero-photo {
   position: relative;
   justify-self: end;
+  perspective: 800px;
 }
 .hero-photo img {
   display: block;
@@ -176,6 +177,10 @@ a { color: var(--ink); }
     0 0 0 6px rgba(59, 130, 246, 0.06),
     0 30px 80px rgba(0, 0, 0, 0.5),
     0 0 90px rgba(59, 130, 246, 0.12);
+  transition: transform 0.25s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 .hero-photo-badge {
   position: absolute;
