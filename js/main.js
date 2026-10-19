@@ -8,7 +8,6 @@
   "use strict";
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const wide = window.matchMedia("(min-width: 1024px)");
 
   /* ============================================================
      i18n: Portuguese is the inline default (captured from the
@@ -29,15 +28,6 @@
     "nav.lang": "Português",
 
     "alt.portrait": "Portrait of Davi Vinco: dark hair swept up, short beard, black t-shirt, smiling, on a grey background",
-    "alt.bras": "The Companhia Telefônica Brasileira building in Brás, with palm trees on the sidewalk, in 1961",
-    "alt.repeaters": "A wall of carbon telephone repeaters, coils and switches, in an AT&T exchange in 1919",
-    "alt.helsinki": "Two telephone operators at a wooden switchboard, one seated with a headset and one standing, plugging cords, in 1927",
-    "alt.jabaquara": "The Jabaquara telephone exchange under construction, covered in scaffolding, in 1968",
-    "cap.switch": "A Strowger switch at work, NTT History Center of Technologies, Japan",
-    "cap.bras": "Brás telephone exchange, São Paulo, 1961",
-    "cap.repeaters": "Repeaters on AT&amp;T’s Boston–Washington line, Providence, 1919",
-    "cap.helsinki": "Telephone exchange of the newspaper Hufvudstadsbladet, Helsinki, 1927",
-    "cap.jabaquara": "Jabaquara telephone exchange under construction, São Paulo, 1968",
 
     "hero.line": "Senior Solutions Architect at SaveinCloud: cloud, edge and security for enterprises.",
 
@@ -183,9 +173,6 @@
 
     "footer.top": "Back to top",
     "footer.legal": "© 2026 Davi Vinco. São Paulo, Brazil. Plain HTML, CSS and JavaScript, no build step.",
-    "footer.credits": "Archive photographs and footage, converted to greyscale:",
-    "footer.pd": "public domain",
-    "footer.via": "Via Wikimedia Commons.",
   };
 
   // Strings the script writes itself.
@@ -310,51 +297,6 @@
     { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
   );
   document.querySelectorAll("[data-reveal]").forEach((el) => revealIO.observe(el));
-
-  /* ============================================================
-     Plates: the fixed half changes to the picture of the
-     section crossing the middle of the screen
-     ============================================================ */
-  document.querySelectorAll(".stage").forEach((stage) => {
-    const plate = stage.querySelector(".plate");
-    if (!plate) return;
-    const layers = [...plate.querySelectorAll(".plate-layer")];
-    const sections = [...stage.querySelectorAll("[data-plate]")];
-    const video = plate.querySelector("video");
-    let current = layers.find((l) => l.classList.contains("is-on"));
-
-    function syncVideo() {
-      if (!video) return;
-      const on = video.closest(".plate-layer").classList.contains("is-on");
-      if (on && wide.matches && !reduceMotion.matches && !document.hidden) {
-        if (video.preload === "none") video.preload = "auto";
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    }
-
-    function show(name) {
-      const next = layers.find((l) => l.dataset.layer === name);
-      if (!next || next === current) return;
-      if (current) current.classList.remove("is-on");
-      next.classList.add("is-on");
-      current = next;
-      syncVideo();
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) show(e.target.dataset.plate);
-      },
-      { rootMargin: "-48% 0px -48% 0px" }
-    );
-    sections.forEach((sec) => io.observe(sec));
-
-    document.addEventListener("visibilitychange", syncVideo);
-    reduceMotion.addEventListener?.("change", syncVideo);
-    wide.addEventListener?.("change", syncVideo);
-  });
 
   /* ============================================================
      The live thing: this page's own request, as an itinerary
@@ -610,14 +552,6 @@
         encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
     });
-  }
-
-  /* ---------- the strip rests when it is off screen ---------- */
-  const strip = document.querySelector(".strip");
-  if (strip) {
-    new IntersectionObserver((entries) => {
-      for (const e of entries) strip.classList.toggle("is-paused", !e.isIntersecting);
-    }).observe(strip);
   }
 
   /* ---------- phone menu closes after a choice ---------- */
