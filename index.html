@@ -3,330 +3,633 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Davi Vinco — Solutions Architect</title>
-  <meta name="description" content="Davi Vinco — Solutions Architect II na Azion. Edge Computing, Cloud e Segurança da Informação." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/style.css?v=4" />
+  <title>Davi Vinco, Solutions Architect Senior</title>
+  <meta name="description" content="Davi Vinco, Solutions Architect Senior na SaveinCloud. Arquitetura de cloud, edge e segurança da informação para empresas." />
+  <meta name="theme-color" content="#0b0b0c" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="Davi Vinco, Solutions Architect Senior" />
+  <meta property="og:description" content="Arquitetura de cloud, edge e segurança da informação para empresas." />
+  <meta property="og:image" content="https://davi.vinco.dev.br/images/davi.jpg" />
+  <meta property="og:type" content="website" />
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="/images/davi.jpg" fetchpriority="high" />
+  <link rel="stylesheet" href="/css/style.css?v=5" />
 </head>
 <body>
 
-  <div class="preloader" id="preloader"><span>Davi Vinco</span></div>
-  <div class="scroll-progress" id="scrollProgress"></div>
+  <a class="skip" href="#sobre" data-i18n="skip">Pular para o conteúdo</a>
 
-  <canvas id="edgeCanvas" aria-hidden="true"></canvas>
-  <div class="hero-glow" aria-hidden="true"></div>
+  <!-- ===== First stage: the fixed plate on the left, the reading column on the right ===== -->
+  <div class="stage stage--left">
 
-  <nav class="nav" id="nav">
-    <a href="#top" class="nav-name">Davi Vinco<span class="dot">.</span></a>
-    <div class="nav-links">
-      <a href="#stack" data-i18n="nav.stack">Stack</a>
-      <a href="#experiencia" data-i18n="nav.exp">Experiência</a>
-      <a href="#projetos" data-i18n="nav.proj">Projetos</a>
-      <a href="#formacao" data-i18n="nav.edu">Formação</a>
-      <a href="#contato" class="nav-cta" data-i18n="nav.contact">Contato</a>
-      <div class="lang-switch" role="group" aria-label="Idioma / Language">
-        <button type="button" class="lang-btn is-active" data-lang="pt">PT</button>
-        <span class="lang-sep">/</span>
-        <button type="button" class="lang-btn" data-lang="en">EN</button>
+    <div class="plate" data-plate-group="one">
+      <div class="plate-frame">
+        <figure class="plate-layer is-on" data-layer="retrato">
+          <img src="/images/davi.jpg" width="800" height="800" fetchpriority="high" decoding="async"
+               alt="Retrato de Davi Vinco: cabelo escuro penteado para cima, barba curta, camiseta preta, sorrindo, sobre fundo cinza"
+               data-i18n-attr="alt:alt.portrait" />
+        </figure>
+        <figure class="plate-layer" data-layer="rota">
+          <video muted loop playsinline preload="none" width="600" height="790" aria-hidden="true"
+                 poster="/assets/strowger-switch-poster.jpg">
+            <source src="/assets/strowger-switch.webm" type="video/webm" />
+            <source src="/assets/strowger-switch.mp4" type="video/mp4" />
+          </video>
+          <figcaption data-i18n="cap.switch">Seletor Strowger em funcionamento, NTT History Center of Technologies, Japão</figcaption>
+        </figure>
+        <figure class="plate-layer" data-layer="experiencia">
+          <img src="/assets/central-bras-1961.jpg" width="1293" height="1762" loading="lazy" decoding="async"
+               alt="Prédio da Companhia Telefônica Brasileira no Brás, com palmeiras na calçada, em 1961"
+               data-i18n-attr="alt:alt.bras" />
+          <figcaption data-i18n="cap.bras">Central Telefônica do Brás, São Paulo, 1961</figcaption>
+        </figure>
       </div>
     </div>
-  </nav>
 
-  <header class="hero" id="top">
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <p class="hero-meta reveal"><span class="pulse-dot"></span><span data-i18n="hero.meta">Solutions Architect II · Azion — Brasil</span></p>
-        <h1 class="hero-title">
-          <span class="reveal d1">Davi</span>
-          <span class="reveal d2 hero-title-alt">Vinco</span>
+    <div class="column">
+
+      <nav class="nav" aria-label="Principal" data-i18n-attr="aria-label:aria.nav">
+        <details class="menu">
+          <summary class="menu-btn" data-i18n="nav.menu">Menu</summary>
+          <div class="menu-sheet">
+            <a href="#experiencia" data-i18n="nav.exp">Experiência</a>
+            <a href="#projetos" data-i18n="nav.proj">Projetos</a>
+            <a href="#stack" data-i18n="nav.stack">Stack</a>
+            <a href="#formacao" data-i18n="nav.edu">Formação</a>
+            <a href="#contato" data-i18n="nav.contact">Contato</a>
+          </div>
+        </details>
+        <ul class="nav-links">
+          <li><a href="#experiencia" class="link" data-i18n="nav.exp">Experiência</a></li>
+          <li><a href="#projetos" class="link" data-i18n="nav.proj">Projetos</a></li>
+          <li><a href="#stack" class="link" data-i18n="nav.stack">Stack</a></li>
+          <li><a href="#formacao" class="link" data-i18n="nav.edu">Formação</a></li>
+        </ul>
+        <button type="button" class="lang" id="langToggle" lang="en" aria-label="Read in English"
+                data-i18n="nav.lang" data-i18n-attr="aria-label:aria.lang">English</button>
+        <a href="#contato" class="button" data-i18n="nav.contact">Contato</a>
+      </nav>
+
+      <header class="hero" id="top">
+        <p class="hero-line" data-rise style="--i:1" data-i18n="hero.line">Solutions Architect Senior na SaveinCloud: cloud, edge e segurança para empresas.</p>
+        <h1 class="hero-name" aria-label="Davi Vinco">
+          <span class="hero-name-mask"><span class="hero-name-word" aria-hidden="true">davi vinco</span></span>
         </h1>
-        <p class="hero-sub reveal d3" data-i18n="hero.sub">
-          Arquiteto de soluções para clientes <strong>enterprise</strong> — da mesa de decisão
-          à arquitetura de <strong>edge</strong>, <strong>cloud</strong> e <strong>segurança</strong>
-          que sustenta aplicações críticas em escala global.
-        </p>
-        <div class="hero-foot reveal d4">
-          <div class="hero-actions">
-            <a href="#contato" class="btn btn-solid" data-i18n="hero.cta1">Entrar em contato</a>
-            <a href="#projetos" class="btn btn-ghost" data-i18n="hero.cta2">Ver projetos</a>
+      </header>
+
+      <!-- Intro: a narrow column of short paragraphs beside the portrait -->
+      <section class="intro" id="sobre" data-plate="retrato" aria-label="Sobre" data-i18n-attr="aria-label:aria.about">
+        <div class="intro-col">
+          <p class="intro-first" data-reveal style="--i:0" data-i18n="about.p1">Vinco é a linha onde dois planos se encontram. É onde eu trabalho: entre arquitetura e negócio, entre a borda e a origem.</p>
+          <p data-reveal style="--i:1" data-i18n="about.p2">Traduzo o que quem decide precisa em plataformas distribuídas com segurança, performance e escala, e defendo cada decisão técnica na frente de quem assina o contrato.</p>
+          <p data-reveal style="--i:2" data-i18n="about.p3">Comecei no suporte da SaveinCloud em 2023 e cheguei a tech lead de arquitetura de cloud 18 meses depois. Na Azion, fui technical advisor de contas enterprise: WAF, DNS, cache, Edge Functions e ambientes híbridos com a AWS.</p>
+          <p data-reveal style="--i:3" data-i18n="about.p4">Hoje estou de volta à SaveinCloud como Solutions Architect Senior. Liderança, pra mim, é escuta, troca e crescimento em equipe. <a href="#experiencia" class="link link--on">Ver a trajetória</a></p>
+        </div>
+      </section>
+
+      <!-- The live thing: this page's own request, printed as an itinerary -->
+      <section class="route" id="rota" data-plate="rota" aria-labelledby="routeTitle">
+        <figure class="inline-shot">
+          <img src="/assets/strowger-switch-poster.jpg" width="600" height="790" loading="lazy" decoding="async" alt=""/>
+          <figcaption data-i18n="cap.switch">Seletor Strowger em funcionamento, NTT History Center of Technologies, Japão</figcaption>
+        </figure>
+        <div class="route-head">
+          <h2 class="h-head" id="routeTitle" data-reveal style="--i:0" data-i18n="route.title">O caminho até você</h2>
+          <p class="route-note" data-reveal style="--i:1" data-i18n="route.note">É o que eu desenho todos os dias. Estes são os tempos reais da requisição que trouxe esta página até o seu navegador, medidos agora.</p>
+        </div>
+
+        <div class="slip-wrap" data-reveal style="--i:2">
+          <div class="slip" id="slip" aria-live="polite">
+            <div class="slip-top">
+              <strong id="slipTitle">Requisição desta página</strong>
+              <span class="slip-when"><span id="slipTime">…</span><span id="slipProto"></span></span>
+            </div>
+
+            <h3 class="slip-group" data-i18n="slip.g1">Abrindo caminho</h3>
+            <dl class="slip-rows">
+              <div class="slip-row" data-k="dns"><dt data-i18n="slip.dns">Consulta DNS</dt><dd>…</dd></div>
+              <div class="slip-row" data-k="tcp"><dt data-i18n="slip.tcp">Conexão TCP</dt><dd>…</dd></div>
+              <div class="slip-row" data-k="tls"><dt data-i18n="slip.tls">Handshake TLS</dt><dd>…</dd></div>
+            </dl>
+
+            <h3 class="slip-group" data-i18n="slip.g2">Pedido e resposta</h3>
+            <dl class="slip-rows">
+              <div class="slip-row" data-k="ttfb"><dt data-i18n="slip.ttfb">Até o primeiro byte</dt><dd>…</dd></div>
+              <div class="slip-row" data-k="dl"><dt data-i18n="slip.dl">Download do HTML</dt><dd>…</dd></div>
+              <div class="slip-row" data-k="size"><dt data-i18n="slip.size">Transferido</dt><dd>…</dd></div>
+            </dl>
+
+            <h3 class="slip-group" data-i18n="slip.g3">No seu navegador</h3>
+            <dl class="slip-rows">
+              <div class="slip-row" data-k="dom"><dt data-i18n="slip.dom">HTML interpretado</dt><dd>…</dd></div>
+              <div class="slip-row" data-k="load"><dt data-i18n="slip.load">Página completa</dt><dd>…</dd></div>
+            </dl>
+
+            <p class="slip-server" id="slipServer" hidden></p>
+
+            <div class="slip-total">
+              <span id="slipTotalLabel">HTML entregue em</span>
+              <span id="slipTotal">…</span>
+            </div>
           </div>
         </div>
+
+        <div class="route-foot" data-reveal style="--i:3">
+          <button type="button" class="button button--ghost" id="remeasure" data-i18n="slip.again">Medir de novo</button>
+          <p class="small" data-i18n="slip.privacy">Medido pelo seu navegador com a Navigation Timing API. Nenhum dado sai desta página.</p>
+        </div>
+        <noscript><p class="small">Ative o JavaScript para ver os tempos reais desta requisição.</p></noscript>
+      </section>
+
+      <!-- Experience as a quiet ledger -->
+      <section class="ledger" id="experiencia" data-plate="experiencia" aria-labelledby="xpTitle">
+        <figure class="inline-shot">
+          <img src="/assets/central-bras-1961.jpg" width="1293" height="1762" loading="lazy" decoding="async" alt="" />
+          <figcaption data-i18n="cap.bras">Central Telefônica do Brás, São Paulo, 1961</figcaption>
+        </figure>
+        <h2 class="h-head" id="xpTitle" data-reveal style="--i:0" data-i18n="xp.title">Experiência</h2>
+        <p class="ledger-sub" data-reveal style="--i:1" data-i18n="xp.sub">Oito posições em quatro empresas desde 2023.</p>
+
+        <div class="ledger-groups">
+          <div class="ledger-group is-current" data-reveal style="--i:2">
+            <ul class="ledger-rows">
+              <li><span class="l-role">Solutions Architect Senior</span><span class="l-co">SaveinCloud</span><span class="l-when" data-i18n="xp0.when">out 2026 – presente</span></li>
+            </ul>
+            <p class="ledger-desc" data-i18n="xp0.desc">De volta à SaveinCloud, agora na arquitetura de soluções: desenho de ambientes em Nuvion, Cloudlets e Storin, estimativas e pré-venda técnica para empresas que levam suas aplicações para a nuvem.</p>
+          </div>
+
+          <div class="ledger-group" data-reveal style="--i:3">
+            <ul class="ledger-rows">
+              <li><span class="l-role">Solutions Architect II</span><span class="l-co">Azion</span><span class="l-when" data-i18n="xp1.when">ago 2025 – set 2026</span></li>
+            </ul>
+            <p class="ledger-desc" data-i18n="xp1.desc">Solution design para clientes enterprise combinando cloud, edge, networking e segurança. Technical advisor em pré-vendas: aplicações distribuídas, integração de origem, controle de tráfego, DNS, cache, segurança de borda e performance, incluindo ambientes híbridos conectados à AWS.</p>
+          </div>
+
+          <div class="ledger-group" data-reveal style="--i:4">
+            <ul class="ledger-rows">
+              <li><span class="l-role">Tech Lead, Cloud Architect</span><span class="l-co">SaveinCloud</span><span class="l-when" data-i18n="xp2.r1">abr 2025 – ago 2025</span></li>
+              <li><span class="l-role">Cloud Architect</span><span class="l-co">SaveinCloud</span><span class="l-when" data-i18n="xp2.r2">fev 2025 – ago 2025</span></li>
+              <li><span class="l-role">Cloud Analyst</span><span class="l-co">SaveinCloud</span><span class="l-when" data-i18n="xp2.r3">fev 2024 – fev 2025</span></li>
+              <li><span class="l-role">Cloud Assistant</span><span class="l-co">SaveinCloud</span><span class="l-when" data-i18n="xp2.r4">out 2023 – fev 2024</span></li>
+            </ul>
+            <p class="ledger-desc" data-i18n="xp2.desc">Da linha de frente do suporte à liderança técnica: servidores Linux, aplicações web, bancos de dados, load balancing, monitoramento e alta disponibilidade. Apache, Nginx, MySQL, PostgreSQL, Redis, microsserviços e Kubernetes.</p>
+          </div>
+
+          <div class="ledger-group" data-reveal style="--i:5">
+            <ul class="ledger-rows">
+              <li><span class="l-role">Technical Sales Representative</span><span class="l-co">It4us Cyber Security</span><span class="l-when" data-i18n="xp3.when">ago 2023 – out 2023</span></li>
+            </ul>
+            <p class="ledger-desc" data-i18n="xp3.desc">Atividades técnico-comerciais com soluções de cibersegurança junto a parceiros, distribuidores e fabricantes, com propostas alinhadas a requisitos técnicos e de negócio.</p>
+          </div>
+
+          <div class="ledger-group" data-reveal style="--i:6">
+            <ul class="ledger-rows">
+              <li><span class="l-role">IT Analyst</span><span class="l-co">Administradora Triângulo</span><span class="l-when" data-i18n="xp4.when">jan 2023 – jul 2023</span></li>
+            </ul>
+            <p class="ledger-desc" data-i18n="xp4.desc">Infraestrutura, redes e suporte. O começo da jornada em tecnologia.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ===== Projects: the split breaks and runs full width ===== -->
+  <section class="showcase" id="projetos" aria-labelledby="projTitle">
+
+    <div class="showcase-plate" data-reveal>
+      <div class="frag-stage">
+
+        <!-- Fragment: ChatOps agent -->
+        <div class="frag is-on" data-frag="azion-ai-agent-mvp" role="img"
+             aria-label="Interface do agente: um pedido em português vira um plano de cinco passos aguardando confirmação"
+             data-i18n-attr="aria-label:frag.agent">
+          <div class="ui ui-agent" data-ui>
+            <div class="ui-bar"><span class="ui-title">Azion AI Agent</span><span class="ui-toggle"><span class="ui-toggle-knob"></span>Criar desabilitado</span></div>
+            <div class="ui-body">
+              <p class="ui-msg ui-msg--me">Crie uma application e workload chamado “Loja Teste” para loja.com.br</p>
+              <div class="ui-card">
+                <div class="ui-card-head"><strong>Criar Application e Workload “Loja Teste”</strong><span class="ui-badge">LLM</span></div>
+                <ol class="ui-steps">
+                  <li>Criar a Application a partir do template, sem clone.</li>
+                  <li>Criar um Connector HTTP apontando para a origem.</li>
+                  <li>Remapear <code>set_connector</code> das request rules.</li>
+                  <li>Criar o Workload para loja.com.br.</li>
+                  <li>Criar tudo com <code>active: false</code>.</li>
+                </ol>
+                <div class="ui-card-foot"><span class="ui-btn ui-btn--primary">Confirmar execução</span><span class="ui-btn">Ver detalhes técnicos</span></div>
+              </div>
+              <p class="ui-status"><span class="ui-chip">Na fila</span><span class="ui-chip">Executando</span><span class="ui-chip ui-chip--ok">Concluído</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fragment: Impact Study (sample data shipped with the repository) -->
+        <div class="frag" data-frag="impact-study-generator" role="img"
+             aria-label="Relatório Impact Study com métricas de antes e depois: TTFB de 620 para 330 ms, LCP de 3,2 para 2,1 s"
+             data-i18n-attr="aria-label:frag.impact">
+          <div class="ui ui-report" data-ui>
+            <div class="ui-sheet">
+              <p class="ui-h">Impact Study, www.exemplo.com.br</p>
+              <p class="ui-meta">gru · Chrome · Cable · dados de exemplo do repositório</p>
+              <table class="ui-table">
+                <thead><tr><th>Métrica</th><th>Antes</th><th>Depois</th><th>Variação</th></tr></thead>
+                <tbody>
+                  <tr><td>TTFB</td><td>620 ms</td><td>330 ms</td><td class="ui-good">−46,8%</td></tr>
+                  <tr><td>FCP</td><td>1,90 s</td><td>1,10 s</td><td class="ui-good">−42,1%</td></tr>
+                  <tr><td>LCP</td><td>3,20 s</td><td>2,10 s</td><td class="ui-good">−34,4%</td></tr>
+                  <tr><td>CLS</td><td>0,119</td><td>0,020</td><td class="ui-good">−83,2%</td></tr>
+                  <tr><td>TBT</td><td>865 ms</td><td>740 ms</td><td class="ui-good">−14,5%</td></tr>
+                  <tr><td>Speed Index</td><td>4,10 s</td><td>3,05 s</td><td class="ui-good">−25,6%</td></tr>
+                  <tr><td>Fully Loaded</td><td>13,28 s</td><td>13,03 s</td><td class="ui-even">empate técnico</td></tr>
+                  <tr><td>Cache hit</td><td>50%</td><td>75%</td><td class="ui-good">+25,0 p.p.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fragment: Compatibility validator -->
+        <div class="frag" data-frag="azion-compat-validator" role="img"
+             aria-label="Validador de compatibilidade: express e sharp incompatíveis, axios parcial, lodash, zod e jose compatíveis"
+             data-i18n-attr="aria-label:frag.compat">
+          <div class="ui ui-compat" data-ui>
+            <div class="ui-bar"><span class="ui-title">Azion Compatibility Validator</span></div>
+            <div class="ui-body">
+              <p class="ui-input"><code>npm install express sharp axios lodash zod jose</code></p>
+              <ul class="ui-list">
+                <li><code>express</code><span class="ui-st ui-st--bad">incompatível</span><span class="ui-src">regra</span></li>
+                <li><code>sharp</code><span class="ui-st ui-st--bad">incompatível</span><span class="ui-src">regra</span></li>
+                <li><code>axios</code><span class="ui-st ui-st--mid">parcial</span><span class="ui-src">regra</span></li>
+                <li><code>lodash</code><span class="ui-st ui-st--ok">compatível</span><span class="ui-src">regra</span></li>
+                <li><code>zod</code><span class="ui-st ui-st--ok">compatível</span><span class="ui-src">regra</span></li>
+                <li><code>jose</code><span class="ui-st ui-st--ok">compatível</span><span class="ui-src">regra</span></li>
+              </ul>
+              <p class="ui-verdict"><strong>Pode subir, mas atenção:</strong> express e sharp só impedem o deploy se forem importados no código que roda na edge function.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fragment: Rule builder -->
+        <div class="frag" data-frag="azion-rule-builder" role="img"
+             aria-label="Construtor de regras: se Request URI começa com /wp-admin, Deny, aplicado em todos os firewalls da conta"
+             data-i18n-attr="aria-label:frag.rule">
+          <div class="ui ui-rule" data-ui>
+            <div class="ui-bar"><span class="ui-title">Azion Rule Builder</span><span class="ui-seg"><span class="is-on">v4</span><span>v3</span></span></div>
+            <div class="ui-body">
+              <p class="ui-label">Criteria</p>
+              <div class="ui-fields">
+                <span class="ui-field">Request URI</span>
+                <span class="ui-field">starts with</span>
+                <span class="ui-field"><code>/wp-admin</code></span>
+              </div>
+              <p class="ui-label">Behavior</p>
+              <div class="ui-fields"><span class="ui-field ui-field--deny">Deny (403 Forbidden)</span></div>
+              <p class="ui-label">Alvos</p>
+              <div class="ui-fields"><span class="ui-field ui-field--wide">Todos os firewalls da conta</span></div>
+              <div class="ui-card-foot"><span class="ui-btn">Simular</span><span class="ui-btn ui-btn--primary">Aplicar na frota</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fragment: RAG chat -->
+        <div class="frag" data-frag="azion-rag-chat" role="img"
+             aria-label="Chat com RAG: uma pergunta sobre certificados respondida com duas fontes citadas"
+             data-i18n-attr="aria-label:frag.rag">
+          <div class="ui ui-rag" data-ui>
+            <div class="ui-bar"><span class="ui-title">Azion RAG Chat</span><span class="ui-sub">Edge SQL · AI Inference</span></div>
+            <div class="ui-body">
+              <p class="ui-msg ui-msg--me">Como emitir um certificado Let’s Encrypt com DNS externo?</p>
+              <div class="ui-answer">
+                <p>Crie primeiro o registro <code>_acme-challenge</code> como CNAME para <code>&lt;domínio&gt;.letsencrypt.azion.com</code>. Só depois solicite o certificado: a emissão é assíncrona e passa de <em>pending</em> para <em>active</em>.</p>
+                <p class="ui-sources"><span class="ui-chip">guia-certificados.pdf · trecho 4</span><span class="ui-chip">dns-externo.md · trecho 2</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="hero-photo reveal d3">
-        <img src="/images/davi.jpg" alt="Foto de Davi Vinco" width="400" height="400" />
-        <div class="hero-photo-badge">
-          <span class="pulse-dot"></span> Azion · Enterprise
+    </div>
+
+    <div class="showcase-text">
+      <div class="showcase-top">
+        <h2 class="h-head" id="projTitle" data-reveal style="--i:0" data-i18n="proj.title">Projetos</h2>
+        <p class="showcase-note" data-reveal style="--i:1" data-i18n="proj.note">O que eu construo quando ninguém pediu, direto do <a class="link link--on" href="https://github.com/davivinco" target="_blank" rel="noopener">GitHub</a>.</p>
+        <div class="tabs" role="tablist" aria-label="Projetos" data-i18n-attr="aria-label:proj.title" data-reveal style="--i:2">
+          <button type="button" role="tab" class="tab" id="tab-agent" aria-controls="panel-agent" aria-selected="true" data-frag="azion-ai-agent-mvp" data-i18n="proj.t1">Agente ChatOps</button>
+          <button type="button" role="tab" class="tab" id="tab-impact" aria-controls="panel-impact" aria-selected="false" data-frag="impact-study-generator">Impact Study</button>
+          <button type="button" role="tab" class="tab" id="tab-compat" aria-controls="panel-compat" aria-selected="false" data-frag="azion-compat-validator">Compat Validator</button>
+          <button type="button" role="tab" class="tab" id="tab-rule" aria-controls="panel-rule" aria-selected="false" data-frag="azion-rule-builder">Rule Builder</button>
+          <button type="button" role="tab" class="tab" id="tab-rag" aria-controls="panel-rag" aria-selected="false" data-frag="azion-rag-chat">RAG Chat</button>
+        </div>
+      </div>
+
+      <div class="panels">
+        <article class="panel is-on" role="tabpanel" id="panel-agent" aria-labelledby="tab-agent" data-repo="azion-ai-agent-mvp">
+          <h3 class="h-head panel-title" data-i18n="p1.title">Agente ChatOps para a Azion</h3>
+          <p class="panel-meta" data-meta>TypeScript</p>
+          <p class="panel-desc" data-i18n="p1.desc">Pedidos em português viram um plano de execução revisável. Só depois da aprovação humana o agente executa contra a API v4 da Azion, por uma fila assíncrona.</p>
+          <ul class="panel-points">
+            <li data-i18n="p1.h1">Planner híbrido, por regras ou por LLM, gera um plano em JSON antes de qualquer execução.</li>
+            <li data-i18n="p1.h2">Redis Streams com status em tempo real e histórico persistido em SQLite.</li>
+            <li data-i18n="p1.h3">Importa DNS da Cloudflare, do Route53 e de zone files RFC 1035.</li>
+            <li data-i18n="p1.h4">Migra domínios proxied com firewall, WAF, workload e certificado Let’s Encrypt via DNS-01.</li>
+            <li data-i18n="p1.h5">Todo recurso nasce desativado até aprovação explícita.</li>
+          </ul>
+          <p class="panel-tech">TypeScript, Next.js, MCP, Redis Streams, SQLite, Azion API v4</p>
+        </article>
+
+        <article class="panel" role="tabpanel" id="panel-impact" aria-labelledby="tab-impact" data-repo="impact-study-generator">
+          <h3 class="h-head panel-title">Impact Study Generator</h3>
+          <p class="panel-meta" data-meta>JavaScript</p>
+          <p class="panel-desc" data-i18n="p2.desc">Gera o relatório executivo de antes e depois de uma migração de CDN a partir de dois exports do WebPageTest. Os números saem do código; a IA só escreve a prosa, e cada frase é conferida contra os dados.</p>
+          <ul class="panel-points">
+            <li data-i18n="p2.h1">Os JSONs do WebPageTest nunca saem do navegador.</li>
+            <li data-i18n="p2.h2">Variações abaixo de 5% viram “empate técnico”, nunca narrativa de ganho.</li>
+            <li data-i18n="p2.h3">Se a IA falhar ou inventar, entra uma narrativa determinística.</li>
+            <li data-i18n="p2.h4">Roda numa Edge Function da Azion com Qwen3 e exporta PDF em folhas A4.</li>
+          </ul>
+          <p class="panel-tech">JavaScript, Azion AI Inference, WebPageTest</p>
+        </article>
+
+        <article class="panel" role="tabpanel" id="panel-compat" aria-labelledby="tab-compat" data-repo="azion-compat-validator">
+          <h3 class="h-head panel-title">Compat Validator</h3>
+          <p class="panel-meta" data-meta>JavaScript</p>
+          <p class="panel-desc" data-i18n="p3.desc">Diz se as dependências de um projeto rodam no Azion Runtime e dá um veredito de deploy. Regras determinísticas primeiro; a IA entra só no que não está catalogado, sempre marcada como sugestão.</p>
+          <ul class="panel-points">
+            <li data-i18n="p3.h1">Aceita package.json, lista solta ou uma linha de npm install colada.</li>
+            <li data-i18n="p3.h2">devDependencies e ferramentas de build nunca bloqueiam o deploy.</li>
+            <li data-i18n="p3.h3">Pacotes desconhecidos vão para a IA em lotes, com concorrência.</li>
+            <li data-i18n="p3.h4">UI e API servidas por uma única Edge Function.</li>
+          </ul>
+          <p class="panel-tech">JavaScript, Azion Edge Functions, AI Inference</p>
+        </article>
+
+        <article class="panel" role="tabpanel" id="panel-rule" aria-labelledby="tab-rule" data-repo="azion-rule-builder">
+          <h3 class="h-head panel-title">Rule Builder</h3>
+          <p class="panel-meta" data-meta>Python</p>
+          <p class="panel-desc" data-i18n="p4.desc">Monta uma regra de Edge Firewall uma vez e aplica em todos os firewalls da conta, com simulação antes. Fala com as APIs v3 e v4 sem que o resto do programa saiba qual está em uso.</p>
+          <ul class="panel-points">
+            <li data-i18n="p4.h1">Só Python 3.8+ e a biblioteca padrão, sem dependências.</li>
+            <li data-i18n="p4.h2">Simula o plano antes de aplicar na frota.</li>
+            <li data-i18n="p4.h3">A mesma regra dá NOOP nas duas versões da API.</li>
+            <li data-i18n="p4.h4">API falsa embutida para testar sem tocar na conta.</li>
+          </ul>
+          <p class="panel-tech">Python, Azion API v3 e v4</p>
+        </article>
+
+        <article class="panel" role="tabpanel" id="panel-rag" aria-labelledby="tab-rag" data-repo="azion-rag-chat">
+          <h3 class="h-head panel-title">RAG Chat</h3>
+          <p class="panel-meta" data-meta>TypeScript</p>
+          <p class="panel-desc" data-i18n="p5.desc">Retrieval-augmented generation que roda inteiro na borda: embeddings e respostas pelo Azion AI Inference; documentos, trechos e vetores no Edge SQL.</p>
+          <ul class="panel-points">
+            <li data-i18n="p5.h1">Ingestão de documentos com extração de texto e divisão em trechos.</li>
+            <li data-i18n="p5.h2">Busca vetorial no Edge SQL, sem infraestrutura externa.</li>
+            <li data-i18n="p5.h3">Respostas com as fontes consultadas.</li>
+            <li data-i18n="p5.h4">Guardrails antes e depois da geração.</li>
+          </ul>
+          <p class="panel-tech">TypeScript, Next.js, Edge SQL, AI Inference</p>
+        </article>
+      </div>
+
+      <div class="showcase-foot">
+        <p class="small" data-i18n="proj.more">Também no GitHub: calculadora de estimativa da SaveinCloud, manual de deploy de Next.js na Azion, leitor de METAR e instalação do RabbitMQ via JPS.</p>
+        <div class="cells">
+          <a class="cell cell--ink" id="repoLink" href="https://github.com/davivinco/azion-ai-agent-mvp" target="_blank" rel="noopener" data-i18n="proj.code">Ver o código</a>
+          <a class="cell" href="https://github.com/davivinco?tab=repositories" target="_blank" rel="noopener" data-i18n="proj.all">Todos os repositórios</a>
         </div>
       </div>
     </div>
-    <span class="hero-scroll">scroll ↓</span>
-  </header>
+  </section>
 
-  <main>
+  <!-- ===== Second stage: the crease flips, the plate moves to the right ===== -->
+  <div class="stage stage--right">
 
-    <!-- 01 · SOBRE -->
-    <section class="section" id="sobre">
-      <div class="container section-grid">
-        <div class="section-label reveal"><span>01</span> <span data-i18n="label.about">Sobre</span></div>
-        <div class="section-body">
-          <p class="lead reveal" data-i18n="about.lead">
-            Eu opero onde <em>arquitetura</em> encontra <em>negócio</em>: traduzo requisitos de
-            stakeholders em plataformas distribuídas que entregam segurança, performance e escala —
-            e defendo cada decisão técnica na frente de quem assina o contrato.
-          </p>
-          <p class="body-text reveal" data-i18n="about.body">
-            Na Azion, sou technical advisor de contas enterprise em ciclos de pré-venda e evolução de
-            soluções: desenho arquiteturas com aplicações distribuídas, integração de origem, controle
-            de tráfego, DNS, estratégias de cache e segurança de borda — incluindo ambientes híbridos
-            conectados à AWS. Antes, na SaveinCloud, fui do suporte à liderança técnica em menos de
-            dois anos, comandando arquitetura de cloud sobre Linux, Kubernetes e stacks open-source
-            de alta disponibilidade. Liderança, pra mim, é escuta, troca e crescimento em equipe.
-          </p>
-          <div class="stats reveal">
-            <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-suffix">+</span><span class="stat-label" data-i18n="stat.years">anos em cloud &amp; edge</span></div>
-            <div class="stat"><span class="stat-num" data-count="25">0</span><span class="stat-suffix">+</span><span class="stat-label" data-i18n="stat.certs">certificações</span></div>
-            <div class="stat"><span class="stat-num" data-count="7">0</span><span class="stat-suffix"></span><span class="stat-label" data-i18n="stat.positions">posições na carreira</span></div>
-            <div class="stat"><span class="stat-num" data-count="10">0</span><span class="stat-suffix">+</span><span class="stat-label" data-i18n="stat.projects">projetos no GitHub</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="column">
 
-    <!-- 02 · STACK -->
-    <section class="section" id="stack">
-      <div class="container section-grid">
-        <div class="section-label reveal"><span>02</span> <span data-i18n="label.stack">Stack</span></div>
-        <div class="section-body">
-          <p class="section-note reveal" data-i18n="stack.note">Competências organizadas por domínio — do protocolo ao boardroom.</p>
-          <div class="skills-grid">
+      <section class="stack" id="stack" data-plate="stack" aria-label="Stack">
+        <figure class="inline-shot">
+          <img src="/assets/repeaters-1919.jpg" width="1295" height="1612" loading="lazy" decoding="async" alt="" />
+          <figcaption data-i18n="cap.repeaters">Repetidores da linha Boston–Washington da AT&amp;T, Providence, 1919</figcaption>
+        </figure>
+        <h2 class="giant" data-reveal style="--i:0">Stack</h2>
+        <p class="stack-note" data-reveal style="--i:1" data-i18n="stack.note">Competências por domínio, do protocolo à mesa de decisão.</p>
 
-            <div class="skill-card reveal">
-              <h4 data-i18n="sk1.title">Edge &amp; Performance</h4>
-              <ul>
-                <li data-i18n="sk1.i1">WAF &amp; regras de borda</li>
-                <li data-i18n="sk1.i2">Edge Functions</li>
-                <li data-i18n="sk1.i3">Edge DNS &amp; migração de zonas</li>
-                <li data-i18n="sk1.i4">CDN, cache strategy &amp; tiered cache</li>
-                <li data-i18n="sk1.i5">Controle e roteamento de tráfego</li>
-                <li data-i18n="sk1.i6">TLS &amp; automação Let's Encrypt</li>
-              </ul>
-            </div>
-
-            <div class="skill-card reveal">
-              <h4 data-i18n="sk2.title">Cloud &amp; Infraestrutura</h4>
-              <ul>
-                <li data-i18n="sk2.i1">AWS &amp; arquiteturas híbridas</li>
-                <li data-i18n="sk2.i2">Kubernetes &amp; microsserviços</li>
-                <li data-i18n="sk2.i3">Docker &amp; containers</li>
-                <li data-i18n="sk2.i4">Linux — tuning &amp; administração</li>
-                <li data-i18n="sk2.i5">Load balancing &amp; alta disponibilidade</li>
-                <li data-i18n="sk2.i6">Nginx · Apache · IaC (YAML/JPS)</li>
-              </ul>
-            </div>
-
-            <div class="skill-card reveal">
-              <h4 data-i18n="sk3.title">Segurança</h4>
-              <ul>
-                <li data-i18n="sk3.i1">Segurança de borda &amp; mitigação</li>
-                <li data-i18n="sk3.i2">Gestão de ameaças (Cisco CyberOps)</li>
-                <li data-i18n="sk3.i3">Endpoint &amp; network security</li>
-                <li data-i18n="sk3.i4">Identidade &amp; compliance (Microsoft SCI)</li>
-                <li data-i18n="sk3.i5">LGPD &amp; proteção de dados</li>
-                <li data-i18n="sk3.i6">Formação superior em SegInfo</li>
-              </ul>
-            </div>
-
-            <div class="skill-card reveal">
-              <h4 data-i18n="sk4.title">Dados &amp; Observabilidade</h4>
-              <ul>
-                <li data-i18n="sk4.i1">MySQL · PostgreSQL · Redis</li>
-                <li data-i18n="sk4.i2">RabbitMQ &amp; mensageria</li>
-                <li data-i18n="sk4.i3">Monitoramento (OpMon · Linux)</li>
-                <li data-i18n="sk4.i4">Power BI &amp; analytics</li>
-                <li data-i18n="sk4.i5">Azure Data Fundamentals</li>
-              </ul>
-            </div>
-
-            <div class="skill-card reveal">
-              <h4 data-i18n="sk5.title">Engenharia &amp; IA</h4>
-              <ul>
-                <li data-i18n="sk5.i1">TypeScript &amp; Node.js</li>
-                <li data-i18n="sk5.i2">Python</li>
-                <li data-i18n="sk5.i3">AI Agents, MCP &amp; ChatOps</li>
-                <li data-i18n="sk5.i4">RAG &amp; aplicações com LLM</li>
-                <li data-i18n="sk5.i5">PHP · Bash · React · Spring Boot</li>
-              </ul>
-            </div>
-
-            <div class="skill-card reveal">
-              <h4 data-i18n="sk6.title">Liderança &amp; Negócio</h4>
-              <ul>
-                <li data-i18n="sk6.i1">Pré-venda técnica &amp; advisory</li>
-                <li data-i18n="sk6.i2">Liderança de time (Tech Lead)</li>
-                <li data-i18n="sk6.i3">Arquitetura orientada a valor</li>
-                <li data-i18n="sk6.i4">Comunicação com stakeholders</li>
-                <li data-i18n="sk6.i5">Inglês profissional (B2 TOEIC)</li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 03 · EXPERIÊNCIA -->
-    <section class="section" id="experiencia">
-      <div class="container section-grid">
-        <div class="section-label reveal"><span>03</span> <span data-i18n="label.exp">Experiência</span></div>
-        <div class="section-body">
-
-          <article class="xp reveal current">
-            <div class="xp-head">
-              <h3>Solutions Architect II <span class="xp-co">Azion</span></h3>
-              <span class="xp-period" data-i18n="xp1.period">ago 2025 — presente</span>
-            </div>
-            <p data-i18n="xp1.desc">Solution design para clientes enterprise combinando cloud, edge, networking e segurança.
-            Technical advisor em pré-vendas; arquiteturas com aplicações distribuídas, integração de origem,
-            controle de tráfego, DNS, cache, segurança de borda e otimização de performance — incluindo
-            ambientes híbridos conectados à AWS.</p>
-          </article>
-
-          <article class="xp reveal">
-            <div class="xp-head">
-              <h3>SaveinCloud <span class="xp-co" data-i18n="xp2.co">out 2023 — ago 2025</span></h3>
-              <span class="xp-period" data-i18n="xp2.period">1 ano 11 meses</span>
-            </div>
-            <p data-i18n="xp2.desc">Da linha de frente do suporte à liderança técnica: soluções com servidores Linux, aplicações web,
-            bancos de dados, load balancing, monitoramento e alta disponibilidade. Ambientes open-source
-            (Apache, Nginx, MySQL, PostgreSQL, Redis), microsserviços e plataformas Kubernetes.</p>
-            <ul class="xp-roles">
-              <li><span>Tech Lead — Cloud Architect</span><span data-i18n="xp2.r1d">abr 2025 — ago 2025</span></li>
-              <li><span>Cloud Architect</span><span data-i18n="xp2.r2d">fev 2025 — ago 2025</span></li>
-              <li><span>Cloud Analyst</span><span data-i18n="xp2.r3d">fev 2024 — fev 2025</span></li>
-              <li><span>Cloud Assistant</span><span data-i18n="xp2.r4d">out 2023 — fev 2024</span></li>
+        <div class="bars">
+          <details class="bar" open data-reveal style="--i:2">
+            <summary><span data-i18n="sk1.title">Edge e performance</span><span class="bar-n">6</span></summary>
+            <ul class="bar-items">
+              <li data-i18n="sk1.i1">WAF e regras de borda</li>
+              <li>Edge Functions</li>
+              <li data-i18n="sk1.i3">Edge DNS e migração de zonas</li>
+              <li data-i18n="sk1.i4">CDN, cache e tiered cache</li>
+              <li data-i18n="sk1.i5">Controle e roteamento de tráfego</li>
+              <li data-i18n="sk1.i6">TLS e automação com Let’s Encrypt</li>
             </ul>
-          </article>
+          </details>
+          <details class="bar" data-reveal style="--i:3">
+            <summary><span data-i18n="sk2.title">Cloud e infraestrutura</span><span class="bar-n">6</span></summary>
+            <ul class="bar-items">
+              <li data-i18n="sk2.i1">AWS e arquiteturas híbridas</li>
+              <li data-i18n="sk2.i2">Kubernetes e microsserviços</li>
+              <li data-i18n="sk2.i3">Docker e containers</li>
+              <li data-i18n="sk2.i4">Linux, tuning e administração</li>
+              <li data-i18n="sk2.i5">Load balancing e alta disponibilidade</li>
+              <li data-i18n="sk2.i6">Nginx, Apache e IaC (YAML, JPS)</li>
+            </ul>
+          </details>
+          <details class="bar" data-reveal style="--i:4">
+            <summary><span data-i18n="sk3.title">Segurança</span><span class="bar-n">6</span></summary>
+            <ul class="bar-items">
+              <li data-i18n="sk3.i1">Segurança de borda e mitigação</li>
+              <li data-i18n="sk3.i2">Gestão de ameaças (Cisco CyberOps)</li>
+              <li data-i18n="sk3.i3">Segurança de endpoint e de rede</li>
+              <li data-i18n="sk3.i4">Identidade e compliance (Microsoft SCI)</li>
+              <li data-i18n="sk3.i5">LGPD e proteção de dados</li>
+              <li data-i18n="sk3.i6">Graduação em Segurança da Informação</li>
+            </ul>
+          </details>
+          <details class="bar" data-reveal style="--i:5">
+            <summary><span data-i18n="sk4.title">Dados e observabilidade</span><span class="bar-n">5</span></summary>
+            <ul class="bar-items">
+              <li>MySQL, PostgreSQL, Redis</li>
+              <li data-i18n="sk4.i2">RabbitMQ e mensageria</li>
+              <li data-i18n="sk4.i3">Monitoramento com OpMon e Linux</li>
+              <li data-i18n="sk4.i4">Power BI e analytics</li>
+              <li>Azure Data Fundamentals</li>
+            </ul>
+          </details>
+          <details class="bar" data-reveal style="--i:6">
+            <summary><span data-i18n="sk5.title">Engenharia e IA</span><span class="bar-n">5</span></summary>
+            <ul class="bar-items">
+              <li>TypeScript, Node.js</li>
+              <li>Python</li>
+              <li data-i18n="sk5.i3">Agentes de IA, MCP e ChatOps</li>
+              <li data-i18n="sk5.i4">RAG e aplicações com LLM</li>
+              <li>PHP, Bash, React, Spring Boot</li>
+            </ul>
+          </details>
+          <details class="bar" data-reveal style="--i:7">
+            <summary><span data-i18n="sk6.title">Liderança e negócio</span><span class="bar-n">5</span></summary>
+            <ul class="bar-items">
+              <li data-i18n="sk6.i1">Pré-venda técnica e advisory</li>
+              <li data-i18n="sk6.i2">Liderança de time como tech lead</li>
+              <li data-i18n="sk6.i3">Arquitetura orientada a valor</li>
+              <li data-i18n="sk6.i4">Comunicação com stakeholders</li>
+              <li data-i18n="sk6.i5">Inglês profissional, B2 no TOEIC</li>
+            </ul>
+          </details>
+        </div>
+      </section>
 
-          <article class="xp reveal">
-            <div class="xp-head">
-              <h3>Technical Sales Representative <span class="xp-co">It4us Cyber Security</span></h3>
-              <span class="xp-period" data-i18n="xp3.period">ago 2023 — out 2023</span>
+      <section class="names" id="formacao" data-plate="formacao" aria-labelledby="eduTitle">
+        <figure class="inline-shot">
+          <img src="/assets/helsinki-exchange-1927.jpg" width="1400" height="1918" loading="lazy" decoding="async" alt="" />
+          <figcaption data-i18n="cap.helsinki">Central telefônica do jornal Hufvudstadsbladet, Helsinque, 1927</figcaption>
+        </figure>
+        <h2 class="h-head" id="eduTitle" data-reveal style="--i:0" data-i18n="edu.title">Formação</h2>
+        <p class="names-sub" data-reveal style="--i:1" data-i18n="edu.sub">Quatro formações, mais de 25 certificações e aulas como voluntário.</p>
+
+        <div class="names-cols">
+          <div class="names-col">
+            <div class="names-kind" data-reveal style="--i:2">
+              <p class="kind" data-i18n="edu.k1">Formação</p>
+              <p class="nm"><span data-i18n="edu0.t">Pós-graduação Lato Sensu em Engenharia de Software em IA Aplicada</span><span class="nm-sub" data-i18n="edu0.s">UNIPDS, 2026–2027, em andamento</span></p>
+              <p class="nm"><span data-i18n="edu1.t">MBA em Gestão Estratégica e Inovação</span><span class="nm-sub" data-i18n="edu1.s">Faculdade Focus, 2026, em andamento</span></p>
+              <p class="nm"><span data-i18n="edu2.t">CST em Segurança da Informação</span><span class="nm-sub">Fatec Americana “Ministro Ralph Biasi”, 2023–2026</span></p>
+              <p class="nm"><span data-i18n="edu3.t">Técnico em Desenvolvimento de Sistemas</span><span class="nm-sub">ETEC, São Paulo, 2020–2022</span></p>
             </div>
-            <p data-i18n="xp3.desc">Atividades técnico-comerciais com soluções de cibersegurança junto a parceiros, distribuidores
-            e vendors — propostas alinhadas a requisitos técnicos e necessidades de negócio.</p>
-          </article>
-
-          <article class="xp reveal">
-            <div class="xp-head">
-              <h3>IT Analyst <span class="xp-co">Administradora Triângulo</span></h3>
-              <span class="xp-period" data-i18n="xp4.period">jan 2023 — jul 2023</span>
+            <div class="names-kind" data-reveal style="--i:4">
+              <p class="kind" data-i18n="edu.k3">Voluntariado</p>
+              <p class="nm"><span data-i18n="vol.t">Professor instrutor</span><span class="nm-sub" data-i18n="vol.s">Fatec Americana, 2024. Aulas de informática para jovens e adultos em situação de vulnerabilidade, com colegas de faculdade.</span></p>
             </div>
-            <p data-i18n="xp4.desc">Infraestrutura, redes e suporte — o início da jornada em tecnologia.</p>
-          </article>
-
+          </div>
+          <div class="names-col">
+            <div class="names-kind" data-reveal style="--i:3">
+              <p class="kind" data-i18n="edu.k2">Certificações</p>
+              <p class="nm"><span>Harvard University</span><span class="nm-sub" data-i18n="cert.harvard">CC50, Introdução à Ciência da Computação</span></p>
+              <p class="nm"><span>Cisco</span><span class="nm-sub">Cybersecurity Essentials, Cyber Threat Management, Endpoint Security, Python Essentials 1 e 2, Computer Hardware Basics</span></p>
+              <p class="nm"><span>Microsoft</span><span class="nm-sub">Security, Compliance &amp; Identity, Azure Data e Azure AI Fundamentals</span></p>
+              <p class="nm"><span>Ada e Santander Tech+</span><span class="nm-sub" data-i18n="cert.ada">Back-end com Node.js, fundamentos de tecnologia e de matemática</span></p>
+              <p class="nm"><span>Udemy</span><span class="nm-sub" data-i18n="cert.udemy">Docker, monitoramento de servidores Linux, load balance, MySQL, full stack com Node, React e Spring Boot, liderança com inteligência emocional</span></p>
+              <p class="nm"><span>Fundação Bradesco</span><span class="nm-sub" data-i18n="cert.bradesco">LGPD, segurança em TI, ética no desenvolvimento, IA e cultura digital</span></p>
+              <p class="nm"><span data-i18n="cert.othersLabel">Outras</span><span class="nm-sub" data-i18n="cert.others">Power BI (Xperiun), OpMon (OpServices), redes de computadores (Curso em Vídeo), inglês B2 (TOEIC)</span></p>
+            </div>
+          </div>
         </div>
+      </section>
+
+    </div>
+
+    <div class="plate" data-plate-group="two">
+      <div class="plate-frame">
+        <figure class="plate-layer is-on" data-layer="stack">
+          <img src="/assets/repeaters-1919.jpg" width="1295" height="1612" loading="lazy" decoding="async"
+               alt="Parede de repetidores telefônicos de carbono, com bobinas e chaves, numa central da AT&amp;T em 1919"
+               data-i18n-attr="alt:alt.repeaters" />
+          <figcaption data-i18n="cap.repeaters">Repetidores da linha Boston–Washington da AT&amp;T, Providence, 1919</figcaption>
+        </figure>
+        <figure class="plate-layer" data-layer="formacao">
+          <img src="/assets/helsinki-exchange-1927.jpg" width="1400" height="1918" loading="lazy" decoding="async"
+               alt="Duas telefonistas numa mesa de comutação de madeira, uma sentada com fone e outra de pé ligando cabos, em 1927"
+               data-i18n-attr="alt:alt.helsinki" />
+          <figcaption data-i18n="cap.helsinki">Central telefônica do jornal Hufvudstadsbladet, Helsinque, 1927</figcaption>
+        </figure>
       </div>
-    </section>
+    </div>
 
-    <!-- 04 · PROJETOS -->
-    <section class="section" id="projetos">
-      <div class="container section-grid">
-        <div class="section-label reveal"><span>04</span> <span data-i18n="label.proj">Projetos</span></div>
-        <div class="section-body">
-          <p class="section-note reveal" data-i18n="proj.note">Uma seleção do que construo quando ninguém pediu — direto do <a href="https://github.com/davivinco" target="_blank" rel="noopener">GitHub</a>, com dados ao vivo.</p>
-          <div class="projects" id="projectsList"></div>
-        </div>
+  </div>
+
+  <!-- ===== Contact: a full field of the accent colour ===== -->
+  <section class="contact" id="contato" aria-labelledby="contactTitle">
+    <div class="strip" aria-hidden="true">
+      <div class="strip-track">
+        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r32" />
+        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/repeaters-1919.jpg" width="242" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
+        <img src="/assets/thumbs/helsinki-exchange-1927.jpg" width="218" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r32" />
+        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
+        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r32" />
+        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/repeaters-1919.jpg" width="242" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
+        <img src="/assets/thumbs/helsinki-exchange-1927.jpg" width="218" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r32" />
+        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r34" />
+        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r11" />
+        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
       </div>
-    </section>
+    </div>
 
-    <!-- 05 · FORMAÇÃO -->
-    <section class="section" id="formacao">
-      <div class="container section-grid">
-        <div class="section-label reveal"><span>05</span> <span data-i18n="label.edu">Formação</span></div>
-        <div class="section-body">
+    <div class="contact-body">
+      <h2 class="h-head" id="contactTitle" data-reveal style="--i:0" data-i18n="contact.title">Vamos construir?</h2>
+      <p class="contact-note" data-reveal style="--i:1" data-i18n="contact.note">Aberto a conversas sobre cloud, edge e segurança. Escreva o assunto e o seu app de e-mail abre com a mensagem pronta.</p>
 
-          <ul class="edu reveal">
-            <li>
-              <div><strong data-i18n="edu0.title">Pós-graduação Lato Sensu em Engenharia de Software em IA Aplicada</strong><span>UNIPDS</span></div>
-              <span class="edu-period" data-i18n="edu0.period">2026 — 2027 · em andamento</span>
-            </li>
-            <li>
-              <div><strong data-i18n="edu1.title">MBA em Gestão Estratégica e Inovação</strong><span>Faculdade Focus</span></div>
-              <span class="edu-period" data-i18n="edu1.period">2026 · em andamento</span>
-            </li>
-            <li>
-              <div><strong data-i18n="edu2.title">CST em Segurança da Informação</strong><span>Fatec Americana "Ministro Ralph Biasi"</span></div>
-              <span class="edu-period" data-i18n="edu2.period">2023 — 2026</span>
-            </li>
-            <li>
-              <div><strong data-i18n="edu3.title">Técnico em Desenvolvimento de Sistemas</strong><span>ETEC — São Paulo</span></div>
-              <span class="edu-period">2020 — 2022</span>
-            </li>
-          </ul>
+      <form class="compose" id="compose" action="mailto:davi.vinco.contato@gmail.com" method="get" data-reveal style="--i:2">
+        <label class="cell-field">
+          <span class="sr" data-i18n="contact.nameLabel">Seu nome</span>
+          <input type="text" name="nome" autocomplete="name" placeholder="Seu nome" data-i18n-attr="placeholder:contact.name" />
+        </label>
+        <label class="cell-field">
+          <span class="sr" data-i18n="contact.subjectLabel">Assunto</span>
+          <input type="text" name="subject" placeholder="Assunto" data-i18n-attr="placeholder:contact.subject" />
+        </label>
+        <button type="submit" class="cell-submit" data-i18n="contact.send">Escrever e-mail</button>
+      </form>
 
-          <h4 class="sub-head reveal" data-i18n="edu.certsHead">Certificações</h4>
-          <ul class="certs reveal">
-            <li>
-              <div><strong>Harvard University</strong><span data-i18n="cert.harvard">CC50 — Introdução à Ciência da Computação</span></div>
-            </li>
-            <li>
-              <div><strong>Cisco</strong><span>Cybersecurity Essentials · Cyber Threat Management · Endpoint Security · Python Essentials 1 &amp; 2 · Computer Hardware Basics</span></div>
-            </li>
-            <li>
-              <div><strong>Microsoft</strong><span>Security, Compliance &amp; Identity Fundamentals · Azure Data Fundamentals · Azure AI Fundamentals</span></div>
-            </li>
-            <li>
-              <div><strong>Ada · Santander Tech+</strong><span data-i18n="cert.ada">Back-End (Node.js) · Fundamentos Tech · Fundamentos Matemáticos</span></div>
-            </li>
-            <li>
-              <div><strong>Udemy</strong><span data-i18n="cert.udemy">Docker para Devs · Monitoramento de Servidores Linux · Web Server Load Balance · MySQL · Full-stack (Node, React, Spring Boot) · Liderança com Inteligência Emocional</span></div>
-            </li>
-            <li>
-              <div><strong>Fundação Bradesco</strong><span data-i18n="cert.bradesco">LGPD · Segurança em TI · Ética no Desenvolvimento · IA e Cultura Digital</span></div>
-            </li>
-            <li>
-              <div><strong data-i18n="cert.othersLabel">Outros</strong><span data-i18n="cert.others">Power BI Series (Xperiun) · OpMon Monitoramento Avançado (OpServices) · Redes de Computadores (Curso em Vídeo) · Inglês B2 (TOEIC)</span></div>
-            </li>
-          </ul>
+      <ul class="direct" data-reveal style="--i:3">
+        <li><a class="link" href="mailto:davi.vinco.contato@gmail.com">davi.vinco.contato@gmail.com</a></li>
+        <li><a class="link" href="https://www.linkedin.com/in/davi-vinco/" target="_blank" rel="noopener">linkedin.com/in/davi-vinco</a></li>
+        <li><a class="link" href="https://github.com/davivinco" target="_blank" rel="noopener">github.com/davivinco</a></li>
+        <li><a class="link" href="tel:+5519989203078">(19) 98920-3078</a></li>
+      </ul>
+    </div>
+  </section>
 
-          <h4 class="sub-head reveal" data-i18n="edu.volHead">Voluntariado</h4>
-          <p class="body-text reveal" data-i18n="edu.vol">
-            <strong>Professor Instrutor</strong> — Fatec Americana · 2024. Ministrei aulas de informática
-            para jovens e adultos em situação de vulnerabilidade, junto a colegas de faculdade.
-          </p>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 06 · CONTATO -->
-    <section class="section contact" id="contato">
-      <div class="container section-grid">
-        <div class="section-label reveal"><span>06</span> <span data-i18n="label.contact">Contato</span></div>
-        <div class="section-body">
-          <h2 class="contact-title reveal" data-i18n="contact.title">Vamos <span class="accent">construir?</span></h2>
-          <p class="section-note reveal" data-i18n="contact.note">Aberto a conversas sobre edge, cloud e segurança.</p>
-          <ul class="contact-list reveal">
-            <li><a href="mailto:davi.vinco.contato@gmail.com">davi.vinco.contato@gmail.com <span>↗</span></a></li>
-            <li><a href="https://www.linkedin.com/in/davi-vinco/" target="_blank" rel="noopener">linkedin.com/in/davi-vinco <span>↗</span></a></li>
-            <li><a href="https://github.com/davivinco" target="_blank" rel="noopener">github.com/davivinco <span>↗</span></a></li>
-            <li><a href="tel:+5519989203078">(19) 98920-3078 <span>↗</span></a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
-
+  <!-- ===== Footer: the name across the last photograph ===== -->
   <footer class="footer">
-    <div class="container footer-inner">
-      <span>© 2026 Davi Vinco</span>
-      <span data-i18n="footer.loc">Brasil</span>
-      <a href="#top" data-i18n="footer.top">Voltar ao topo ↑</a>
+    <img class="footer-photo" src="/assets/central-jabaquara-1968.jpg" width="1400" height="980" loading="lazy" decoding="async"
+         alt="Prédio da central telefônica do Jabaquara em construção, coberto de andaimes, em 1968"
+         data-i18n-attr="alt:alt.jabaquara" />
+    <div class="footer-top">
+      <ul class="footer-links">
+        <li><a class="link" href="#experiencia" data-i18n="nav.exp">Experiência</a></li>
+        <li><a class="link" href="#projetos" data-i18n="nav.proj">Projetos</a></li>
+        <li><a class="link" href="#stack" data-i18n="nav.stack">Stack</a></li>
+        <li><a class="link" href="#formacao" data-i18n="nav.edu">Formação</a></li>
+        <li><a class="link" href="#top" data-i18n="footer.top">Voltar ao topo</a></li>
+      </ul>
+      <p class="footer-cap" data-i18n="cap.jabaquara">Central Telefônica do Jabaquara em construção, São Paulo, 1968</p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-name" aria-hidden="true"><span>davi vinco</span></p>
+      <p class="footer-legal" data-i18n="footer.legal">© 2026 Davi Vinco. São Paulo, Brasil. HTML, CSS e JavaScript puros, sem build.</p>
+      <p class="credits"><span data-i18n="footer.credits">Fotos e vídeo de arquivo, convertidos para tons de cinza:</span>
+        <a href="https://commons.wikimedia.org/wiki/File:Central_Telef%C3%B4nica_Br%C3%A1s_em_1961.jpg">Central Telefônica Brás em 1961</a>,
+        <a href="https://commons.wikimedia.org/wiki/File:Central_Telef%C3%B4nica_Jabaquara_em_1968.jpg">Central Telefônica Jabaquara em 1968</a>,
+        <a href="https://commons.wikimedia.org/wiki/File:Central_Telef%C3%B4nica_de_Botafogo_em_1969.jpg">Central Telefônica de Botafogo em 1969</a>,
+        <a href="https://commons.wikimedia.org/wiki/File:Telephone_lineman_on_a_pole_-_NARA_-_285886.jpg">Telephone lineman on a pole</a> (NARA),
+        <a href="https://commons.wikimedia.org/wiki/File:Shreeve_carbon_telephone_repeaters_AT%26T_Providence_RI_1919.jpg">Shreeve carbon telephone repeaters</a> (Bancroft Gherardi, Frank B. Jewett),
+        <span data-i18n="footer.pd">domínio público</span>;
+        <a href="https://commons.wikimedia.org/wiki/File:Newspaper_Hufvudstadsbladet%27s_telephone_exchange_1927_(Numeroimaton;_JOKAHBL3A_A01-2).tif">Newspaper Hufvudstadsbladet’s telephone exchange</a>, <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>;
+        <a href="https://commons.wikimedia.org/wiki/File:NTT_strowger_switch_operation.webm">NTT strowger switch operation</a> (Darklanlan), <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>.
+        <span data-i18n="footer.via">Via Wikimedia Commons.</span></p>
     </div>
   </footer>
 
-  <script src="/js/main.js?v=4"></script>
+  <script src="/js/main.js?v=5" defer></script>
 </body>
 </html>

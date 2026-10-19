@@ -1,291 +1,286 @@
 /* ============================================================
-   DAVI VINCO — refined dark portfolio interactions
+   DAVI VINCO: the split stage, interactions
+   Zero dependencies. Everything here enhances a page that
+   already reads in full without it.
    ============================================================ */
 
 (() => {
   "use strict";
 
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---------- preloader ---------- */
-  const preloader = document.getElementById("preloader");
-  window.addEventListener("load", () => {
-    setTimeout(() => preloader.classList.add("done"), prefersReducedMotion ? 0 : 900);
-  });
-  setTimeout(() => preloader.classList.add("done"), 3000);
-
-  /* ---------- canvas: subtle node network ---------- */
-  const canvas = document.getElementById("edgeCanvas");
-  const ctx = canvas.getContext("2d");
-  let W, H, nodes = [];
-  const mouse = { x: -9999, y: -9999 };
-
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-    const count = Math.min(70, Math.floor((W * H) / 26000));
-    nodes = Array.from({ length: count }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      r: Math.random() * 1.3 + 0.5,
-    }));
-  }
-  resize();
-  window.addEventListener("resize", resize);
-  window.addEventListener("pointermove", (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-
-  const LINK_DIST = 120;
-  function drawNetwork() {
-    ctx.clearRect(0, 0, W, H);
-    for (const n of nodes) {
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
-
-      const dx = mouse.x - n.x, dy = mouse.y - n.y;
-      const d = Math.hypot(dx, dy);
-      if (d < 200 && d > 0.001) {
-        n.x += (dx / d) * 0.18;
-        n.y += (dy / d) * 0.18;
-      }
-    }
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const a = nodes[i], b = nodes[j];
-        const d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < LINK_DIST) {
-          const alpha = (1 - d / LINK_DIST) * 0.1;
-          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-    }
-    for (const n of nodes) {
-      ctx.fillStyle = "rgba(59, 130, 246, 0.4)";
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    requestAnimationFrame(drawNetwork);
-  }
-  if (!prefersReducedMotion) drawNetwork();
-
-  /* ---------- nav + scroll progress ---------- */
-  const nav = document.getElementById("nav");
-  const progress = document.getElementById("scrollProgress");
-  window.addEventListener(
-    "scroll",
-    () => {
-      const y = window.scrollY;
-      nav.classList.toggle("scrolled", y > 40);
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
-    },
-    { passive: true }
-  );
-
-  /* ---------- reveal on scroll ---------- */
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      }
-    },
-    { threshold: 0.12 }
-  );
-  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
-  /* ---------- counters ---------- */
-  const counterIO = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        const el = e.target;
-        counterIO.unobserve(el);
-        const target = +el.dataset.count;
-        const dur = 1200;
-        const t0 = performance.now();
-        (function tick(t) {
-          const p = Math.min((t - t0) / dur, 1);
-          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-          if (p < 1) requestAnimationFrame(tick);
-        })(t0);
-      }
-    },
-    { threshold: 0.6 }
-  );
-  document.querySelectorAll(".stat-num").forEach((el) => counterIO.observe(el));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const wide = window.matchMedia("(min-width: 1024px)");
 
   /* ============================================================
-     i18n — Portuguese is the inline default (captured from the
+     i18n: Portuguese is the inline default (captured from the
      DOM); English lives in the dictionary below.
      ============================================================ */
 
   const EN = {
-    "nav.stack": "Stack",
+    "skip": "Skip to content",
+    "aria.nav": "Main",
+    "aria.lang": "Ler em português",
+    "aria.about": "About",
+    "nav.menu": "Menu",
     "nav.exp": "Experience",
     "nav.proj": "Projects",
+    "nav.stack": "Stack",
     "nav.edu": "Education",
     "nav.contact": "Contact",
+    "nav.lang": "Português",
 
-    "hero.meta": "Solutions Architect II · Azion — Brazil",
-    "hero.sub": "Solutions architect for <strong>enterprise</strong> clients — from the decision table to the <strong>edge</strong>, <strong>cloud</strong> and <strong>security</strong> architecture that powers mission-critical applications at global scale.",
-    "hero.cta1": "Get in touch",
-    "hero.cta2": "View projects",
+    "alt.portrait": "Portrait of Davi Vinco: dark hair swept up, short beard, black t-shirt, smiling, on a grey background",
+    "alt.bras": "The Companhia Telefônica Brasileira building in Brás, with palm trees on the sidewalk, in 1961",
+    "alt.repeaters": "A wall of carbon telephone repeaters, coils and switches, in an AT&T exchange in 1919",
+    "alt.helsinki": "Two telephone operators at a wooden switchboard, one seated with a headset and one standing, plugging cords, in 1927",
+    "alt.jabaquara": "The Jabaquara telephone exchange under construction, covered in scaffolding, in 1968",
+    "cap.switch": "A Strowger switch at work, NTT History Center of Technologies, Japan",
+    "cap.bras": "Brás telephone exchange, São Paulo, 1961",
+    "cap.repeaters": "Repeaters on AT&amp;T’s Boston–Washington line, Providence, 1919",
+    "cap.helsinki": "Telephone exchange of the newspaper Hufvudstadsbladet, Helsinki, 1927",
+    "cap.jabaquara": "Jabaquara telephone exchange under construction, São Paulo, 1968",
 
-    "label.about": "About",
-    "about.lead": "I work where <em>architecture</em> meets <em>business</em>: I translate stakeholder requirements into distributed platforms that deliver security, performance and scale — and defend every technical decision in front of whoever signs the contract.",
-    "about.body": "At Azion, I'm a technical advisor for enterprise accounts across pre-sales and solution-evolution cycles: I design architectures with distributed applications, origin integration, traffic control, DNS, caching strategies and edge security — including hybrid environments connected to AWS. Before that, at SaveinCloud, I went from support to technical leadership in under two years, leading cloud architecture on Linux, Kubernetes and high-availability open-source stacks. Leadership, to me, is listening, exchange and growing as a team.",
-    "stat.years": "years in cloud &amp; edge",
-    "stat.certs": "certifications",
-    "stat.positions": "career positions",
-    "stat.projects": "GitHub projects",
+    "hero.line": "Senior Solutions Architect at SaveinCloud: cloud, edge and security for enterprises.",
 
-    "label.stack": "Stack",
-    "stack.note": "Skills organized by domain — from protocol to boardroom.",
-    "sk1.title": "Edge &amp; Performance",
-    "sk1.i1": "WAF &amp; edge rules",
-    "sk1.i2": "Edge Functions",
-    "sk1.i3": "Edge DNS &amp; zone migration",
-    "sk1.i4": "CDN, cache strategy &amp; tiered cache",
-    "sk1.i5": "Traffic control &amp; routing",
-    "sk1.i6": "TLS &amp; Let's Encrypt automation",
-    "sk2.title": "Cloud &amp; Infrastructure",
-    "sk2.i1": "AWS &amp; hybrid architectures",
-    "sk2.i2": "Kubernetes &amp; microservices",
-    "sk2.i3": "Docker &amp; containers",
-    "sk2.i4": "Linux — tuning &amp; administration",
-    "sk2.i5": "Load balancing &amp; high availability",
-    "sk2.i6": "Nginx · Apache · IaC (YAML/JPS)",
+    "about.p1": "In Portuguese, vinco is a crease: the line where two planes meet. That is where I work, between architecture and business, between the edge and the origin.",
+    "about.p2": "I turn what decision-makers need into distributed platforms with security, performance and scale, and I defend every technical decision in front of whoever signs the contract.",
+    "about.p3": "I started in support at SaveinCloud in 2023 and was leading its cloud architecture 18 months later. At Azion, I was technical advisor to enterprise accounts: WAF, DNS, caching, Edge Functions and hybrid setups with AWS.",
+    "about.p4": "Today I’m back at SaveinCloud as a Senior Solutions Architect. Leadership, to me, is listening, exchange and growing as a team. <a href=\"#experiencia\" class=\"link link--on\">See the path</a>",
+
+    "route.title": "The path to you",
+    "route.note": "It’s what I design every day. These are the real timings of the request that brought this page to your browser, measured just now.",
+    "slip.g1": "Opening the way",
+    "slip.dns": "DNS lookup",
+    "slip.tcp": "TCP connection",
+    "slip.tls": "TLS handshake",
+    "slip.g2": "Request and response",
+    "slip.ttfb": "Time to first byte",
+    "slip.dl": "HTML download",
+    "slip.size": "Transferred",
+    "slip.g3": "In your browser",
+    "slip.dom": "HTML parsed",
+    "slip.load": "Page complete",
+    "slip.again": "Measure again",
+    "slip.privacy": "Measured by your browser with the Navigation Timing API. No data leaves this page.",
+
+    "xp.title": "Experience",
+    "xp.sub": "Eight roles at four companies since 2023.",
+    "xp0.when": "Oct 2026 – present",
+    "xp0.desc": "Back at SaveinCloud, now in solutions architecture: designing environments on Nuvion, Cloudlets and Storin, estimates and technical pre-sales for companies moving their applications to the cloud.",
+    "xp1.when": "Aug 2025 – Sep 2026",
+    "xp1.desc": "Solution design for enterprise clients combining cloud, edge, networking and security. Technical advisor in pre-sales: distributed applications, origin integration, traffic control, DNS, caching, edge security and performance, including hybrid environments connected to AWS.",
+    "xp2.r1": "Apr 2025 – Aug 2025",
+    "xp2.r2": "Feb 2025 – Aug 2025",
+    "xp2.r3": "Feb 2024 – Feb 2025",
+    "xp2.r4": "Oct 2023 – Feb 2024",
+    "xp2.desc": "From the front line of support to technical leadership: Linux servers, web applications, databases, load balancing, monitoring and high availability. Apache, Nginx, MySQL, PostgreSQL, Redis, microservices and Kubernetes.",
+    "xp3.when": "Aug 2023 – Oct 2023",
+    "xp3.desc": "Technical and commercial work on cybersecurity solutions with partners, distributors and vendors, with proposals matched to technical and business requirements.",
+    "xp4.when": "Jan 2023 – Jul 2023",
+    "xp4.desc": "Infrastructure, networking and support. Where the journey in tech began.",
+
+    "frag.agent": "The agent’s interface: a request in Portuguese becomes a five-step plan waiting for confirmation",
+    "frag.impact": "Impact Study report with before and after metrics: TTFB from 620 to 330 ms, LCP from 3.2 to 2.1 s",
+    "frag.compat": "Compatibility validator: express and sharp incompatible, axios partial, lodash, zod and jose compatible",
+    "frag.rule": "Rule builder: if Request URI starts with /wp-admin, Deny, applied to every firewall in the account",
+    "frag.rag": "RAG chat: a question about certificates answered with two cited sources",
+
+    "proj.title": "Projects",
+    "proj.note": "What I build when no one asked, straight from <a class=\"link link--on\" href=\"https://github.com/davivinco\" target=\"_blank\" rel=\"noopener\">GitHub</a>.",
+    "proj.t1": "ChatOps agent",
+    "p1.title": "A ChatOps agent for Azion",
+    "p1.desc": "Requests in plain Portuguese become a reviewable execution plan. Only after human approval does the agent run it against Azion’s v4 API, through an async queue.",
+    "p1.h1": "A hybrid planner, rules-based or LLM, writes a JSON plan before anything runs.",
+    "p1.h2": "Redis Streams with live status and history persisted in SQLite.",
+    "p1.h3": "Imports DNS from Cloudflare, Route53 and RFC 1035 zone files.",
+    "p1.h4": "Migrates proxied domains with firewall, WAF, workload and a Let’s Encrypt certificate via DNS-01.",
+    "p1.h5": "Every resource is created disabled until explicitly approved.",
+    "p2.desc": "Builds the executive before-and-after report of a CDN migration from two WebPageTest exports. The numbers come from code; the AI only writes the prose, and every sentence is checked against the data.",
+    "p2.h1": "The WebPageTest JSONs never leave the browser.",
+    "p2.h2": "Changes under 5% become a “technical tie”, never a story of gains.",
+    "p2.h3": "If the AI fails or makes things up, a deterministic narrative takes over.",
+    "p2.h4": "Runs on an Azion Edge Function with Qwen3 and exports a PDF on A4 sheets.",
+    "p3.desc": "Tells whether a project’s dependencies run on the Azion Runtime and gives a deploy verdict. Deterministic rules first; AI only for what isn’t catalogued, always flagged as a suggestion.",
+    "p3.h1": "Takes a package.json, a loose list or a pasted npm install line.",
+    "p3.h2": "devDependencies and build tools never block the deploy.",
+    "p3.h3": "Unknown packages go to the AI in concurrent batches.",
+    "p3.h4": "UI and API served by a single Edge Function.",
+    "p4.desc": "Builds an Edge Firewall rule once and applies it to every firewall in the account, with a dry run first. Talks to the v3 and v4 APIs without the rest of the program knowing which one is in use.",
+    "p4.h1": "Python 3.8+ and the standard library only, no dependencies.",
+    "p4.h2": "Simulates the plan before applying it to the fleet.",
+    "p4.h3": "The same rule is a NOOP on both API versions.",
+    "p4.h4": "A built-in fake API for testing without touching the account.",
+    "p5.desc": "Retrieval-augmented generation that runs entirely at the edge: embeddings and answers through Azion AI Inference; documents, chunks and vectors in Edge SQL.",
+    "p5.h1": "Document ingestion with text extraction and chunking.",
+    "p5.h2": "Vector search in Edge SQL, with no external infrastructure.",
+    "p5.h3": "Answers come with the sources they used.",
+    "p5.h4": "Guardrails before and after generation.",
+    "proj.more": "Also on GitHub: SaveinCloud’s cost estimate calculator, a Next.js-on-Azion deploy manual, a METAR reader and a RabbitMQ install via JPS.",
+    "proj.code": "View the code",
+    "proj.all": "All repositories",
+
+    "stack.note": "Skills by domain, from the protocol to the boardroom.",
+    "sk1.title": "Edge and performance",
+    "sk1.i1": "WAF and edge rules",
+    "sk1.i3": "Edge DNS and zone migration",
+    "sk1.i4": "CDN, caching and tiered cache",
+    "sk1.i5": "Traffic control and routing",
+    "sk1.i6": "TLS and Let’s Encrypt automation",
+    "sk2.title": "Cloud and infrastructure",
+    "sk2.i1": "AWS and hybrid architectures",
+    "sk2.i2": "Kubernetes and microservices",
+    "sk2.i3": "Docker and containers",
+    "sk2.i4": "Linux tuning and administration",
+    "sk2.i5": "Load balancing and high availability",
+    "sk2.i6": "Nginx, Apache and IaC (YAML, JPS)",
     "sk3.title": "Security",
-    "sk3.i1": "Edge security &amp; mitigation",
+    "sk3.i1": "Edge security and mitigation",
     "sk3.i2": "Threat management (Cisco CyberOps)",
-    "sk3.i3": "Endpoint &amp; network security",
-    "sk3.i4": "Identity &amp; compliance (Microsoft SCI)",
-    "sk3.i5": "LGPD &amp; data protection",
+    "sk3.i3": "Endpoint and network security",
+    "sk3.i4": "Identity and compliance (Microsoft SCI)",
+    "sk3.i5": "LGPD and data protection",
     "sk3.i6": "Degree in Information Security",
-    "sk4.title": "Data &amp; Observability",
-    "sk4.i1": "MySQL · PostgreSQL · Redis",
-    "sk4.i2": "RabbitMQ &amp; messaging",
-    "sk4.i3": "Monitoring (OpMon · Linux)",
-    "sk4.i4": "Power BI &amp; analytics",
-    "sk4.i5": "Azure Data Fundamentals",
-    "sk5.title": "Engineering &amp; AI",
-    "sk5.i1": "TypeScript &amp; Node.js",
-    "sk5.i2": "Python",
-    "sk5.i3": "AI Agents, MCP &amp; ChatOps",
-    "sk5.i4": "RAG &amp; LLM applications",
-    "sk5.i5": "PHP · Bash · React · Spring Boot",
-    "sk6.title": "Leadership &amp; Business",
-    "sk6.i1": "Technical pre-sales &amp; advisory",
-    "sk6.i2": "Team leadership (Tech Lead)",
+    "sk4.title": "Data and observability",
+    "sk4.i2": "RabbitMQ and messaging",
+    "sk4.i3": "Monitoring with OpMon and Linux",
+    "sk4.i4": "Power BI and analytics",
+    "sk5.title": "Engineering and AI",
+    "sk5.i3": "AI agents, MCP and ChatOps",
+    "sk5.i4": "RAG and LLM applications",
+    "sk6.title": "Leadership and business",
+    "sk6.i1": "Technical pre-sales and advisory",
+    "sk6.i2": "Leading a team as tech lead",
     "sk6.i3": "Value-driven architecture",
     "sk6.i4": "Stakeholder communication",
-    "sk6.i5": "Professional English (B2 TOEIC)",
+    "sk6.i5": "Professional English, B2 on the TOEIC",
 
-    "label.exp": "Experience",
-    "xp1.period": "Aug 2025 — present",
-    "xp1.desc": "Solution design for enterprise clients combining cloud, edge, networking and security. Technical advisor in pre-sales; architectures with distributed applications, origin integration, traffic control, DNS, cache, edge security and performance optimization — including hybrid environments connected to AWS.",
-    "xp2.co": "Oct 2023 — Aug 2025",
-    "xp2.period": "1 yr 11 mos",
-    "xp2.desc": "From the front line of support to technical leadership: solutions with Linux servers, web applications, databases, load balancing, monitoring and high availability. Open-source environments (Apache, Nginx, MySQL, PostgreSQL, Redis), microservices and Kubernetes platforms.",
-    "xp2.r1d": "Apr 2025 — Aug 2025",
-    "xp2.r2d": "Feb 2025 — Aug 2025",
-    "xp2.r3d": "Feb 2024 — Feb 2025",
-    "xp2.r4d": "Oct 2023 — Feb 2024",
-    "xp3.period": "Aug 2023 — Oct 2023",
-    "xp3.desc": "Technical-commercial activities with cybersecurity solutions alongside partners, distributors and vendors — proposals aligned with technical requirements and business needs.",
-    "xp4.period": "Jan 2023 — Jul 2023",
-    "xp4.desc": "Infrastructure, networking and support — the start of the journey in tech.",
-
-    "label.proj": "Projects",
-    "proj.note": "A selection of what I build when no one asked — straight from <a href=\"https://github.com/davivinco\" target=\"_blank\" rel=\"noopener\">GitHub</a>, with live data.",
-
-    "label.edu": "Education",
-    "edu0.title": "Postgraduate Degree (Lato Sensu) in Software Engineering for Applied AI",
-    "edu0.period": "2026 — 2027 · in progress",
-    "edu1.title": "MBA in Strategic Management &amp; Innovation",
-    "edu1.period": "2026 · in progress",
-    "edu2.title": "Associate Degree in Information Security",
-    "edu2.period": "2023 — 2026",
-    "edu3.title": "Technical Degree in Systems Development",
-    "edu.certsHead": "Certifications",
-    "cert.harvard": "CC50 — Introduction to Computer Science",
-    "cert.ada": "Back-End (Node.js) · Tech Fundamentals · Math Fundamentals",
-    "cert.udemy": "Docker for Devs · Linux Server Monitoring · Web Server Load Balance · MySQL · Full-stack (Node, React, Spring Boot) · Leadership with Emotional Intelligence",
-    "cert.bradesco": "LGPD · IT Security · Ethics in Development · AI &amp; Digital Culture",
+    "edu.title": "Education",
+    "edu.sub": "Four degrees, more than 25 certifications and volunteer teaching.",
+    "edu.k1": "Degrees",
+    "edu0.t": "Postgraduate degree (Lato Sensu) in Software Engineering for Applied AI",
+    "edu0.s": "UNIPDS, 2026–2027, in progress",
+    "edu1.t": "MBA in Strategic Management and Innovation",
+    "edu1.s": "Faculdade Focus, 2026, in progress",
+    "edu2.t": "Associate degree in Information Security",
+    "edu3.t": "Technical degree in Systems Development",
+    "edu.k2": "Certifications",
+    "cert.harvard": "CC50, Introduction to Computer Science",
+    "cert.ada": "Back-end with Node.js, tech and maths fundamentals",
+    "cert.udemy": "Docker, Linux server monitoring, load balancing, MySQL, full stack with Node, React and Spring Boot, leadership with emotional intelligence",
+    "cert.bradesco": "LGPD, IT security, ethics in development, AI and digital culture",
     "cert.othersLabel": "Others",
-    "cert.others": "Power BI Series (Xperiun) · OpMon Advanced Monitoring (OpServices) · Computer Networks (Curso em Vídeo) · English B2 (TOEIC)",
-    "edu.volHead": "Volunteering",
-    "edu.vol": "<strong>Instructor</strong> — Fatec Americana · 2024. I taught computer classes to youth and adults in vulnerable situations, alongside fellow students.",
+    "cert.others": "Power BI (Xperiun), OpMon (OpServices), computer networks (Curso em Vídeo), English B2 (TOEIC)",
+    "edu.k3": "Volunteering",
+    "vol.t": "Instructor",
+    "vol.s": "Fatec Americana, 2024. Computer classes for young people and adults in vulnerable situations, alongside fellow students.",
 
-    "label.contact": "Contact",
-    "contact.title": "Let's <span class=\"accent\">build?</span>",
-    "contact.note": "Open to conversations about edge, cloud and security.",
+    "contact.title": "Let’s build?",
+    "contact.note": "Open to conversations about cloud, edge and security. Write a subject and your email app opens with the message ready.",
+    "contact.nameLabel": "Your name",
+    "contact.name": "Your name",
+    "contact.subjectLabel": "Subject",
+    "contact.subject": "Subject",
+    "contact.send": "Write an email",
 
-    "footer.loc": "Brazil",
-    "footer.top": "Back to top ↑",
+    "footer.top": "Back to top",
+    "footer.legal": "© 2026 Davi Vinco. São Paulo, Brazil. Plain HTML, CSS and JavaScript, no build step.",
+    "footer.credits": "Archive photographs and footage, converted to greyscale:",
+    "footer.pd": "public domain",
+    "footer.via": "Via Wikimedia Commons.",
+  };
+
+  // Strings the script writes itself.
+  const STR = {
+    pt: {
+      slipTitle: "Requisição desta página",
+      slipAgain: "Nova medição",
+      total: "HTML entregue em",
+      totalAgain: "Resposta completa em",
+      reused: "reaproveitada",
+      cached: "em cache",
+      none: "sem TLS",
+      fromCache: "cache do navegador",
+      na: "não se aplica",
+      failed: "Não foi possível medir agora.",
+      server: "Respondido por",
+      updated: "atualizado em",
+      mailHello: "Olá, Davi.",
+      mailSubject: "Contato pelo site",
+      locale: "pt-BR",
+    },
+    en: {
+      slipTitle: "This page’s request",
+      slipAgain: "New measurement",
+      total: "HTML delivered in",
+      totalAgain: "Full response in",
+      reused: "reused",
+      cached: "cached",
+      none: "no TLS",
+      fromCache: "browser cache",
+      na: "not applicable",
+      failed: "Could not measure right now.",
+      server: "Answered by",
+      updated: "updated",
+      mailHello: "Hi Davi,",
+      mailSubject: "Hello from your site",
+      locale: "en-US",
+    },
   };
 
   const META = {
     pt: {
       htmlLang: "pt-BR",
-      title: "Davi Vinco — Solutions Architect",
-      desc: "Davi Vinco — Solutions Architect II na Azion. Edge Computing, Cloud e Segurança da Informação.",
+      title: "Davi Vinco, Solutions Architect Senior",
+      desc: "Davi Vinco, Solutions Architect Senior na SaveinCloud. Arquitetura de cloud, edge e segurança da informação para empresas.",
     },
     en: {
       htmlLang: "en",
-      title: "Davi Vinco — Solutions Architect",
-      desc: "Davi Vinco — Solutions Architect II at Azion. Edge Computing, Cloud and Information Security.",
+      title: "Davi Vinco, Senior Solutions Architect",
+      desc: "Davi Vinco, Senior Solutions Architect at SaveinCloud. Cloud, edge and information security architecture for enterprises.",
     },
   };
 
-  // Capture the inline Portuguese as the baseline before any swap.
   const i18nEls = [...document.querySelectorAll("[data-i18n]")];
   const ptBaseline = new WeakMap();
   i18nEls.forEach((el) => ptBaseline.set(el, el.innerHTML));
 
-  let currentLang = "pt";
+  const attrEls = [...document.querySelectorAll("[data-i18n-attr]")];
+  const ptAttrs = new WeakMap();
+  attrEls.forEach((el) => {
+    const pairs = el.dataset.i18nAttr.split(";").map((p) => p.split(":").map((s) => s.trim()));
+    ptAttrs.set(el, pairs.map(([attr, key]) => [attr, key, el.getAttribute(attr)]));
+  });
 
-  function applyLang(lang) {
-    currentLang = lang === "en" ? "en" : "pt";
+  const langBtn = document.getElementById("langToggle");
+  let lang = "pt";
+  const s = () => STR[lang];
+
+  function applyLang(next) {
+    lang = next === "en" ? "en" : "pt";
 
     i18nEls.forEach((el) => {
       const key = el.dataset.i18n;
-      if (currentLang === "en" && EN[key] != null) {
-        el.innerHTML = EN[key];
-      } else {
-        el.innerHTML = ptBaseline.get(el);
+      el.innerHTML = lang === "en" && EN[key] != null ? EN[key] : ptBaseline.get(el);
+    });
+    attrEls.forEach((el) => {
+      for (const [attr, key, pt] of ptAttrs.get(el)) {
+        el.setAttribute(attr, lang === "en" && EN[key] != null ? EN[key] : pt);
       }
     });
 
-    const meta = META[currentLang];
+    const meta = META[lang];
     document.documentElement.lang = meta.htmlLang;
     document.title = meta.title;
     const descEl = document.querySelector('meta[name="description"]');
     if (descEl) descEl.setAttribute("content", meta.desc);
+    if (langBtn) langBtn.setAttribute("lang", lang === "en" ? "pt-BR" : "en");
 
-    document.querySelectorAll(".lang-btn").forEach((b) =>
-      b.classList.toggle("is-active", b.dataset.lang === currentLang)
-    );
+    try { localStorage.setItem("lang", lang); } catch (_) {}
+    if (/^https?:$/.test(location.protocol)) {
+      try { history.replaceState(null, "", (lang === "en" ? "/en" : "/") + location.hash); } catch (_) {}
+    }
 
-    try { localStorage.setItem("lang", currentLang); } catch (_) {}
-    history.replaceState(null, "", currentLang === "en" ? "/en" : "/");
-
-    if (lastRepos) renderProjects(lastRepos);
+    if (lastMeasure) renderSlip(lastMeasure, false);
+    renderRepoMeta();
   }
 
   function detectLang() {
@@ -298,140 +293,345 @@
     return "pt";
   }
 
-  document.querySelectorAll(".lang-btn").forEach((btn) =>
-    btn.addEventListener("click", () => applyLang(btn.dataset.lang))
+  if (langBtn) langBtn.addEventListener("click", () => applyLang(lang === "en" ? "pt" : "en"));
+
+  /* ============================================================
+     Section entrances: once, in reading order
+     ============================================================ */
+  const revealIO = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealIO.unobserve(e.target);
+        }
+      }
+    },
+    { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
   );
+  document.querySelectorAll("[data-reveal]").forEach((el) => revealIO.observe(el));
 
-  /* ---------- projects: live from GitHub, curated order ---------- */
-  const list = document.getElementById("projectsList");
-  let lastRepos = null;
+  /* ============================================================
+     Plates: the fixed half changes to the picture of the
+     section crossing the middle of the screen
+     ============================================================ */
+  document.querySelectorAll(".stage").forEach((stage) => {
+    const plate = stage.querySelector(".plate");
+    if (!plate) return;
+    const layers = [...plate.querySelectorAll(".plate-layer")];
+    const sections = [...stage.querySelectorAll("[data-plate]")];
+    const video = plate.querySelector("video");
+    let current = layers.find((l) => l.classList.contains("is-on"));
 
-  const CURATED = {
-    "azion-ai-agent-mvp": {
-      featured: true,
-      tag: { pt: "Destaque", en: "Featured" },
-      desc: {
-        pt: "Plataforma de ChatOps com IA para provisionamento de infraestrutura de borda: pedidos em português natural viram um plano de execução validável — e, só após aprovação humana, o agente executa contra a API v4 da Azion via fila assíncrona.",
-        en: "AI-powered ChatOps platform for provisioning edge infrastructure: natural-language requests become a validatable execution plan — and only after human approval does the agent run against Azion's v4 API through an async queue.",
-      },
-      highlights: {
-        pt: [
-          "Planner híbrido (rules-based + LLM) gera planos JSON revisáveis antes de qualquer execução",
-          "Execução assíncrona com Redis Streams, status em tempo real e histórico persistido em SQLite",
-          "Parser de DNS multi-provider: Cloudflare (CSV/BIND), Route53 (JSON) e zone-files RFC1035",
-          "Migração completa de domínios proxied: Connector, Firewall + WAF, Workload e certificado Let's Encrypt via desafio DNS-01",
-          "Security by default: todo recurso nasce desativado até aprovação explícita",
-        ],
-        en: [
-          "Hybrid planner (rules-based + LLM) generates reviewable JSON plans before any execution",
-          "Async execution with Redis Streams, real-time status and history persisted in SQLite",
-          "Multi-provider DNS parser: Cloudflare (CSV/BIND), Route53 (JSON) and RFC1035 zone-files",
-          "Full proxied-domain migration: Connector, Firewall + WAF, Workload and Let's Encrypt certificate via DNS-01 challenge",
-          "Security by default: every resource is created disabled until explicitly approved",
-        ],
-      },
-      chips: ["TypeScript", "LLM Planner", "MCP", "Redis Streams", "SQLite", "Azion API v4", "Let's Encrypt"],
-    },
-    "azion-rag-chat": {
-      desc: {
-        pt: "Chat com RAG (Retrieval-Augmented Generation) construído em TypeScript: pipeline de embeddings e recuperação de contexto para respostas precisas sobre a plataforma Azion, com fundamentação em documentação real.",
-        en: "RAG (Retrieval-Augmented Generation) chat built in TypeScript: an embeddings and context-retrieval pipeline for precise answers about the Azion platform, grounded in real documentation.",
-      },
-      chips: ["TypeScript", "RAG", "Embeddings", "LLM"],
-    },
-    "davi-vinco-site": {
-      desc: {
-        pt: "Este portfólio: single-page em HTML/CSS/JS puro, sem framework ou build step. Publicado em produção sobre um Ubuntu 22.04 com Nginx, TLS terminado na borda pela Azion.",
-        en: "This portfolio: a single-page site in pure HTML/CSS/JS, no framework or build step. Running in production on Ubuntu 22.04 with Nginx, TLS terminated at the edge by Azion.",
-      },
-      highlights: {
-        pt: [
-          "Zero dependências de build — três arquivos estáticos, deploy por rsync",
-          "Seção de projetos consome a API do GitHub em tempo real, com fallback estático",
-          "Arquitetura de entrega: cliente → HTTPS na borda (Azion) → HTTP simples até a origem",
-        ],
-        en: [
-          "Zero build dependencies — three static files, deployed via rsync",
-          "Projects section consumes the GitHub API in real time, with a static fallback",
-          "Delivery architecture: client → HTTPS at the edge (Azion) → plain HTTP to the origin",
-        ],
-      },
-      chips: ["HTML/CSS/JS", "Nginx", "Ubuntu 22.04", "Azion Edge"],
-    },
-  };
+    function syncVideo() {
+      if (!video) return;
+      const on = video.closest(".plate-layer").classList.contains("is-on");
+      if (on && wide.matches && !reduceMotion.matches && !document.hidden) {
+        if (video.preload === "none") video.preload = "auto";
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    }
 
-  const FALLBACK = Object.keys(CURATED).map((name) => ({
-    name,
-    html_url: `https://github.com/davivinco/${name}`,
-    language: name.startsWith("azion") ? "TypeScript" : name === "davi-vinco-site" ? "HTML" : "YAML",
-    pushed_at: null,
-  }));
+    function show(name) {
+      const next = layers.find((l) => l.dataset.layer === name);
+      if (!next || next === current) return;
+      if (current) current.classList.remove("is-on");
+      next.classList.add("is-on");
+      current = next;
+      syncVideo();
+    }
 
-  function loc(field) {
-    if (field == null) return null;
-    return typeof field === "object" ? field[currentLang] : field;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) show(e.target.dataset.plate);
+      },
+      { rootMargin: "-48% 0px -48% 0px" }
+    );
+    sections.forEach((sec) => io.observe(sec));
+
+    document.addEventListener("visibilitychange", syncVideo);
+    reduceMotion.addEventListener?.("change", syncVideo);
+    wide.addEventListener?.("change", syncVideo);
+  });
+
+  /* ============================================================
+     The live thing: this page's own request, as an itinerary
+     ============================================================ */
+  const slip = document.getElementById("slip");
+  const slipTitle = document.getElementById("slipTitle");
+  const slipTime = document.getElementById("slipTime");
+  const slipProto = document.getElementById("slipProto");
+  const slipTotal = document.getElementById("slipTotal");
+  const slipTotalLabel = document.getElementById("slipTotalLabel");
+  const slipServer = document.getElementById("slipServer");
+  const againBtn = document.getElementById("remeasure");
+  let lastMeasure = null;
+  let slipSeen = false;
+  let pendingPrint = false;
+
+  const r = (v) => (v > 0 ? Math.max(0, v) : 0);
+
+  function protoName(p) {
+    if (!p) return "";
+    if (p === "h2") return "HTTP/2";
+    if (p === "h3" || p.startsWith("h3")) return "HTTP/3";
+    if (p.startsWith("http/")) return p.toUpperCase();
+    return p;
   }
 
-  function renderProjects(repos) {
-    lastRepos = repos;
-    const order = Object.keys(CURATED);
-    const picked = repos
-      .filter((r) => order.includes(r.name))
-      .sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
+  function measureFrom(t, kind) {
+    const dns = r(t.domainLookupEnd - t.domainLookupStart);
+    const tcpEnd = t.secureConnectionStart > 0 ? t.secureConnectionStart : t.connectEnd;
+    const tcp = r(tcpEnd - t.connectStart);
+    const tls = t.secureConnectionStart > 0 ? r(t.connectEnd - t.secureConnectionStart) : null;
+    const reused = t.connectEnd - t.connectStart <= 0 && dns <= 0;
+    return {
+      kind,
+      at: kind === "nav" ? performance.timeOrigin : performance.timeOrigin + t.startTime,
+      proto: t.nextHopProtocol || "",
+      dns, tcp, tls, reused,
+      secure: location.protocol === "https:",
+      ttfb: r(t.responseStart - t.requestStart),
+      dl: r(t.responseEnd - t.responseStart),
+      size: typeof t.transferSize === "number" ? t.transferSize : null,
+      body: t.encodedBodySize || 0,
+      dom: kind === "nav" ? r(t.domContentLoadedEventEnd) : null,
+      load: kind === "nav" ? r(t.loadEventEnd) : null,
+      total: r(t.responseEnd - t.startTime),
+      server: null,
+    };
+  }
 
-    const items = picked.length ? picked : FALLBACK;
-    const dateLocale = currentLang === "en" ? "en-US" : "pt-BR";
-    list.innerHTML = "";
+  const fmtMs = (v) => (v < 1 ? "< 1 ms" : Math.round(v).toLocaleString(s().locale) + " ms");
 
-    items.forEach((repo, i) => {
-      const meta = CURATED[repo.name] || {};
-      const a = document.createElement("a");
-      a.className = "project" + (meta.featured ? " featured" : "");
-      a.href = repo.html_url;
-      a.target = "_blank";
-      a.rel = "noopener";
+  function fmtSize(m) {
+    if (m.size === 0 && m.body > 0) return s().fromCache;
+    const bytes = m.size || m.body;
+    if (!bytes) return "—";
+    const kb = bytes / 1000;
+    return (kb < 10 ? kb.toFixed(1) : Math.round(kb)).toLocaleString(s().locale) + " kB";
+  }
 
-      const parts = [repo.language || null];
-      if (repo.pushed_at) {
-        parts.push(new Date(repo.pushed_at).toLocaleDateString(dateLocale, { month: "short", year: "numeric" }));
+  function rowValue(m, k) {
+    switch (k) {
+      case "dns": return m.reused ? { text: s().cached } : { ms: m.dns };
+      case "tcp": return m.reused ? { text: s().reused } : { ms: m.tcp };
+      case "tls":
+        if (m.reused) return { text: s().reused };
+        if (m.tls == null) return { text: m.secure ? "< 1 ms" : s().none };
+        return { ms: m.tls };
+      case "ttfb": return { ms: m.ttfb };
+      case "dl": return { ms: m.dl };
+      case "size": return { text: fmtSize(m) };
+      case "dom": return m.dom == null ? { text: s().na } : { ms: m.dom };
+      case "load": return m.load == null ? { text: s().na } : { ms: m.load };
+      default: return { text: "—" };
+    }
+  }
+
+  function countUp(el, target, delay) {
+    if (reduceMotion.matches || target < 1) { el.textContent = fmtMs(target); return; }
+    el.textContent = fmtMs(0);
+    const dur = 700;
+    setTimeout(() => {
+      const t0 = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        el.textContent = fmtMs(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }, delay);
+  }
+
+  function renderSlip(m, animate) {
+    lastMeasure = m;
+    slipTitle.textContent = m.kind === "nav" ? s().slipTitle : s().slipAgain;
+    slipTime.textContent = new Date(m.at).toLocaleString(s().locale, {
+      day: "numeric", month: "short", year: "numeric",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+    });
+    slipProto.textContent = protoName(m.proto);
+    slipTotalLabel.textContent = m.kind === "nav" ? s().total : s().totalAgain;
+
+    if (m.server) {
+      slipServer.hidden = false;
+      slipServer.textContent = s().server + " " + m.server;
+    } else {
+      slipServer.hidden = true;
+    }
+
+    // Number every printed line so they appear top to bottom.
+    let p = 0;
+    for (const el of slip.querySelectorAll(".slip-group, .slip-row, .slip-total")) {
+      el.style.setProperty("--p", p++);
+    }
+
+    slip.querySelectorAll(".slip-row").forEach((row) => {
+      const dd = row.querySelector("dd");
+      const v = rowValue(m, row.dataset.k);
+      const delay = (parseFloat(row.style.getPropertyValue("--p")) || 0) * 70;
+      if (v.ms != null) {
+        if (animate) countUp(dd, v.ms, delay); else dd.textContent = fmtMs(v.ms);
+      } else {
+        dd.textContent = v.text;
       }
+    });
+    if (animate) countUp(slipTotal, m.total, p * 70); else slipTotal.textContent = fmtMs(m.total);
 
-      const hl = loc(meta.highlights);
-      const highlights = hl
-        ? `<ul class="project-highlights">${hl.map((h) => `<li>${h}</li>`).join("")}</ul>`
-        : "";
-      const chips = meta.chips
-        ? `<div class="project-chips">${meta.chips.map((c) => `<span>${c}</span>`).join("")}</div>`
-        : "";
-      const tag = loc(meta.tag);
+    if (animate) print();
+  }
 
-      a.innerHTML = `
-        <div class="project-head">
-          <h3>${repo.name} <span class="arrow">↗</span></h3>
-          <span class="project-meta">${parts.filter(Boolean).join(" · ")}</span>
-        </div>
-        <p>${loc(meta.desc) || repo.description || (currentLang === "en" ? "Project on GitHub." : "Projeto no GitHub.")}</p>
-        ${highlights}
-        ${chips}
-        ${tag ? `<span class="tag">${tag}</span>` : ""}`;
+  function print() {
+    if (!slipSeen) { pendingPrint = true; return; }
+    slip.classList.remove("is-printed");
+    void slip.offsetWidth;
+    slip.classList.add("is-printed");
+  }
 
-      a.addEventListener("pointermove", (e) => {
-        const r = a.getBoundingClientRect();
-        a.style.setProperty("--mx", e.clientX - r.left + "px");
-        a.style.setProperty("--my", e.clientY - r.top + "px");
-      });
+  if (slip) {
+    const slipIO = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          slipSeen = true;
+          slipIO.disconnect();
+          if (lastMeasure) renderSlip(lastMeasure, true);
+          else if (pendingPrint) print();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    slipIO.observe(slip);
 
-      list.appendChild(a);
-      a.style.transitionDelay = `${Math.min(i * 60, 300)}ms`;
-      io.observe(a);
+    const readNavigation = () => {
+      const nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+      if (!nav || !nav.loadEventEnd) return false;
+      const m = measureFrom(nav, "nav");
+      if (slipSeen) renderSlip(m, true); else lastMeasure = m;
+      return true;
+    };
+    if (document.readyState === "complete") {
+      setTimeout(() => readNavigation() || setTimeout(readNavigation, 300), 0);
+    } else {
+      window.addEventListener("load", () => setTimeout(readNavigation, 0), { once: true });
+    }
+  }
+
+  if (againBtn) {
+    againBtn.addEventListener("click", async () => {
+      againBtn.disabled = true;
+      const url = new URL(location.pathname, location.href);
+      url.searchParams.set("medir", Date.now().toString(36));
+      try {
+        const res = await fetch(url.href, { cache: "no-store", credentials: "same-origin" });
+        await res.text();
+        await new Promise((ok) => setTimeout(ok, 30));
+        const entries = performance.getEntriesByName(url.href);
+        const entry = entries[entries.length - 1];
+        if (!entry) throw new Error("no timing");
+        const m = measureFrom(entry, "again");
+        const server = [res.headers.get("server"), res.headers.get("x-cache")].filter(Boolean).join(", ");
+        m.server = server || null;
+        renderSlip(m, true);
+      } catch (_) {
+        slipServer.hidden = false;
+        slipServer.textContent = s().failed;
+      } finally {
+        againBtn.disabled = false;
+      }
     });
   }
 
-  // Set the initial language before projects load so the first render matches.
+  /* ============================================================
+     Projects: tabs over the interface fragments
+     ============================================================ */
+  const tabs = [...document.querySelectorAll(".tab")];
+  const frags = [...document.querySelectorAll(".frag")];
+  const repoLink = document.getElementById("repoLink");
+
+  function select(tab, focus) {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute("aria-controls"));
+      if (panel) panel.classList.toggle("is-on", on);
+    });
+    const repo = tab.dataset.frag;
+    frags.forEach((f) => f.classList.toggle("is-on", f.dataset.frag === repo));
+    if (repoLink) repoLink.href = "https://github.com/davivinco/" + repo;
+    if (focus) tab.focus();
+  }
+
+  tabs.forEach((t, i) => {
+    t.tabIndex = t.getAttribute("aria-selected") === "true" ? 0 : -1;
+    t.addEventListener("click", () => select(t, false));
+    t.addEventListener("keydown", (e) => {
+      let j = null;
+      if (e.key === "ArrowRight") j = (i + 1) % tabs.length;
+      else if (e.key === "ArrowLeft") j = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === "Home") j = 0;
+      else if (e.key === "End") j = tabs.length - 1;
+      if (j !== null) { e.preventDefault(); select(tabs[j], true); }
+    });
+  });
+
+  /* ---------- live repository data from GitHub ---------- */
+  let repos = null;
+  function renderRepoMeta() {
+    if (!repos) return;
+    document.querySelectorAll(".panel[data-repo]").forEach((panel) => {
+      const repo = repos.find((x) => x.name === panel.dataset.repo);
+      const out = panel.querySelector("[data-meta]");
+      if (!repo || !out) return;
+      const parts = [];
+      if (repo.language) parts.push(repo.language);
+      if (repo.pushed_at) {
+        const when = new Date(repo.pushed_at).toLocaleDateString(s().locale, { month: "short", year: "numeric" });
+        parts.push(s().updated + " " + when);
+      }
+      out.textContent = parts.join(", ");
+    });
+  }
+
+  /* ============================================================
+     Contact: the three cells write the email for you
+     ============================================================ */
+  const compose = document.getElementById("compose");
+  if (compose) {
+    compose.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = compose.elements.nome.value.trim();
+      const subject = compose.elements.subject.value.trim() || s().mailSubject;
+      const body = s().mailHello + "\n\n\n" + (name ? name + "\n" : "");
+      location.href =
+        "mailto:davi.vinco.contato@gmail.com?subject=" +
+        encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+    });
+  }
+
+  /* ---------- the strip rests when it is off screen ---------- */
+  const strip = document.querySelector(".strip");
+  if (strip) {
+    new IntersectionObserver((entries) => {
+      for (const e of entries) strip.classList.toggle("is-paused", !e.isIntersecting);
+    }).observe(strip);
+  }
+
+  /* ---------- phone menu closes after a choice ---------- */
+  const menu = document.querySelector(".menu");
+  if (menu) {
+    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => menu.removeAttribute("open")));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") menu.removeAttribute("open"); });
+  }
+
+  /* ---------- go ---------- */
   applyLang(detectLang());
 
   fetch("https://api.github.com/users/davivinco/repos?per_page=100")
-    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-    .then(renderProjects)
-    .catch(() => renderProjects(FALLBACK));
+    .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then((data) => { repos = data; renderRepoMeta(); })
+    .catch(() => {});
 })();
