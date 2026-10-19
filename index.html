@@ -12,17 +12,17 @@
   <meta property="og:image" content="https://davi.vinco.dev.br/images/davi.jpg" />
   <meta property="og:type" content="website" />
   <script>document.documentElement.classList.add("js")</script>
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="/images/davi.jpg" fetchpriority="high" />
-  <link rel="stylesheet" href="/css/style.css?v=5" />
+  <link rel="stylesheet" href="/css/style.css?v=6" />
 </head>
 <body>
 
   <a class="skip" href="#sobre" data-i18n="skip">Pular para o conteúdo</a>
 
-  <!-- ===== First stage: the fixed plate on the left, the reading column on the right ===== -->
+  <!-- ===== First stage: the portrait fixed on the left, the reading column on the right ===== -->
   <div class="stage stage--left">
 
     <div class="plate" data-plate-group="one">
@@ -31,20 +31,6 @@
           <img src="/images/davi.jpg" width="800" height="800" fetchpriority="high" decoding="async"
                alt="Retrato de Davi Vinco: cabelo escuro penteado para cima, barba curta, camiseta preta, sorrindo, sobre fundo cinza"
                data-i18n-attr="alt:alt.portrait" />
-        </figure>
-        <figure class="plate-layer" data-layer="rota">
-          <video muted loop playsinline preload="none" width="600" height="790" aria-hidden="true"
-                 poster="/assets/strowger-switch-poster.jpg">
-            <source src="/assets/strowger-switch.webm" type="video/webm" />
-            <source src="/assets/strowger-switch.mp4" type="video/mp4" />
-          </video>
-          <figcaption data-i18n="cap.switch">Seletor Strowger em funcionamento, NTT History Center of Technologies, Japão</figcaption>
-        </figure>
-        <figure class="plate-layer" data-layer="experiencia">
-          <img src="/assets/central-bras-1961.jpg" width="1293" height="1762" loading="lazy" decoding="async"
-               alt="Prédio da Companhia Telefônica Brasileira no Brás, com palmeiras na calçada, em 1961"
-               data-i18n-attr="alt:alt.bras" />
-          <figcaption data-i18n="cap.bras">Central Telefônica do Brás, São Paulo, 1961</figcaption>
         </figure>
       </div>
     </div>
@@ -81,7 +67,7 @@
       </header>
 
       <!-- Intro: a narrow column of short paragraphs beside the portrait -->
-      <section class="intro" id="sobre" data-plate="retrato" aria-label="Sobre" data-i18n-attr="aria-label:aria.about">
+      <section class="intro" id="sobre" aria-label="Sobre" data-i18n-attr="aria-label:aria.about">
         <div class="intro-col">
           <p class="intro-first" data-reveal style="--i:0" data-i18n="about.p1">Vinco é a linha onde dois planos se encontram. É onde eu trabalho: entre arquitetura e negócio, entre a borda e a origem.</p>
           <p data-reveal style="--i:1" data-i18n="about.p2">Traduzo o que quem decide precisa em plataformas distribuídas com segurança, performance e escala, e defendo cada decisão técnica na frente de quem assina o contrato.</p>
@@ -91,11 +77,7 @@
       </section>
 
       <!-- The live thing: this page's own request, printed as an itinerary -->
-      <section class="route" id="rota" data-plate="rota" aria-labelledby="routeTitle">
-        <figure class="inline-shot">
-          <img src="/assets/strowger-switch-poster.jpg" width="600" height="790" loading="lazy" decoding="async" alt=""/>
-          <figcaption data-i18n="cap.switch">Seletor Strowger em funcionamento, NTT History Center of Technologies, Japão</figcaption>
-        </figure>
+      <section class="route" id="rota" aria-labelledby="routeTitle">
         <div class="route-head">
           <h2 class="h-head" id="routeTitle" data-reveal style="--i:0" data-i18n="route.title">O caminho até você</h2>
           <p class="route-note" data-reveal style="--i:1" data-i18n="route.note">É o que eu desenho todos os dias. Estes são os tempos reais da requisição que trouxe esta página até o seu navegador, medidos agora.</p>
@@ -145,11 +127,7 @@
       </section>
 
       <!-- Experience as a quiet ledger -->
-      <section class="ledger" id="experiencia" data-plate="experiencia" aria-labelledby="xpTitle">
-        <figure class="inline-shot">
-          <img src="/assets/central-bras-1961.jpg" width="1293" height="1762" loading="lazy" decoding="async" alt="" />
-          <figcaption data-i18n="cap.bras">Central Telefônica do Brás, São Paulo, 1961</figcaption>
-        </figure>
+      <section class="ledger" id="experiencia" aria-labelledby="xpTitle">
         <h2 class="h-head" id="xpTitle" data-reveal style="--i:0" data-i18n="xp.title">Experiência</h2>
         <p class="ledger-sub" data-reveal style="--i:1" data-i18n="xp.sub">Oito posições em quatro empresas desde 2023.</p>
 
@@ -405,16 +383,12 @@
     </div>
   </section>
 
-  <!-- ===== Second stage: the crease flips, the plate moves to the right ===== -->
-  <div class="stage stage--right">
+  <!-- ===== Stack and education, full width ===== -->
+  <div class="wide">
 
     <div class="column">
 
-      <section class="stack" id="stack" data-plate="stack" aria-label="Stack">
-        <figure class="inline-shot">
-          <img src="/assets/repeaters-1919.jpg" width="1295" height="1612" loading="lazy" decoding="async" alt="" />
-          <figcaption data-i18n="cap.repeaters">Repetidores da linha Boston–Washington da AT&amp;T, Providence, 1919</figcaption>
-        </figure>
+      <section class="stack" id="stack" aria-label="Stack">
         <h2 class="giant" data-reveal style="--i:0">Stack</h2>
         <p class="stack-note" data-reveal style="--i:1" data-i18n="stack.note">Competências por domínio, do protocolo à mesa de decisão.</p>
 
@@ -485,11 +459,7 @@
         </div>
       </section>
 
-      <section class="names" id="formacao" data-plate="formacao" aria-labelledby="eduTitle">
-        <figure class="inline-shot">
-          <img src="/assets/helsinki-exchange-1927.jpg" width="1400" height="1918" loading="lazy" decoding="async" alt="" />
-          <figcaption data-i18n="cap.helsinki">Central telefônica do jornal Hufvudstadsbladet, Helsinque, 1927</figcaption>
-        </figure>
+      <section class="names" id="formacao" aria-labelledby="eduTitle">
         <h2 class="h-head" id="eduTitle" data-reveal style="--i:0" data-i18n="edu.title">Formação</h2>
         <p class="names-sub" data-reveal style="--i:1" data-i18n="edu.sub">Quatro formações, mais de 25 certificações e aulas como voluntário.</p>
 
@@ -524,55 +494,10 @@
 
     </div>
 
-    <div class="plate" data-plate-group="two">
-      <div class="plate-frame">
-        <figure class="plate-layer is-on" data-layer="stack">
-          <img src="/assets/repeaters-1919.jpg" width="1295" height="1612" loading="lazy" decoding="async"
-               alt="Parede de repetidores telefônicos de carbono, com bobinas e chaves, numa central da AT&amp;T em 1919"
-               data-i18n-attr="alt:alt.repeaters" />
-          <figcaption data-i18n="cap.repeaters">Repetidores da linha Boston–Washington da AT&amp;T, Providence, 1919</figcaption>
-        </figure>
-        <figure class="plate-layer" data-layer="formacao">
-          <img src="/assets/helsinki-exchange-1927.jpg" width="1400" height="1918" loading="lazy" decoding="async"
-               alt="Duas telefonistas numa mesa de comutação de madeira, uma sentada com fone e outra de pé ligando cabos, em 1927"
-               data-i18n-attr="alt:alt.helsinki" />
-          <figcaption data-i18n="cap.helsinki">Central telefônica do jornal Hufvudstadsbladet, Helsinque, 1927</figcaption>
-        </figure>
-      </div>
-    </div>
-
   </div>
 
   <!-- ===== Contact: a full field of the accent colour ===== -->
   <section class="contact" id="contato" aria-labelledby="contactTitle">
-    <div class="strip" aria-hidden="true">
-      <div class="strip-track">
-        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/repeaters-1919.jpg" width="242" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-        <img src="/assets/thumbs/helsinki-exchange-1927.jpg" width="218" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/repeaters-1919.jpg" width="242" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-        <img src="/assets/thumbs/helsinki-exchange-1927.jpg" width="218" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/central-bras-1961.jpg" width="220" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/strowger-switch-poster.jpg" width="228" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-        <img src="/assets/thumbs/central-jabaquara-1968.jpg" width="428" height="300" loading="lazy" decoding="async" alt="" class="r34" />
-        <img src="/assets/thumbs/lineman-1939.jpg" width="208" height="300" loading="lazy" decoding="async" alt="" class="r11" />
-        <img src="/assets/thumbs/central-botafogo-1969.jpg" width="246" height="300" loading="lazy" decoding="async" alt="" class="r32" />
-      </div>
-    </div>
 
     <div class="contact-body">
       <h2 class="h-head" id="contactTitle" data-reveal style="--i:0" data-i18n="contact.title">Vamos construir?</h2>
@@ -599,11 +524,8 @@
     </div>
   </section>
 
-  <!-- ===== Footer: the name across the last photograph ===== -->
+  <!-- ===== Footer: the name at full width ===== -->
   <footer class="footer">
-    <img class="footer-photo" src="/assets/central-jabaquara-1968.jpg" width="1400" height="980" loading="lazy" decoding="async"
-         alt="Prédio da central telefônica do Jabaquara em construção, coberto de andaimes, em 1968"
-         data-i18n-attr="alt:alt.jabaquara" />
     <div class="footer-top">
       <ul class="footer-links">
         <li><a class="link" href="#experiencia" data-i18n="nav.exp">Experiência</a></li>
@@ -612,24 +534,13 @@
         <li><a class="link" href="#formacao" data-i18n="nav.edu">Formação</a></li>
         <li><a class="link" href="#top" data-i18n="footer.top">Voltar ao topo</a></li>
       </ul>
-      <p class="footer-cap" data-i18n="cap.jabaquara">Central Telefônica do Jabaquara em construção, São Paulo, 1968</p>
     </div>
     <div class="footer-bottom">
       <p class="footer-name" aria-hidden="true"><span>davi vinco</span></p>
       <p class="footer-legal" data-i18n="footer.legal">© 2026 Davi Vinco. São Paulo, Brasil. HTML, CSS e JavaScript puros, sem build.</p>
-      <p class="credits"><span data-i18n="footer.credits">Fotos e vídeo de arquivo, convertidos para tons de cinza:</span>
-        <a href="https://commons.wikimedia.org/wiki/File:Central_Telef%C3%B4nica_Br%C3%A1s_em_1961.jpg">Central Telefônica Brás em 1961</a>,
-        <a href="https://commons.wikimedia.org/wiki/File:Central_Telef%C3%B4nica_Jabaquara_em_1968.jpg">Central Telefônica Jabaquara em 1968</a>,
-        <a href="https://commons.wikimedia.org/wiki/File:Central_Telef%C3%B4nica_de_Botafogo_em_1969.jpg">Central Telefônica de Botafogo em 1969</a>,
-        <a href="https://commons.wikimedia.org/wiki/File:Telephone_lineman_on_a_pole_-_NARA_-_285886.jpg">Telephone lineman on a pole</a> (NARA),
-        <a href="https://commons.wikimedia.org/wiki/File:Shreeve_carbon_telephone_repeaters_AT%26T_Providence_RI_1919.jpg">Shreeve carbon telephone repeaters</a> (Bancroft Gherardi, Frank B. Jewett),
-        <span data-i18n="footer.pd">domínio público</span>;
-        <a href="https://commons.wikimedia.org/wiki/File:Newspaper_Hufvudstadsbladet%27s_telephone_exchange_1927_(Numeroimaton;_JOKAHBL3A_A01-2).tif">Newspaper Hufvudstadsbladet’s telephone exchange</a>, <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>;
-        <a href="https://commons.wikimedia.org/wiki/File:NTT_strowger_switch_operation.webm">NTT strowger switch operation</a> (Darklanlan), <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>.
-        <span data-i18n="footer.via">Via Wikimedia Commons.</span></p>
     </div>
   </footer>
 
-  <script src="/js/main.js?v=5" defer></script>
+  <script src="/js/main.js?v=6" defer></script>
 </body>
 </html>
