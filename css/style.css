@@ -27,7 +27,6 @@
   --step-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
   --step-lead: clamp(1.25rem, 1.1rem + 0.45vw, 1.5rem);
   --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
-  --step-name: clamp(4rem, 13.9vw, 24rem);
 
   --margin: clamp(20px, 2.2vw, 32px);
   --plate-w: 47vw;
@@ -233,12 +232,17 @@ h1, h2, h3 { text-wrap: balance; }
 }
 .globe.is-dragging canvas { cursor: grabbing; }
 
-.hero-line {
+.hero-head {
   position: absolute;
   z-index: 2;
   left: var(--seam-pad);
-  top: clamp(112px, 17vh, 200px);
-  width: min(30ch, calc(100% - var(--seam-pad) - var(--margin)));
+  right: var(--margin);
+  top: clamp(120px, 19vh, 220px);
+}
+.hero-line {
+  max-width: 30ch;
+  margin-top: clamp(16px, 1.6vw, 24px);
+  color: var(--muted);
   font-family: var(--display);
   font-size: var(--step-lead);
   font-weight: 500;
@@ -246,16 +250,11 @@ h1, h2, h3 { text-wrap: balance; }
   letter-spacing: -0.01em;
 }
 .hero-name {
-  position: absolute;
-  right: var(--margin);
-  bottom: 40px;
-  z-index: 3;
-  font-size: var(--step-name);
-  font-weight: 800;
-  line-height: 0.82;
-  letter-spacing: -0.045em;
+  font-size: clamp(3rem, 5.4vw, 6.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
   white-space: nowrap;
-  transform-origin: 100% 100%;
 }
 .hero-name-mask {
   display: block;
@@ -677,8 +676,8 @@ h1, h2, h3 { text-wrap: balance; }
    ============================================================ */
 .footer {
   position: relative; z-index: 2;
-  min-height: 70vh; min-height: 70svh; /* taste-skill-ignore: vh is the fallback */ /* taste-skill-ignore: vh is the fallback */
   display: flex; flex-direction: column; justify-content: space-between;
+  gap: clamp(72px, 9vw, 144px);
   overflow: hidden;
   background: var(--ground);
   color: var(--ink);
@@ -692,16 +691,12 @@ h1, h2, h3 { text-wrap: balance; }
 .footer-bottom { padding: 0 var(--margin) 28px; }
 .footer-name {
   font-family: var(--display);
-  font-size: 22.2vw;
-  font-weight: 800;
-  line-height: 0.78;
-  letter-spacing: -0.045em;
-  white-space: nowrap;
-  margin-left: -0.02em;
-  transform-origin: 0 100%;
+  font-size: var(--step-head);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
-.footer-name span { display: block; }
-.footer-legal { margin-top: 28px; }
+.footer-legal { margin-top: 20px; color: var(--muted); }
 
 /* ============================================================
    MOTION
@@ -754,23 +749,6 @@ h1, h2, h3 { text-wrap: balance; }
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 @keyframes fade { to { opacity: 1; } }
 
-/* signature move: the name is heavy, it gives a little as the hero leaves */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-name {
-      animation: name-out linear both;
-      animation-timeline: view();
-      animation-range: exit 0% exit 100%;
-    }
-    .footer-name {
-      animation: name-in linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 50%;
-    }
-  }
-}
-@keyframes name-out { to { transform: scale(0.93) translateY(-2%); } }
-@keyframes name-in { from { transform: scale(0.93); } to { transform: none; } }
 
 /* ============================================================
    NARROW SCREENS: a second composition
@@ -827,23 +805,14 @@ h1, h2, h3 { text-wrap: balance; }
     display: flex; flex-direction: column-reverse;
     padding: 0 var(--margin);
   }
-  .hero-name {
-    position: relative; right: auto; bottom: auto;
-    font-size: 20.6vw;
-    margin-top: -5vw;
-    margin-left: -0.04em;
-  }
+  .hero-head { position: static; padding-top: 36px; }
+  .hero-name { font-size: clamp(2.75rem, 12vw, 4.5rem); }
   .globe {
     position: relative; inset: auto;
     height: min(92vw, 440px);
     margin: 8px calc(-1 * var(--margin)) 0;
   }
-  .hero-line {
-    position: static; translate: none;
-    width: auto; max-width: 30ch;
-    margin-top: 36px;
-    font-size: var(--step-lead);
-  }
+  .hero-line { max-width: 30ch; margin-top: 14px; }
 
   .slip-wrap { justify-content: stretch; margin-top: 40px; }
   .slip { width: 100%; }
@@ -870,17 +839,16 @@ h1, h2, h3 { text-wrap: balance; }
   .contact-body { padding: 56px var(--margin) 80px; }
   .contact-body .h-head { font-size: 9.6vw; }
   .compose { grid-template-columns: 1fr; }
+  .direct { flex-direction: column; gap: 12px; }
   .cell-field input, .cell-submit { height: 60px; }
 
-  .footer { min-height: 60vh; min-height: 60svh; /* taste-skill-ignore: vh is the fallback */ }
+  .footer { min-height: 0; }
   .footer-top { flex-direction: column; }
   .footer-links { flex-direction: column; gap: 6px; }
-  .footer-name { font-size: 21.2vw; }
 }
 
 @media (max-width: 1023px) and (min-width: 640px) {
   .stage--left .plate { height: 64svh; }
-  .hero-name { font-size: 20.6vw; margin-top: -5vw; }
   .bar-items { grid-template-columns: 1fr 1fr; }
   .names-cols { grid-template-columns: 1fr 1fr; }
   .compose { grid-template-columns: repeat(3, minmax(0, 1fr)); }

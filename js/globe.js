@@ -213,19 +213,22 @@ function start() {
 
     let cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.44;
     if (getComputedStyle(host).position === "absolute") {
-      // free area: below the nav, clear of the hero line, tucked behind the top of the name
+      // free area: below the nav and clear of the name and role line
       const nav = document.querySelector(".nav").getBoundingClientRect();
-      const line = document.querySelector(".hero-line").getBoundingClientRect();
       const name = document.querySelector(".hero-name-word").getBoundingClientRect();
+      const line = document.querySelector(".hero-line").getBoundingClientRect();
       const top = nav.bottom - rect.top + 12;
-      const bottom = name.top - rect.top + name.height * 0.42;
-      const ob = { l: line.left - rect.left - 28, r: line.right - rect.left + 28, t: line.top - rect.top - 28, b: line.bottom - rect.top + 28 };
+      const bottom = H - 28;
+      const ob = {
+        l: Math.min(name.left, line.left) - rect.left - 32, r: Math.max(name.right, line.right) - rect.left + 32,
+        t: name.top - rect.top - 32, b: line.bottom - rect.top + 32,
+      };
       const clear = (x, y, rr) => {
         const nx = Math.max(ob.l, Math.min(x, ob.r)), ny = Math.max(ob.t, Math.min(y, ob.b));
         return Math.hypot(x - nx, y - ny) >= rr;
       };
       for (r = Math.min((bottom - top) / 2, W * 0.5); r > 100; r -= 4) {
-        cx = W - r * 0.74;
+        cx = W - r * 0.86;
         cy = Math.max(top + r, bottom - r);
         if (cy + r <= bottom + 1 && clear(cx, cy, r)) break;
       }
