@@ -31,7 +31,7 @@
 
     "hero.line": "Senior Solutions Architect at SaveinCloud: cloud, edge and security for enterprises.",
 
-    "about.p1": "In Portuguese, vinco is a crease: the line where two planes meet. That is where I work, between architecture and business, between the edge and the origin.",
+    "about.p1": "I design architectures that have to hold up under real pressure: global traffic, attacks, traffic spikes and business deadlines.",
     "about.p2": "I turn what decision-makers need into distributed platforms with security, performance and scale, and I defend every technical decision in front of whoever signs the contract.",
     "about.p3": "I started in support at SaveinCloud in 2023 and was leading its cloud architecture 18 months later. At Azion, I was technical advisor to enterprise accounts: WAF, DNS, caching, Edge Functions and hybrid setups with AWS.",
     "about.p4": "Today I’m back at SaveinCloud as a Senior Solutions Architect. Leadership, to me, is listening, exchange and growing as a team. <a href=\"#experiencia\" class=\"link link--on\">See the path</a>",

@@ -2,9 +2,7 @@
 
 Single-page estático (HTML + CSS + JS puro, zero dependências e sem build).
 
-**A ideia:** *vinco* é a linha onde dois planos se encontram. A página é um palco dividido:
-de um lado, o retrato fixo; do outro, uma coluna de leitura. As duas metades se encontram numa aresta vertical, o vinco,
-que o nome atravessa no topo.
+**A ideia:** uma página dividida, com o retrato fixo de um lado e uma coluna de leitura do outro. No topo, um globo em Three.js mostra conexões saindo de São Paulo para regiões de cloud e edge pelo mundo.
 
 Tipografia Inter Tight nos títulos e Inter no texto, fundo quase preto, azul como único
 acento e um campo azul no contato.
@@ -16,7 +14,7 @@ davi-vinco-site/
 ├── index.html      # conteúdo e estrutura (PT inline)
 ├── css/style.css   # tema, composição, movimento e responsividade
 ├── js/main.js      # i18n PT/EN, placas, recibo da requisição, abas, GitHub, contato
-├── favicon.svg     # dois planos e um vinco
+├── favicon.svg     # ícone
 └── images/         # retrato
 ```
 
