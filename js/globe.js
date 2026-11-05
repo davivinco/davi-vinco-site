@@ -1,5 +1,5 @@
 /* ============================================================
-   DAVI VINCO: hero globe (Three.js)
+   DAVI VINCO: route globe (Three.js)
    Land drawn as dots from a 1° Natural Earth mask (public domain),
    with routes from São Paulo to major cloud and edge regions.
    Pauses off screen, respects reduced motion, and the page reads
@@ -81,7 +81,7 @@ function start() {
   const camera = new THREE.PerspectiveCamera(22, 1, 1, 100);
   camera.position.set(0, 0, 20);
 
-  const rig = new THREE.Group();   // placed and scaled to fit the free space
+  const rig = new THREE.Group();   // placed and scaled to fit its box
   const globe = new THREE.Group(); // rotates
   rig.add(globe);
   scene.add(rig);
@@ -104,7 +104,7 @@ function start() {
   /* ---------- body: a dark sphere that hides the far side ---------- */
   globe.add(new THREE.Mesh(
     new THREE.SphereGeometry(R * 0.992, 64, 48),
-    new THREE.MeshBasicMaterial({ color: 0x111114 })
+    new THREE.MeshBasicMaterial({ color: 0x26272c })
   ));
 
   /* ---------- land dots: Fibonacci lattice, land only, no Antarctica ---------- */
@@ -202,7 +202,7 @@ function start() {
   let tiltX = -0.36;
   globe.rotation.set(tiltX, -Math.atan2(hub.x, hub.z) - 0.25, 0);
 
-  /* ---------- fit: the largest globe that fits the free space ---------- */
+  /* ---------- fit: centred in its box ---------- */
   function fit() {
     const rect = host.getBoundingClientRect();
     const W = Math.max(1, rect.width), H = Math.max(1, rect.height);
@@ -211,29 +211,7 @@ function start() {
     camera.updateProjectionMatrix();
     const unit = (2 * camera.position.z * Math.tan((camera.fov * D2R) / 2)) / H; // world units per css px
 
-    let cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.44;
-    if (getComputedStyle(host).position === "absolute") {
-      // free area: below the nav and clear of the name and role line
-      const nav = document.querySelector(".nav").getBoundingClientRect();
-      const name = document.querySelector(".hero-name-word").getBoundingClientRect();
-      const line = document.querySelector(".hero-line").getBoundingClientRect();
-      const top = nav.bottom - rect.top + 12;
-      const bottom = H - 28;
-      const ob = {
-        l: Math.min(name.left, line.left) - rect.left - 32, r: Math.max(name.right, line.right) - rect.left + 32,
-        t: name.top - rect.top - 32, b: line.bottom - rect.top + 32,
-      };
-      const clear = (x, y, rr) => {
-        const nx = Math.max(ob.l, Math.min(x, ob.r)), ny = Math.max(ob.t, Math.min(y, ob.b));
-        return Math.hypot(x - nx, y - ny) >= rr;
-      };
-      for (r = Math.min((bottom - top) / 2, W * 0.5); r > 100; r -= 4) {
-        cx = W - r * 0.86;
-        cy = Math.max(top + r, bottom - r);
-        if (cy + r <= bottom + 1 && clear(cx, cy, r)) break;
-      }
-      host.classList.toggle("is-off", r <= 100);
-    }
+    const cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.44;
     rig.position.set((cx - W / 2) * unit, -(cy - H / 2) * unit, 0);
     rig.scale.setScalar(r * unit);
     const s = Math.max(0.6, Math.min(1.4, r / 260)) * renderer.getPixelRatio();
@@ -306,7 +284,6 @@ function start() {
   reduceMotion.addEventListener?.("change", () => { wake(); render(0); });
   const ro = new ResizeObserver(() => { fit(); if (!running) render(0); });
   ro.observe(host);
-  ro.observe(document.querySelector(".hero"));
 
   fit();
   render(0);

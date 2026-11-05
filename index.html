@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Davi Vinco, Solutions Architect Senior</title>
   <meta name="description" content="Davi Vinco, Solutions Architect Senior na SaveinCloud. Arquitetura de cloud, edge e segurança da informação para empresas." />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="theme-color" content="#1c1d21" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <meta property="og:title" content="Davi Vinco, Solutions Architect Senior" />
   <meta property="og:description" content="Arquitetura de cloud, edge e segurança da informação para empresas." />
@@ -14,62 +14,49 @@
   <script>document.documentElement.classList.add("js")</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=Montserrat:wght@600;800&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="/images/davi.jpg" fetchpriority="high" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="stylesheet" href="/css/style.css?v=9" />
+  <link rel="stylesheet" href="/css/style.css?v=14" />
 </head>
 <body>
 
   <a class="skip" href="#sobre" data-i18n="skip">Pular para o conteúdo</a>
 
-  <!-- ===== First stage: the portrait fixed on the left, the reading column on the right ===== -->
-  <div class="stage stage--left">
+  <canvas id="stage" aria-hidden="true"></canvas>
 
-    <div class="plate" data-plate-group="one">
-      <div class="plate-frame">
-        <figure class="plate-layer is-on" data-layer="retrato">
-          <img src="/images/davi.jpg" width="800" height="800" fetchpriority="high" decoding="async"
+  <div class="bar">
+    <a class="bar-name" href="#top">Davi Vinco</a>
+    <div class="bar-right">
+      <button type="button" class="lang" id="langToggle" lang="en" aria-label="Read in English"
+              data-i18n="nav.lang" data-i18n-attr="aria-label:aria.lang">English</button>
+      <details class="menu">
+        <summary class="menu-btn"><span data-i18n="nav.menu">Menu</span><i aria-hidden="true"></i></summary>
+        <nav class="menu-sheet" aria-label="Principal" data-i18n-attr="aria-label:aria.nav">
+          <a href="#sobre" data-i18n="aria.about">Sobre</a>
+          <a href="#experiencia" data-i18n="nav.exp">Experiência</a>
+          <a href="#projetos" data-i18n="nav.proj">Projetos</a>
+          <a href="#stack" data-i18n="nav.stack">Stack</a>
+          <a href="#formacao" data-i18n="nav.edu">Formação</a>
+          <a href="#contato" data-i18n="nav.contact">Contato</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+  <p class="side-note" aria-hidden="true">© 2026 Davi Vinco</p>
+
+  <header class="hero chapter" id="top" data-ground="dark">
+    <h1 class="hero-name"><span class="hero-name-mask"><span class="hero-name-word fit" data-fit="0.7">Davi Vinco</span></span></h1>
+    <p class="hero-line" data-rise style="--i:1" data-i18n="hero.line">Solutions Architect Senior na SaveinCloud: cloud, edge e segurança para empresas.</p>
+  </header>
+
+      <!-- Intro: a narrow column of short paragraphs beside the portrait -->
+      <section class="intro chapter" id="sobre" data-ground="lime" aria-label="Sobre" data-i18n-attr="aria-label:aria.about">
+        <figure class="portrait" data-reveal>
+          <img src="/images/davi.jpg" width="800" height="800" decoding="async"
                alt="Retrato de Davi Vinco: cabelo escuro penteado para cima, barba curta, camiseta preta, sorrindo, sobre fundo cinza"
                data-i18n-attr="alt:alt.portrait" />
         </figure>
-      </div>
-    </div>
-
-    <div class="column">
-
-      <nav class="nav" aria-label="Principal" data-i18n-attr="aria-label:aria.nav">
-        <details class="menu">
-          <summary class="menu-btn" data-i18n="nav.menu">Menu</summary>
-          <div class="menu-sheet">
-            <a href="#experiencia" data-i18n="nav.exp">Experiência</a>
-            <a href="#projetos" data-i18n="nav.proj">Projetos</a>
-            <a href="#stack" data-i18n="nav.stack">Stack</a>
-            <a href="#formacao" data-i18n="nav.edu">Formação</a>
-            <a href="#contato" data-i18n="nav.contact">Contato</a>
-          </div>
-        </details>
-        <ul class="nav-links">
-          <li><a href="#experiencia" class="link" data-i18n="nav.exp">Experiência</a></li>
-          <li><a href="#projetos" class="link" data-i18n="nav.proj">Projetos</a></li>
-          <li><a href="#stack" class="link" data-i18n="nav.stack">Stack</a></li>
-          <li><a href="#formacao" class="link" data-i18n="nav.edu">Formação</a></li>
-        </ul>
-        <button type="button" class="lang" id="langToggle" lang="en" aria-label="Read in English"
-                data-i18n="nav.lang" data-i18n-attr="aria-label:aria.lang">English</button>
-        <a href="#contato" class="button" data-i18n="nav.contact">Contato</a>
-      </nav>
-
-      <header class="hero" id="top">
-        <div class="globe" aria-hidden="true"><canvas></canvas></div>
-        <div class="hero-head">
-          <h1 class="hero-name"><span class="hero-name-mask"><span class="hero-name-word">Davi Vinco</span></span></h1>
-          <p class="hero-line" data-rise style="--i:1" data-i18n="hero.line">Solutions Architect Senior na SaveinCloud: cloud, edge e segurança para empresas.</p>
-        </div>
-      </header>
-
-      <!-- Intro: a narrow column of short paragraphs beside the portrait -->
-      <section class="intro" id="sobre" aria-label="Sobre" data-i18n-attr="aria-label:aria.about">
         <div class="intro-col">
           <p class="intro-first" data-reveal style="--i:0" data-i18n="about.p1">Desenho arquiteturas que precisam aguentar pressão de verdade: tráfego global, ataques, picos de acesso e prazos de negócio.</p>
           <p data-reveal style="--i:1" data-i18n="about.p2">Traduzo o que quem decide precisa em plataformas distribuídas com segurança, performance e escala, e defendo cada decisão técnica na frente de quem assina o contrato.</p>
@@ -79,12 +66,14 @@
       </section>
 
       <!-- The live thing: this page's own request, printed as an itinerary -->
-      <section class="route" id="rota" aria-labelledby="routeTitle">
+      <section class="route chapter" id="rota" data-ground="dark" aria-labelledby="routeTitle">
+        <h2 class="giant fit" id="routeTitle" data-reveal style="--i:0" data-i18n="route.title">O caminho até você</h2>
         <div class="route-head">
-          <h2 class="h-head" id="routeTitle" data-reveal style="--i:0" data-i18n="route.title">O caminho até você</h2>
           <p class="route-note" data-reveal style="--i:1" data-i18n="route.note">É o que eu desenho todos os dias. Estes são os tempos reais da requisição que trouxe esta página até o seu navegador, medidos agora.</p>
+          <div class="globe" aria-hidden="true"><canvas></canvas></div>
         </div>
 
+        <div class="route-side">
         <div class="slip-wrap" data-reveal style="--i:2">
           <div class="slip" id="slip" aria-live="polite">
             <div class="slip-top">
@@ -125,12 +114,13 @@
           <button type="button" class="button button--ghost" id="remeasure" data-i18n="slip.again">Medir de novo</button>
           <p class="small" data-i18n="slip.privacy">Medido pelo seu navegador com a Navigation Timing API. Nenhum dado sai desta página.</p>
         </div>
+        </div>
         <noscript><p class="small">Ative o JavaScript para ver os tempos reais desta requisição.</p></noscript>
       </section>
 
       <!-- Experience as a quiet ledger -->
-      <section class="ledger" id="experiencia" aria-labelledby="xpTitle">
-        <h2 class="h-head" id="xpTitle" data-reveal style="--i:0" data-i18n="xp.title">Experiência</h2>
+      <section class="ledger chapter" id="experiencia" data-ground="paper" aria-labelledby="xpTitle">
+        <h2 class="giant fit" id="xpTitle" data-reveal style="--i:0" data-i18n="xp.title">Experiência</h2>
         <p class="ledger-sub" data-reveal style="--i:1" data-i18n="xp.sub">Oito posições em quatro empresas desde 2023.</p>
 
         <div class="ledger-groups">
@@ -174,11 +164,10 @@
         </div>
       </section>
 
-    </div>
-  </div>
-
-  <!-- ===== Projects: the split breaks and runs full width ===== -->
-  <section class="showcase" id="projetos" aria-labelledby="projTitle">
+  <!-- ===== Projects ===== -->
+  <section class="showcase chapter" id="projetos" data-ground="dark" aria-labelledby="projTitle">
+    <h2 class="giant fit showcase-title" id="projTitle" data-reveal style="--i:0" data-i18n="proj.title">Projetos</h2>
+    <div class="showcase-grid">
 
     <div class="showcase-plate" data-reveal>
       <div class="frag-stage">
@@ -296,7 +285,6 @@
 
     <div class="showcase-text">
       <div class="showcase-top">
-        <h2 class="h-head" id="projTitle" data-reveal style="--i:0" data-i18n="proj.title">Projetos</h2>
         <p class="showcase-note" data-reveal style="--i:1" data-i18n="proj.note">O que eu construo quando ninguém pediu, direto do <a class="link link--on" href="https://github.com/davivinco" target="_blank" rel="noopener">GitHub</a>.</p>
         <div class="tabs" role="tablist" aria-label="Projetos" data-i18n-attr="aria-label:proj.title" data-reveal style="--i:2">
           <button type="button" role="tab" class="tab" id="tab-agent" aria-controls="panel-agent" aria-selected="true" data-frag="azion-ai-agent-mvp" data-i18n="proj.t1">Agente ChatOps</button>
@@ -383,19 +371,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <!-- ===== Stack and education, full width ===== -->
-  <div class="wide">
-
-    <div class="column">
-
-      <section class="stack" id="stack" aria-label="Stack">
-        <h2 class="giant" data-reveal style="--i:0">Stack</h2>
+  <!-- ===== Stack and education ===== -->
+      <section class="stack chapter" id="stack" data-ground="paper" aria-label="Stack">
+        <h2 class="giant fit" data-reveal style="--i:0">Stack</h2>
         <p class="stack-note" data-reveal style="--i:1" data-i18n="stack.note">Competências por domínio, do protocolo à mesa de decisão.</p>
 
         <div class="bars">
-          <details class="bar" open data-reveal style="--i:2">
+          <details class="bar-row" open data-reveal style="--i:2">
             <summary><span data-i18n="sk1.title">Edge e performance</span><span class="bar-n">6</span></summary>
             <ul class="bar-items">
               <li data-i18n="sk1.i1">WAF e regras de borda</li>
@@ -406,7 +391,7 @@
               <li data-i18n="sk1.i6">TLS e automação com Let’s Encrypt</li>
             </ul>
           </details>
-          <details class="bar" data-reveal style="--i:3">
+          <details class="bar-row" data-reveal style="--i:3">
             <summary><span data-i18n="sk2.title">Cloud e infraestrutura</span><span class="bar-n">6</span></summary>
             <ul class="bar-items">
               <li data-i18n="sk2.i1">AWS e arquiteturas híbridas</li>
@@ -417,7 +402,7 @@
               <li data-i18n="sk2.i6">Nginx, Apache e IaC (YAML, JPS)</li>
             </ul>
           </details>
-          <details class="bar" data-reveal style="--i:4">
+          <details class="bar-row" data-reveal style="--i:4">
             <summary><span data-i18n="sk3.title">Segurança</span><span class="bar-n">6</span></summary>
             <ul class="bar-items">
               <li data-i18n="sk3.i1">Segurança de borda e mitigação</li>
@@ -428,7 +413,7 @@
               <li data-i18n="sk3.i6">Graduação em Segurança da Informação</li>
             </ul>
           </details>
-          <details class="bar" data-reveal style="--i:5">
+          <details class="bar-row" data-reveal style="--i:5">
             <summary><span data-i18n="sk4.title">Dados e observabilidade</span><span class="bar-n">5</span></summary>
             <ul class="bar-items">
               <li>MySQL, PostgreSQL, Redis</li>
@@ -438,7 +423,7 @@
               <li>Azure Data Fundamentals</li>
             </ul>
           </details>
-          <details class="bar" data-reveal style="--i:6">
+          <details class="bar-row" data-reveal style="--i:6">
             <summary><span data-i18n="sk5.title">Engenharia e IA</span><span class="bar-n">5</span></summary>
             <ul class="bar-items">
               <li>TypeScript, Node.js</li>
@@ -448,7 +433,7 @@
               <li>PHP, Bash, React, Spring Boot</li>
             </ul>
           </details>
-          <details class="bar" data-reveal style="--i:7">
+          <details class="bar-row" data-reveal style="--i:7">
             <summary><span data-i18n="sk6.title">Liderança e negócio</span><span class="bar-n">5</span></summary>
             <ul class="bar-items">
               <li data-i18n="sk6.i1">Pré-venda técnica e advisory</li>
@@ -461,8 +446,8 @@
         </div>
       </section>
 
-      <section class="names" id="formacao" aria-labelledby="eduTitle">
-        <h2 class="h-head" id="eduTitle" data-reveal style="--i:0" data-i18n="edu.title">Formação</h2>
+      <section class="names chapter" id="formacao" data-ground="dark" aria-labelledby="eduTitle">
+        <h2 class="giant fit" id="eduTitle" data-reveal style="--i:0" data-i18n="edu.title">Formação</h2>
         <p class="names-sub" data-reveal style="--i:1" data-i18n="edu.sub">Quatro formações, mais de 25 certificações e aulas como voluntário.</p>
 
         <div class="names-cols">
@@ -494,15 +479,11 @@
         </div>
       </section>
 
-    </div>
-
-  </div>
-
-  <!-- ===== Contact: a full field of the accent colour ===== -->
-  <section class="contact" id="contato" aria-labelledby="contactTitle">
+  <!-- ===== Contact ===== -->
+  <section class="contact chapter" id="contato" data-ground="lime" aria-labelledby="contactTitle">
 
     <div class="contact-body">
-      <h2 class="h-head" id="contactTitle" data-reveal style="--i:0" data-i18n="contact.title">Vamos construir?</h2>
+      <h2 class="giant fit" id="contactTitle" data-reveal style="--i:0" data-i18n="contact.title">Vamos construir?</h2>
       <p class="contact-note" data-reveal style="--i:1" data-i18n="contact.note">Aberto a conversas sobre cloud, edge e segurança. Escreva o assunto e o seu app de e-mail abre com a mensagem pronta.</p>
 
       <form class="compose" id="compose" action="mailto:davi.vinco.contato@gmail.com" method="get" data-reveal style="--i:2">
@@ -526,8 +507,8 @@
     </div>
   </section>
 
-  <!-- ===== Footer: the name at full width ===== -->
-  <footer class="footer">
+  <!-- ===== Footer ===== -->
+  <footer class="footer chapter" data-ground="dark">
     <div class="footer-top">
       <ul class="footer-links">
         <li><a class="link" href="#experiencia" data-i18n="nav.exp">Experiência</a></li>
@@ -544,7 +525,8 @@
   </footer>
 
   <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }</script>
-  <script type="module" src="/js/globe.js?v=9"></script>
-  <script src="/js/main.js?v=9" defer></script>
+  <script type="module" src="/js/stage.js?v=14"></script>
+  <script type="module" src="/js/globe.js?v=14"></script>
+  <script src="/js/main.js?v=14" defer></script>
 </body>
 </html>

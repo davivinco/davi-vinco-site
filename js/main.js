@@ -268,7 +268,43 @@
 
     if (lastMeasure) renderSlip(lastMeasure, false);
     renderRepoMeta();
+    fitWords();
   }
+
+  /* ---------- giant words fill their line, in either language ---------- */
+  function fitWords() {
+    for (const el of document.querySelectorAll(".fit")) {
+      const parent = getComputedStyle(el.parentElement);
+      const box = el.parentElement.clientWidth - parseFloat(parent.paddingLeft) - parseFloat(parent.paddingRight);
+      const share = window.innerWidth >= 768 ? parseFloat(el.dataset.fit) || 1 : 1;
+      el.style.fontSize = "100px";
+      el.style.width = "max-content";
+      const w = el.scrollWidth;
+      el.style.width = "";
+      if (w) el.style.fontSize = Math.min(99 * ((box * share) / w), window.innerHeight * 0.42) + "px";
+    }
+  }
+  window.addEventListener("resize", fitWords);
+  if (document.fonts) {
+    // ready can resolve before the fonts start loading, so wait for them by name too
+    Promise.all([
+      document.fonts.load('800 100px "Barlow Condensed"'),
+      document.fonts.load('800 100px "Montserrat"'),
+    ]).then(fitWords).catch(() => {});
+    document.fonts.addEventListener?.("loadingdone", fitWords);
+  }
+
+  /* ---------- the fixed bar takes the ink of the chapter beneath it ---------- */
+  const chapters = [...document.querySelectorAll(".chapter[data-ground]")];
+  function barInk() {
+    const under = chapters.find((c) => c.getBoundingClientRect().bottom > 44);
+    const light = under && under.dataset.ground !== "dark";
+    if (light) document.documentElement.dataset.bar = "ink";
+    else delete document.documentElement.dataset.bar;
+    document.documentElement.classList.toggle("is-scrolled", window.scrollY > window.innerHeight * 0.5);
+  }
+  window.addEventListener("scroll", barInk, { passive: true });
+  barInk();
 
   function detectLang() {
     const path = location.pathname.toLowerCase();
@@ -296,7 +332,23 @@
     },
     { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
   );
-  document.querySelectorAll("[data-reveal]").forEach((el) => revealIO.observe(el));
+  // Clipped elements have no visible area to observe, so their section triggers them.
+  const clipped = ".giant[data-reveal], .portrait[data-reveal]";
+  const clipIO = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          for (const el of e.target.children) if (el.matches(clipped)) el.classList.add("is-in");
+          clipIO.unobserve(e.target);
+        }
+      }
+    },
+    { rootMargin: "0px 0px -18% 0px" }
+  );
+  document.querySelectorAll("[data-reveal]").forEach((el) => {
+    if (el.matches(clipped)) clipIO.observe(el.parentElement);
+    else revealIO.observe(el);
+  });
 
   /* ============================================================
      The live thing: this page's own request, as an itinerary
@@ -554,7 +606,7 @@
     });
   }
 
-  /* ---------- phone menu closes after a choice ---------- */
+  /* ---------- the menu closes after a choice ---------- */
   const menu = document.querySelector(".menu");
   if (menu) {
     menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => menu.removeAttribute("open")));
