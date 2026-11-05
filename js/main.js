@@ -29,11 +29,11 @@
 
     "alt.portrait": "Portrait of Davi Vinco: dark hair swept up, short beard, black t-shirt, smiling, on a grey background",
 
-    "hero.line": "Senior Solutions Architect at SaveinCloud: cloud, edge and security for enterprises.",
+    "hero.line": "Senior Solutions Architect at SaveinCloud: cloud, AI, edge and security for enterprises.",
 
     "about.p1": "I design architectures that have to hold up under real pressure: global traffic, attacks, traffic spikes and business deadlines.",
     "about.p2": "I turn what decision-makers need into distributed platforms with security, performance and scale, and I defend every technical decision in front of whoever signs the contract.",
-    "about.p3": "I started in support at SaveinCloud in 2023 and was leading its cloud architecture 18 months later. At Azion, I was technical advisor to enterprise accounts: WAF, DNS, caching, Edge Functions and hybrid setups with AWS.",
+    "about.p3": "I started in support at SaveinCloud in 2023 and was leading its cloud architecture 18 months later. At Azion, I rose to Solutions Architect III as technical advisor to enterprise accounts: WAF, DNS, caching, Edge Functions and hybrid setups with AWS.",
     "about.p4": "Today I’m back at SaveinCloud as a Senior Solutions Architect. Leadership, to me, is listening, exchange and growing as a team. <a href=\"#experiencia\" class=\"link link--on\">See the path</a>",
 
     "route.title": "The path to you",
@@ -53,10 +53,11 @@
     "slip.privacy": "Measured by your browser with the Navigation Timing API. No data leaves this page.",
 
     "xp.title": "Experience",
-    "xp.sub": "Eight roles at four companies since 2023.",
+    "xp.sub": "Nine roles at four companies since 2023.",
     "xp0.when": "Oct 2026 – present",
     "xp0.desc": "Back at SaveinCloud, now in solutions architecture: designing environments on Nuvion, Cloudlets and Storin, estimates and technical pre-sales for companies moving their applications to the cloud.",
-    "xp1.when": "Aug 2025 – Sep 2026",
+    "xp1.r1": "Sep 2026 – Oct 2026",
+    "xp1.when": "Aug 2025 – Oct 2026",
     "xp1.desc": "Solution design for enterprise clients combining cloud, edge, networking and security. Technical advisor in pre-sales: distributed applications, origin integration, traffic control, DNS, caching, edge security and performance, including hybrid environments connected to AWS.",
     "xp2.r1": "Apr 2025 – Aug 2025",
     "xp2.r2": "Feb 2025 – Aug 2025",
@@ -121,7 +122,7 @@
     "sk2.i3": "Docker and containers",
     "sk2.i4": "Linux tuning and administration",
     "sk2.i5": "Load balancing and high availability",
-    "sk2.i6": "Nginx, Apache and IaC (YAML, JPS)",
+    "sk2.i6": "Nginx, Apache and IaC (Terraform, YAML, JPS)",
     "sk3.title": "Security",
     "sk3.i1": "Edge security and mitigation",
     "sk3.i2": "Threat management (Cisco CyberOps)",
@@ -172,7 +173,7 @@
     "contact.send": "Write an email",
 
     "footer.top": "Back to top",
-    "footer.legal": "© 2026 Davi Vinco. São Paulo, Brazil. Plain HTML, CSS and JavaScript, no build step.",
+    "footer.legal": "© 2026 Davi Vinco. Americana, São Paulo, Brazil. Plain HTML, CSS and JavaScript, no build step.",
   };
 
   // Strings the script writes itself.
