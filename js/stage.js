@@ -10,8 +10,8 @@
 import * as THREE from "three";
 
 const MAX = 6;
-const COLORS = { dark: "#1c1d21", lime: "#d2ff00", paper: "#f0f0ec" };
-const GRID = { dark: 1, lime: 0, paper: 0 };
+const COLORS = { dark: "#1c1d21", blue: "#2254f4", paper: "#f0f0ec" };
+const GRID = { dark: 1, blue: 0, paper: 0 };
 
 const canvas = document.getElementById("stage");
 const chapters = [...document.querySelectorAll(".chapter[data-ground]")];

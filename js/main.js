@@ -149,7 +149,7 @@
     "edu0.t": "Postgraduate degree (Lato Sensu) in Software Engineering for Applied AI",
     "edu0.s": "UNIPDS, 2026–2027, in progress",
     "edu1.t": "MBA in Strategic Management and Innovation",
-    "edu1.s": "Faculdade Focus, 2026, in progress",
+    "edu1.s": "Faculdade Focus, completed Nov 2026",
     "edu2.t": "Associate degree in Information Security",
     "edu3.t": "Technical degree in Systems Development",
     "edu.k2": "Certifications",
@@ -298,7 +298,7 @@
   const chapters = [...document.querySelectorAll(".chapter[data-ground]")];
   function barInk() {
     const under = chapters.find((c) => c.getBoundingClientRect().bottom > 44);
-    const light = under && under.dataset.ground !== "dark";
+    const light = under && under.dataset.ground === "paper";
     if (light) document.documentElement.dataset.bar = "ink";
     else delete document.documentElement.dataset.bar;
     document.documentElement.classList.toggle("is-scrolled", window.scrollY > window.innerHeight * 0.5);
