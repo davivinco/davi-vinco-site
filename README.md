@@ -2,10 +2,7 @@
 
 Single-page estático (HTML + CSS + JS puro, zero dependências e sem build).
 
-**A ideia:** uma página dividida, com o retrato fixo de um lado e uma coluna de leitura do outro. No topo, um globo em Three.js mostra conexões saindo de São Paulo para regiões de cloud e edge pelo mundo.
-
-Tipografia Inter Tight nos títulos e Inter no texto, fundo quase preto, azul como único
-acento e um campo azul no contato.
+**A ideia:** a página rola por capítulos de cor (quase preto, verde-limão, off-white). Um shader em Three.js desenha o fundo e quebra a passagem entre capítulos em blocos. Títulos gigantes em Barlow Condensed, nome em Montserrat, texto em Inter.
 
 ## Estrutura
 
@@ -13,7 +10,9 @@ acento e um campo azul no contato.
 davi-vinco-site/
 ├── index.html      # conteúdo e estrutura (PT inline)
 ├── css/style.css   # tema, composição, movimento e responsividade
-├── js/main.js      # i18n PT/EN, placas, recibo da requisição, abas, GitHub, contato
+├── js/main.js      # i18n PT/EN, ajuste dos títulos, recibo da requisição, abas, GitHub, contato
+├── js/stage.js     # fundo em Three.js: capítulos de cor e grade de blocos
+├── js/globe.js     # globo em Three.js na seção da requisição
 ├── favicon.svg     # ícone
 └── images/         # retrato
 ```
