@@ -2,7 +2,7 @@
 
 Single-page estático (HTML + CSS + JS puro, zero dependências e sem build).
 
-**A ideia:** a página rola por capítulos de cor (quase preto, verde-limão, off-white). Um shader em Three.js desenha o fundo e quebra a passagem entre capítulos em blocos. Títulos gigantes em Barlow Condensed, nome em Montserrat, texto em Inter.
+**A ideia:** a página rola por capítulos de cor (quase preto, azul, off-white). Um shader em Three.js desenha o fundo e quebra a passagem entre capítulos em blocos. Títulos gigantes em Barlow Condensed, nome em Montserrat, texto em Inter.
 
 ## Estrutura
 
