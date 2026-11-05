@@ -326,9 +326,7 @@ p, li, dd, dt { text-wrap: pretty; }
 .l-when { font-size: var(--step-small); font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
 .ledger-desc { align-self: center; }
 @media (hover: hover) and (pointer: fine) {
-  .ledger-group:hover { background: var(--dark); color: #f4f4f0; box-shadow: inset 0 10px 0 var(--blue), inset 0 -10px 0 var(--blue); }
-  .ledger-group:hover .l-co { color: #a9aaa6; }
-  .ledger-group:hover .l-when { color: var(--blue-soft); }
+  .ledger-group:hover { background: var(--tile); }
 }
 
 /* ---------- projects ---------- */
@@ -508,12 +506,8 @@ p, li, dd, dt { text-wrap: pretty; }
   transition: transform var(--t-ui) var(--ease-out);
 }
 .bar-row[open] summary::after { transform: rotate(45deg); }
-.bar-row[open] {
-  background: var(--dark); color: #f4f4f0;
-  box-shadow: inset 0 10px 0 var(--blue), inset 0 -10px 0 var(--blue);
-}
-.bar-row[open] summary::before { color: var(--blue-soft); -webkit-text-stroke-width: 0; }
-.bar-row[open] .bar-n { color: #a9aaa6; }
+.bar-row[open] { background: var(--tile); }
+.bar-row[open] summary::before { color: var(--ink); -webkit-text-stroke-width: 0; }
 .bar-items {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px 32px;
