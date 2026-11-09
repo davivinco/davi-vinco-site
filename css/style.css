@@ -242,7 +242,7 @@ p, li, dd, dt { text-wrap: pretty; }
   padding: var(--section-y) var(--margin);
 }
 .portrait { overflow: hidden; border-radius: 28px; background: #131313; }
-.portrait img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.portrait img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 18%; }
 .intro-col p + p { margin-top: 1.1em; }
 .intro-first {
   font-family: var(--display);

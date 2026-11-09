@@ -27,7 +27,7 @@
     "nav.contact": "Contact",
     "nav.lang": "Português",
 
-    "alt.portrait": "Portrait of Davi Vinco: dark hair swept up, short beard, black t-shirt, smiling, on a grey background",
+    "alt.portrait": "Davi Vinco in a black shirt with his arms crossed, in front of a window with city buildings at dusk",
 
     "hero.line": "Senior Solutions Architect at SaveinCloud: cloud, AI, edge and security for enterprises.",
 
