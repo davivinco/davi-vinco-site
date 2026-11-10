@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=Montserrat:wght@600;800&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="stylesheet" href="/css/style.css?v=19" />
+  <link rel="stylesheet" href="/css/style.css?v=21" />
 </head>
 <body>
 
@@ -33,6 +33,7 @@
         <summary class="menu-btn"><span data-i18n="nav.menu">Menu</span><i aria-hidden="true"></i></summary>
         <nav class="menu-sheet" aria-label="Principal" data-i18n-attr="aria-label:aria.nav">
           <a href="#sobre" data-i18n="aria.about">Sobre</a>
+          <a href="#defesa" data-i18n="nav.siege">Sob ataque</a>
           <a href="#experiencia" data-i18n="nav.exp">Experiência</a>
           <a href="#projetos" data-i18n="nav.proj">Projetos</a>
           <a href="#stack" data-i18n="nav.stack">Stack</a>
@@ -114,7 +115,61 @@
           <p class="small" data-i18n="slip.privacy">Medido pelo seu navegador com a Navigation Timing API. Nenhum dado sai desta página.</p>
         </div>
         </div>
+        <div class="xray" id="xray" data-reveal style="--i:4" hidden>
+          <div class="xray-top">
+            <div>
+              <h3 class="xray-title" data-i18n="xray.title">A mesma requisição, em câmera lenta</h3>
+              <p class="small" id="xrayScale"></p>
+            </div>
+            <button type="button" class="button button--ghost" id="xrayPlay" data-i18n="xray.play">Repetir</button>
+          </div>
+          <div class="xray-track" id="xrayTrack" role="img" aria-label="Linha do tempo da requisição, em escala" data-i18n-attr="aria-label:xray.aria">
+            <div class="xray-segs" id="xraySegs"></div>
+            <div class="xray-veil" aria-hidden="true"></div>
+            <div class="xray-head" aria-hidden="true"><span id="xrayClock">0 ms</span></div>
+          </div>
+          <ol class="xray-legend" id="xrayLegend"></ol>
+        </div>
         <noscript><p class="small">Ative o JavaScript para ver os tempos reais desta requisição.</p></noscript>
+      </section>
+
+      <!-- The simulator: the layers I design, under a traffic flood -->
+      <section class="siege chapter" id="defesa" data-ground="blue" aria-labelledby="siegeTitle">
+        <h2 class="giant fit" id="siegeTitle" data-reveal style="--i:0" data-i18n="siege.title">Sob ataque</h2>
+        <p class="siege-note" data-reveal style="--i:1" data-i18n="siege.note">Uma arquitetura só prova que é boa no pior dia. Lance um ataque, desligue as camadas e veja o que segura e o que cai.</p>
+
+        <div class="siege-panel" id="siege" data-reveal style="--i:2">
+          <div class="siege-head">
+            <p class="siege-state" id="siegeState" role="status" data-state="ok">Estável</p>
+            <p class="siege-key" aria-hidden="true"><span class="k k-legit"></span><span data-i18n="siege.kLegit">visitantes</span><span class="k k-attack"></span><span data-i18n="siege.kAttack">ataque</span></p>
+          </div>
+
+          <div class="siege-map" id="siegeMap">
+            <canvas aria-hidden="true"></canvas>
+            <div class="s-node" data-node="net"><b>Internet</b><span><output data-out="in">200</output> req/s</span></div>
+            <div class="s-node" data-node="edge"><b data-i18n="siege.edge">Borda</b><span><output data-out="blocked">0</output> <span data-i18n="siege.blocked">bloqueadas</span></span></div>
+            <div class="s-node" data-node="cache"><b>Cache</b><span><output data-out="cached">0</output> <span data-i18n="siege.cached">servidas</span></span></div>
+            <div class="s-node" data-node="lb"><b data-i18n="siege.lb">Balanceador</b><span><output data-out="origin">0</output> req/s</span></div>
+            <div class="s-node" data-node="origin"><b data-i18n="siege.origin">Origem</b><span class="s-pips" id="siegePips" aria-hidden="true"></span><span><output data-out="nodes">2</output> <span data-i18n="siege.nodes">nós</span></span></div>
+          </div>
+
+          <dl class="siege-stats">
+            <div><dt data-i18n="siege.sErr">Erros para visitantes</dt><dd><output data-out="err">0%</output></dd></div>
+            <div><dt data-i18n="siege.sLat">Tempo de resposta</dt><dd><output data-out="lat">80 ms</output></dd></div>
+            <div><dt data-i18n="siege.sLoad">Uso da origem</dt><dd><output data-out="load">8%</output></dd></div>
+          </dl>
+
+          <div class="siege-controls">
+            <button type="button" class="button siege-fire" id="siegeFire" aria-pressed="false">Lançar ataque</button>
+            <div class="siege-layers" role="group" aria-label="Camadas de defesa" data-i18n-attr="aria-label:siege.layers">
+              <button type="button" class="s-toggle" aria-pressed="true" data-layer="rl">Rate limit</button>
+              <button type="button" class="s-toggle" aria-pressed="true" data-layer="waf">WAF</button>
+              <button type="button" class="s-toggle" aria-pressed="true" data-layer="cache">Cache</button>
+              <button type="button" class="s-toggle" aria-pressed="true" data-layer="scale">Autoscaling</button>
+            </div>
+          </div>
+        </div>
+        <p class="small siege-fine" data-reveal style="--i:3" data-i18n="siege.fine">É um modelo simplificado, com números ilustrativos, e não dados de um cliente. Cada ponto representa cerca de 50 requisições por segundo.</p>
       </section>
 
       <!-- Experience as a quiet ledger -->
@@ -516,6 +571,7 @@
         <li><a class="link" href="#stack" data-i18n="nav.stack">Stack</a></li>
         <li><a class="link" href="#formacao" data-i18n="nav.edu">Formação</a></li>
         <li><a class="link" href="#top" data-i18n="footer.top">Voltar ao topo</a></li>
+        <li><button type="button" class="link term-open" id="termOpen" aria-haspopup="dialog"><span aria-hidden="true">&gt;_ </span><span data-i18n="term.open">Terminal</span> <kbd>T</kbd></button></li>
       </ul>
     </div>
     <div class="footer-bottom">
@@ -524,9 +580,23 @@
     </div>
   </footer>
 
+  <dialog class="term" id="term" aria-label="Terminal">
+    <div class="term-bar">
+      <span class="term-name">davi@vinco: ~</span>
+      <button type="button" class="term-x" id="termClose" aria-label="Fechar terminal" data-i18n-attr="aria-label:term.close">esc</button>
+    </div>
+    <div class="term-out" id="termOut" role="log" aria-live="polite" tabindex="0"></div>
+    <form class="term-form" id="termForm" autocomplete="off">
+      <label class="term-prompt" for="termIn"><span class="sr" data-i18n="term.label">Comando</span><span aria-hidden="true">$</span></label>
+      <input id="termIn" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" />
+    </form>
+  </dialog>
+
   <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }</script>
-  <script type="module" src="/js/stage.js?v=19"></script>
-  <script type="module" src="/js/globe.js?v=19"></script>
-  <script src="/js/main.js?v=19" defer></script>
+  <script type="module" src="/js/stage.js?v=21"></script>
+  <script type="module" src="/js/globe.js?v=21"></script>
+  <script src="/js/main.js?v=21" defer></script>
+  <script src="/js/siege.js?v=21" defer></script>
+  <script src="/js/terminal.js?v=21" defer></script>
 </body>
 </html>

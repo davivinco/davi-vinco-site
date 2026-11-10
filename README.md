@@ -13,13 +13,16 @@ davi-vinco-site/
 ├── js/main.js      # i18n PT/EN, ajuste dos títulos, recibo da requisição, abas, GitHub, contato
 ├── js/stage.js     # fundo em Three.js: capítulos de cor e grade de blocos
 ├── js/globe.js     # globo em Three.js na seção da requisição
+├── js/siege.js     # simulador de ataque: modelo de tráfego e pontos em canvas
+├── js/terminal.js  # terminal que lê o próprio site (tecla T ou link no rodapé)
 ├── favicon.svg     # ícone
 └── images/         # retrato
 ```
 
 ## Seções
 
-Hero com o nome · Sobre · O caminho até você (recibo ao vivo da requisição) · Experiência ·
+Hero com o nome · Sobre · O caminho até você (recibo ao vivo da requisição e linha do tempo
+em câmera lenta) · Sob ataque (simulador) · Experiência ·
 Projetos (fragmentos de interface de cada projeto, com dados ao vivo da API do GitHub) ·
 Stack · Formação, certificações e voluntariado · Contato · Rodapé.
 
@@ -30,6 +33,22 @@ reais da requisição que trouxe a página: DNS, TCP, TLS, TTFB, download, proto
 tamanho transferido. "Medir de novo" faz um `fetch` da própria página sem cache e mostra
 a nova medição pela Resource Timing API, incluindo o cabeçalho `Server` quando houver.
 Nada é enviado a lugar nenhum.
+
+Logo abaixo, a mesma medição vira uma linha do tempo em escala (DNS, TCP, TLS, espera e
+download), repetida em câmera lenta.
+
+## O simulador de ataque
+
+"Sob ataque" roda um modelo pequeno em `js/siege.js`: 200 req/s de visitantes e um pico de
+12.000 req/s que passa por rate limit, WAF, cache e uma origem com autoscaling de 2 a 8 nós.
+Cada camada pode ser desligada para ver o efeito em erros, tempo de resposta e uso da
+origem. Os números são ilustrativos e estão nas constantes no topo do arquivo.
+
+## O terminal
+
+A tecla `T` (ou o link no rodapé) abre um terminal que responde com o conteúdo da própria
+página: `help`, `whoami`, `ls`, `cat <seção>`, `cd <seção>`, `ping` (medição real),
+`ataque` e `lang pt|en`.
 
 ## Como rodar
 
