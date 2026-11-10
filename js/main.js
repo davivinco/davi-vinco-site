@@ -52,6 +52,31 @@
     "slip.again": "Measure again",
     "slip.privacy": "Measured by your browser with the Navigation Timing API. No data leaves this page.",
 
+    "xray.title": "The same request, in slow motion",
+    "xray.play": "Replay",
+    "xray.aria": "Timeline of the request, to scale",
+
+    "nav.siege": "Under attack",
+    "siege.title": "Under attack",
+    "siege.note": "An architecture only proves itself on its worst day. Launch an attack, switch the layers off and see what holds and what falls.",
+    "siege.kLegit": "visitors",
+    "siege.kAttack": "attack",
+    "siege.edge": "Edge",
+    "siege.blocked": "blocked",
+    "siege.cached": "served",
+    "siege.lb": "Load balancer",
+    "siege.origin": "Origin",
+    "siege.nodes": "nodes",
+    "siege.sErr": "Errors for visitors",
+    "siege.sLat": "Response time",
+    "siege.sLoad": "Origin usage",
+    "siege.layers": "Defence layers",
+    "siege.fine": "This is a simplified model with illustrative numbers, not data from a client. Each dot stands for about 50 requests per second.",
+
+    "term.open": "Terminal",
+    "term.close": "Close terminal",
+    "term.label": "Command",
+
     "xp.title": "Experience",
     "xp.sub": "Nine roles at four companies since 2023.",
     "xp0.when": "Oct 2026 – present",
@@ -194,6 +219,9 @@
       mailHello: "Olá, Davi.",
       mailSubject: "Contato pelo site",
       locale: "pt-BR",
+      seg: { dns: "DNS", tcp: "TCP", tls: "TLS", ttfb: "Espera pelo servidor", dl: "Download", dom: "Interpretação", load: "Recursos da página" },
+      slower: (n) => `Câmera lenta: ${n}× mais devagar que o real.`,
+      realtime: "Em tempo real.",
     },
     en: {
       slipTitle: "This page’s request",
@@ -211,6 +239,9 @@
       mailHello: "Hi Davi,",
       mailSubject: "Hello from your site",
       locale: "en-US",
+      seg: { dns: "DNS", tcp: "TCP", tls: "TLS", ttfb: "Waiting for the server", dl: "Download", dom: "Parsing", load: "Page resources" },
+      slower: (n) => `Slow motion: ${n}× slower than real life.`,
+      realtime: "In real time.",
     },
   };
 
@@ -270,6 +301,7 @@
     if (lastMeasure) renderSlip(lastMeasure, false);
     renderRepoMeta();
     fitWords();
+    document.dispatchEvent(new CustomEvent("site:lang", { detail: lang }));
   }
 
   /* ---------- giant words fill their line, in either language ---------- */
@@ -395,6 +427,8 @@
       dom: kind === "nav" ? r(t.domContentLoadedEventEnd) : null,
       load: kind === "nav" ? r(t.loadEventEnd) : null,
       total: r(t.responseEnd - t.startTime),
+      parse: kind === "nav" ? r(t.domContentLoadedEventEnd - t.responseEnd) : null,
+      rest: kind === "nav" ? r(t.loadEventEnd - t.domContentLoadedEventEnd) : null,
       server: null,
     };
   }
@@ -476,6 +510,104 @@
     if (animate) countUp(slipTotal, m.total, p * 70); else slipTotal.textContent = fmtMs(m.total);
 
     if (animate) print();
+    renderXray(m, animate);
+  }
+
+  /* ---------- the same request as a timeline to scale, replayed slowly ---------- */
+  const xray = document.getElementById("xray");
+  const xraySegs = document.getElementById("xraySegs");
+  const xrayLegend = document.getElementById("xrayLegend");
+  const xrayScale = document.getElementById("xrayScale");
+  const xrayClock = document.getElementById("xrayClock");
+  const xrayPlayBtn = document.getElementById("xrayPlay");
+  let xrayParts = [];
+  let xraySeen = false;
+  let xrayRaf = 0;
+
+  function renderXray(m, play) {
+    if (!xray) return;
+    const parts = [
+      ["dns", m.reused ? 0 : m.dns], ["tcp", m.reused ? 0 : m.tcp], ["tls", m.reused ? 0 : m.tls || 0],
+      ["ttfb", m.ttfb], ["dl", m.dl],
+    ].filter(([, ms]) => ms >= 0.5);
+    const total = parts.reduce((sum, [, ms]) => sum + ms, 0);
+    if (!total) { xray.hidden = true; return; }
+    xray.hidden = false;
+    xraySegs.textContent = "";
+    xrayLegend.textContent = "";
+    xrayParts = parts.map(([k, ms]) => {
+      const seg = document.createElement("span");
+      seg.className = "xray-seg";
+      seg.dataset.k = k;
+      seg.style.flexGrow = ms;
+      xraySegs.append(seg);
+      const li = document.createElement("li");
+      li.dataset.k = k;
+      const sw = document.createElement("i");
+      sw.dataset.k = k;
+      const name = document.createElement("span");
+      name.textContent = s().seg[k];
+      const val = document.createElement("b");
+      val.textContent = fmtMs(ms);
+      li.append(sw, name, val);
+      xrayLegend.append(li);
+      return { k, ms, seg, li };
+    });
+    const slow = Math.max(1, Math.round(5000 / total));
+    xray.dataset.slow = slow;
+    xray.dataset.total = total;
+    xrayScale.textContent = slow > 1 ? s().slower(slow) : s().realtime;
+    xraySettle();
+    if (play && xraySeen) playXray();
+  }
+
+  function xraySettle() {
+    cancelAnimationFrame(xrayRaf);
+    xray.classList.remove("is-playing");
+    xray.style.setProperty("--x", "100%");
+    xrayParts.forEach((p) => p.li.classList.remove("is-on"));
+    xrayClock.textContent = fmtMs(parseFloat(xray.dataset.total) || 0);
+  }
+
+  function playXray() {
+    if (!xrayParts.length) return;
+    if (reduceMotion.matches) { xraySettle(); return; }
+    cancelAnimationFrame(xrayRaf);
+    const slow = parseFloat(xray.dataset.slow) || 1;
+    const total = parseFloat(xray.dataset.total);
+    // where each part starts and ends on screen, as a share of the track
+    const box = xraySegs.getBoundingClientRect();
+    let t = 0;
+    const map = xrayParts.map((p) => {
+      const rect = p.seg.getBoundingClientRect();
+      const part = { p, t0: t, t1: t + p.ms, x0: (rect.left - box.left) / box.width, x1: (rect.right - box.left) / box.width };
+      t += p.ms;
+      return part;
+    });
+    xray.classList.add("is-playing");
+    const start = performance.now();
+    (function tick(now) {
+      const real = Math.min((now - start) / slow, total);
+      const at = map.find((part) => real <= part.t1) || map[map.length - 1];
+      const x = at.x0 + (at.x1 - at.x0) * ((real - at.t0) / (at.t1 - at.t0 || 1));
+      xray.style.setProperty("--x", (x * 100).toFixed(2) + "%");
+      xrayClock.textContent = fmtMs(real);
+      map.forEach((part) => part.p.li.classList.toggle("is-on", part === at));
+      if (real < total) xrayRaf = requestAnimationFrame(tick);
+      else xraySettle();
+    })(start);
+  }
+
+  if (xray) {
+    const xrayIO = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        xraySeen = true;
+        xrayIO.disconnect();
+        setTimeout(playXray, 500);
+      }
+    }, { threshold: 0.5 });
+    xrayIO.observe(xray);
+    if (xrayPlayBtn) xrayPlayBtn.addEventListener("click", playXray);
   }
 
   function print() {
@@ -503,7 +635,7 @@
       const nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
       if (!nav || !nav.loadEventEnd) return false;
       const m = measureFrom(nav, "nav");
-      if (slipSeen) renderSlip(m, true); else lastMeasure = m;
+      if (slipSeen) renderSlip(m, true); else { lastMeasure = m; renderXray(m, false); }
       return true;
     };
     if (document.readyState === "complete") {
@@ -513,22 +645,27 @@
     }
   }
 
+  async function measureAgain() {
+    const url = new URL(location.pathname, location.href);
+    url.searchParams.set("medir", Date.now().toString(36));
+    const res = await fetch(url.href, { cache: "no-store", credentials: "same-origin" });
+    await res.text();
+    await new Promise((ok) => setTimeout(ok, 30));
+    const entries = performance.getEntriesByName(url.href);
+    const entry = entries[entries.length - 1];
+    if (!entry) throw new Error("no timing");
+    const m = measureFrom(entry, "again");
+    const server = [res.headers.get("server"), res.headers.get("x-cache")].filter(Boolean).join(", ");
+    m.server = server || null;
+    m.status = res.status;
+    return m;
+  }
+
   if (againBtn) {
     againBtn.addEventListener("click", async () => {
       againBtn.disabled = true;
-      const url = new URL(location.pathname, location.href);
-      url.searchParams.set("medir", Date.now().toString(36));
       try {
-        const res = await fetch(url.href, { cache: "no-store", credentials: "same-origin" });
-        await res.text();
-        await new Promise((ok) => setTimeout(ok, 30));
-        const entries = performance.getEntriesByName(url.href);
-        const entry = entries[entries.length - 1];
-        if (!entry) throw new Error("no timing");
-        const m = measureFrom(entry, "again");
-        const server = [res.headers.get("server"), res.headers.get("x-cache")].filter(Boolean).join(", ");
-        m.server = server || null;
-        renderSlip(m, true);
+        renderSlip(await measureAgain(), true);
       } catch (_) {
         slipServer.hidden = false;
         slipServer.textContent = s().failed;
@@ -613,6 +750,15 @@
     menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => menu.removeAttribute("open")));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") menu.removeAttribute("open"); });
   }
+
+  /* ---------- what the simulator and the terminal share with this file ---------- */
+  window.site = {
+    get lang() { return lang; },
+    setLang: applyLang,
+    measure: async () => { const m = await measureAgain(); if (slip) renderSlip(m, true); return m; },
+    fmtMs,
+    protoName,
+  };
 
   /* ---------- go ---------- */
   applyLang(detectLang());
