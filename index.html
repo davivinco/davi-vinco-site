@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=Montserrat:wght@600;800&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="stylesheet" href="/css/style.css?v=21" />
+  <link rel="stylesheet" href="/css/style.css?v=22" />
 </head>
 <body>
 
@@ -232,7 +232,7 @@
              aria-label="Interface do agente: um pedido em português vira um plano de cinco passos aguardando confirmação"
              data-i18n-attr="aria-label:frag.agent">
           <div class="ui ui-agent" data-ui>
-            <div class="ui-bar"><span class="ui-title">Azion AI Agent</span><span class="ui-toggle"><span class="ui-toggle-knob"></span>Criar desabilitado</span></div>
+            <div class="ui-bar"><span class="ui-title">AI Agent</span><span class="ui-toggle"><span class="ui-toggle-knob"></span>Criar desabilitado</span></div>
             <div class="ui-body">
               <p class="ui-msg ui-msg--me">Crie uma application e workload chamado “Loja Teste” para loja.com.br</p>
               <div class="ui-card">
@@ -281,7 +281,7 @@
              aria-label="Validador de compatibilidade: express e sharp incompatíveis, axios parcial, lodash, zod e jose compatíveis"
              data-i18n-attr="aria-label:frag.compat">
           <div class="ui ui-compat" data-ui>
-            <div class="ui-bar"><span class="ui-title">Azion Compatibility Validator</span></div>
+            <div class="ui-bar"><span class="ui-title">Compatibility Validator</span></div>
             <div class="ui-body">
               <p class="ui-input"><code>npm install express sharp axios lodash zod jose</code></p>
               <ul class="ui-list">
@@ -302,7 +302,7 @@
              aria-label="Construtor de regras: se Request URI começa com /wp-admin, Deny, aplicado em todos os firewalls da conta"
              data-i18n-attr="aria-label:frag.rule">
           <div class="ui ui-rule" data-ui>
-            <div class="ui-bar"><span class="ui-title">Azion Rule Builder</span><span class="ui-seg"><span class="is-on">v4</span><span>v3</span></span></div>
+            <div class="ui-bar"><span class="ui-title">Rule Builder</span><span class="ui-seg"><span class="is-on">v4</span><span>v3</span></span></div>
             <div class="ui-body">
               <p class="ui-label">Criteria</p>
               <div class="ui-fields">
@@ -324,11 +324,11 @@
              aria-label="Chat com RAG: uma pergunta sobre certificados respondida com duas fontes citadas"
              data-i18n-attr="aria-label:frag.rag">
           <div class="ui ui-rag" data-ui>
-            <div class="ui-bar"><span class="ui-title">Azion RAG Chat</span><span class="ui-sub">Edge SQL · AI Inference</span></div>
+            <div class="ui-bar"><span class="ui-title">RAG Chat</span><span class="ui-sub">Edge SQL · AI Inference</span></div>
             <div class="ui-body">
               <p class="ui-msg ui-msg--me">Como emitir um certificado Let’s Encrypt com DNS externo?</p>
               <div class="ui-answer">
-                <p>Crie primeiro o registro <code>_acme-challenge</code> como CNAME para <code>&lt;domínio&gt;.letsencrypt.azion.com</code>. Só depois solicite o certificado: a emissão é assíncrona e passa de <em>pending</em> para <em>active</em>.</p>
+                <p>Crie primeiro o registro <code>_acme-challenge</code> como CNAME para o endereço de validação da plataforma. Só depois solicite o certificado: a emissão é assíncrona e passa de <em>pending</em> para <em>active</em>.</p>
                 <p class="ui-sources"><span class="ui-chip">guia-certificados.pdf · trecho 4</span><span class="ui-chip">dns-externo.md · trecho 2</span></p>
               </div>
             </div>
@@ -352,9 +352,9 @@
 
       <div class="panels">
         <article class="panel is-on" role="tabpanel" id="panel-agent" aria-labelledby="tab-agent" data-repo="azion-ai-agent-mvp">
-          <h3 class="h-head panel-title" data-i18n="p1.title">Agente ChatOps para a Azion</h3>
+          <h3 class="h-head panel-title" data-i18n="p1.title">Agente ChatOps para plataforma de edge</h3>
           <p class="panel-meta" data-meta>TypeScript</p>
-          <p class="panel-desc" data-i18n="p1.desc">Pedidos em português viram um plano de execução revisável. Só depois da aprovação humana o agente executa contra a API v4 da Azion, por uma fila assíncrona.</p>
+          <p class="panel-desc" data-i18n="p1.desc">Pedidos em português viram um plano de execução revisável. Só depois da aprovação humana o agente executa contra a API da plataforma, por uma fila assíncrona.</p>
           <ul class="panel-points">
             <li data-i18n="p1.h1">Planner híbrido, por regras ou por LLM, gera um plano em JSON antes de qualquer execução.</li>
             <li data-i18n="p1.h2">Redis Streams com status em tempo real e histórico persistido em SQLite.</li>
@@ -362,7 +362,7 @@
             <li data-i18n="p1.h4">Migra domínios proxied com firewall, WAF, workload e certificado Let’s Encrypt via DNS-01.</li>
             <li data-i18n="p1.h5">Todo recurso nasce desativado até aprovação explícita.</li>
           </ul>
-          <p class="panel-tech">TypeScript, Next.js, MCP, Redis Streams, SQLite, Azion API v4</p>
+          <p class="panel-tech">TypeScript, Next.js, MCP, Redis Streams, SQLite, API REST</p>
         </article>
 
         <article class="panel" role="tabpanel" id="panel-impact" aria-labelledby="tab-impact" data-repo="impact-study-generator">
@@ -373,22 +373,22 @@
             <li data-i18n="p2.h1">Os JSONs do WebPageTest nunca saem do navegador.</li>
             <li data-i18n="p2.h2">Variações abaixo de 5% viram “empate técnico”, nunca narrativa de ganho.</li>
             <li data-i18n="p2.h3">Se a IA falhar ou inventar, entra uma narrativa determinística.</li>
-            <li data-i18n="p2.h4">Roda numa Edge Function da Azion com Qwen3 e exporta PDF em folhas A4.</li>
+            <li data-i18n="p2.h4">Roda numa Edge Function com Qwen3 e exporta PDF em folhas A4.</li>
           </ul>
-          <p class="panel-tech">JavaScript, Azion AI Inference, WebPageTest</p>
+          <p class="panel-tech">JavaScript, Edge Functions, WebPageTest</p>
         </article>
 
         <article class="panel" role="tabpanel" id="panel-compat" aria-labelledby="tab-compat" data-repo="azion-compat-validator">
           <h3 class="h-head panel-title">Compat Validator</h3>
           <p class="panel-meta" data-meta>JavaScript</p>
-          <p class="panel-desc" data-i18n="p3.desc">Diz se as dependências de um projeto rodam no Azion Runtime e dá um veredito de deploy. Regras determinísticas primeiro; a IA entra só no que não está catalogado, sempre marcada como sugestão.</p>
+          <p class="panel-desc" data-i18n="p3.desc">Diz se as dependências de um projeto rodam num runtime de edge e dá um veredito de deploy. Regras determinísticas primeiro; a IA entra só no que não está catalogado, sempre marcada como sugestão.</p>
           <ul class="panel-points">
             <li data-i18n="p3.h1">Aceita package.json, lista solta ou uma linha de npm install colada.</li>
             <li data-i18n="p3.h2">devDependencies e ferramentas de build nunca bloqueiam o deploy.</li>
             <li data-i18n="p3.h3">Pacotes desconhecidos vão para a IA em lotes, com concorrência.</li>
             <li data-i18n="p3.h4">UI e API servidas por uma única Edge Function.</li>
           </ul>
-          <p class="panel-tech">JavaScript, Azion Edge Functions, AI Inference</p>
+          <p class="panel-tech">JavaScript, Edge Functions, AI Inference</p>
         </article>
 
         <article class="panel" role="tabpanel" id="panel-rule" aria-labelledby="tab-rule" data-repo="azion-rule-builder">
@@ -401,13 +401,13 @@
             <li data-i18n="p4.h3">A mesma regra dá NOOP nas duas versões da API.</li>
             <li data-i18n="p4.h4">API falsa embutida para testar sem tocar na conta.</li>
           </ul>
-          <p class="panel-tech">Python, Azion API v3 e v4</p>
+          <p class="panel-tech">Python, APIs v3 e v4</p>
         </article>
 
         <article class="panel" role="tabpanel" id="panel-rag" aria-labelledby="tab-rag" data-repo="azion-rag-chat">
           <h3 class="h-head panel-title">RAG Chat</h3>
           <p class="panel-meta" data-meta>TypeScript</p>
-          <p class="panel-desc" data-i18n="p5.desc">Retrieval-augmented generation que roda inteiro na borda: embeddings e respostas pelo Azion AI Inference; documentos, trechos e vetores no Edge SQL.</p>
+          <p class="panel-desc" data-i18n="p5.desc">Retrieval-augmented generation que roda inteiro na borda: embeddings e respostas por um serviço de inferência; documentos, trechos e vetores no Edge SQL.</p>
           <ul class="panel-points">
             <li data-i18n="p5.h1">Ingestão de documentos com extração de texto e divisão em trechos.</li>
             <li data-i18n="p5.h2">Busca vetorial no Edge SQL, sem infraestrutura externa.</li>
@@ -419,7 +419,7 @@
       </div>
 
       <div class="showcase-foot">
-        <p class="small" data-i18n="proj.more">Também no GitHub: calculadora de estimativa da SaveinCloud, manual de deploy de Next.js na Azion, leitor de METAR e instalação do RabbitMQ via JPS.</p>
+        <p class="small" data-i18n="proj.more">Também no GitHub: calculadora de estimativa da SaveinCloud, manual de deploy de Next.js na borda, leitor de METAR e instalação do RabbitMQ via JPS.</p>
         <div class="cells">
           <a class="cell cell--ink" id="repoLink" href="https://github.com/davivinco/azion-ai-agent-mvp" target="_blank" rel="noopener" data-i18n="proj.code">Ver o código</a>
           <a class="cell" href="https://github.com/davivinco?tab=repositories" target="_blank" rel="noopener" data-i18n="proj.all">Todos os repositórios</a>
@@ -593,10 +593,10 @@
   </dialog>
 
   <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }</script>
-  <script type="module" src="/js/stage.js?v=21"></script>
-  <script type="module" src="/js/globe.js?v=21"></script>
-  <script src="/js/main.js?v=21" defer></script>
-  <script src="/js/siege.js?v=21" defer></script>
-  <script src="/js/terminal.js?v=21" defer></script>
+  <script type="module" src="/js/stage.js?v=22"></script>
+  <script type="module" src="/js/globe.js?v=22"></script>
+  <script src="/js/main.js?v=22" defer></script>
+  <script src="/js/siege.js?v=22" defer></script>
+  <script src="/js/terminal.js?v=22" defer></script>
 </body>
 </html>

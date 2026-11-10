@@ -62,7 +62,7 @@
       line(`${text(li.querySelector(".l-when")).padEnd(22)}${text(li.querySelector(".l-role"))}, ${text(li.querySelector(".l-co"))}`);
     }),
     projetos: () => all(".tab").forEach((tab) => {
-      line([text(tab).padEnd(20), link("github.com/davivinco/" + tab.dataset.frag, "https://github.com/davivinco/" + tab.dataset.frag)]);
+      line([text(tab).padEnd(20), link(T("ver o código", "view the code"), "https://github.com/davivinco/" + tab.dataset.frag)]);
     }),
     stack: () => all(".bar-row").forEach((row) => {
       line(text(row.querySelector("summary span")), "t-strong");
